@@ -14,8 +14,13 @@
  
 
 ## App Functions
-1. Customer:
+1. Customer (Jeremy Mayas):
     1. Create/modify customer profile - Registar as a host or a participant.
     2. View available services - Browse all public events avaliable.
     3. Subscribe to available services - Subscribe to certain hosts to recieve subscriber only benefits to events.
     4. Write reviews for subscribed services - Review events and parties for activity, quality and experience.
+2. Provider (Levi Duquette):
+    1. Create/modify/remove provider profile - Manage professional profiles like business name, service category, and portfolio through a dashboard setting
+    2. Create services - list specific services/event packages with pricing and availability details
+    3. View customer statistics - Show providers how many quotes they have sent, their booking rate, and which service packages are most popular
+    4. Reply to reviews - Respond back directly to customer feedback to maintain their 'vetted' status and build trust with future clients
