@@ -1,4 +1,4 @@
-# sp26-project-template
+
 
 ## Title
 > EventSpark - Creating the big spark your gatherings need.
