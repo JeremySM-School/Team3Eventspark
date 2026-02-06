@@ -1,34 +1,33 @@
 
 # Requirements – Starter Template
 
-**Project Name:** Your App Name \
-**Team:** Names and roles \
-**Course:** CSC 340\
-**Version:** 1.0\
-**Date:** 2026-01-30
+**Project Name:** EventSpark
+**Team:** Jeremy Mayas (Customer), Levi Duquette (Provider)
+**Course:** CSC 340
+**Version:** 1.0
+**Date:** 2026-07-30
 
 ---
 
 ## 1. Overview
-**Vision.** One or two sentences: who this is for, the core problem, and the outcome.
+**Vision.** Anyone who has ever struggled to plan something be it hard to put the word out, finding a place to have an event or group walk and others. The goal is to make it easier for people to plan things easier.
 
 **Glossary** Terms used in the project
-- **Term 1:** description.
-- **Term 2:** description
+- **Plan/Engage: Allow people to follow hosts to be up to date with their events** .
+- **Effeciency: Allow for a simple quick solution to planning and hosting** 
 
 **Primary Users / Roles.**
-- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — 1 line goal statement.
-- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — 1 line goal statement.
-- **SysAdmin (optional)** — 1 line goal statement.
+- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — Participants, friends, and family.
+- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — Hosts, Community managers.
 
 **Scope (this semester).**
-- <capability 1>
-- <capability 2>
-- <capability 3>
+- <Browse Events for using filters and searching>
+- <Create possible base sets of events for common events people usually throw.>
+- <Reviews for quality assurance>
 
 **Out of scope (deferred).**
-- <deferred 1>
-- <deferred 2>
+- <Starter pack deliveries for novice planners>
+- <Spot recommendations>
 
 > This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
 
@@ -38,80 +37,39 @@
 Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario.
 
 ### 2.1 Customer Stories
-- **US‑CUST‑001 — <short title>**  
-  _Story:_ As a customer, I want … so that …  
+- **US‑CUST‑001 — <Profiles>**  
+  Story: As a customer, I want to make a profile so that I can favorite, review and keep track of events I attend.  
   _Acceptance:_
-  ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
 
-- **US‑CUST‑002 — <short title>**  
-  _Story:_ As a customer, I want … so that …  
-  _Acceptance:_
-  ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
+  Scenario: <Profile Creation>
+    Given <Havenn't signed-up>
+    When  <Given created password and some basic information about them.>
+    Then  <Profile is created and customizable>
 
-### 2.2 Provider Stories
-- **US‑PROV‑001 — <short title>**  
-  _Story:_ As a provider, I want … so that …  
-  _Acceptance:_
-  ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
 
-- **US‑PROV‑002 — <short title>**  
-  _Story:_ As a provider, I want … so that …  
+- **US‑CUST‑002 — <Browse events>**  
+  _Story:_ As a customer, I want to browse events so that I may select what I wish to attend.  
   _Acceptance:_
-  ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
-
-### 2.3 SysAdmin Stories
-- **US‑ADMIN‑001 — <short title>**  
-  _Story:_ As a sysadmin, I want … so that …  
-  _Acceptance:_
-  ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
-
-- **US‑ADMIN‑002 — <short title>**  
-  _Story:_ As a sysadmin, I want … so that …  
-  _Acceptance:_
-  ```gherkin
-  Scenario: <happy path>
-    Given <preconditions>
-    When  <action>
-    Then  <observable outcome>
-  ```
+  
+  Scenario: <Browse events>
+    Given <Any events occuring>
+    When  <I search or log in>
+    Then  <Events appear and selectable for attending.>
 
 ---
 
 ## 3. Non‑Functional Requirements (make them measurable)
-- **Performance:** description 
-- **Availability/Reliability:** description
-- **Security/Privacy:** description
-- **Usability:** description
+- **Performance:** 
+- **Availability/Reliability:** 
+- **Security/Privacy:** Star covered password, limited attempts.
+- **Usability:** New users will be able to attend right after acoount creation/completion
 
 ---
 
 ## 4. Assumptions, Constraints, and Policies
-- list any rules, policies, assumptions, etc.
+- Browsers: (Chrome, Edge, Opera, Firefox) etc.
+- User location, and TOD will apply.
+- Reviews only allowed if event attended, including content guidelines.
 
 ---
 
