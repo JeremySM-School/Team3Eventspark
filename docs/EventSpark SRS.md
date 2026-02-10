@@ -42,9 +42,11 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   _Acceptance:_
 
   Scenario: <Profile Creation>  
-    Given <Havenn't signed-up>  
+   ```gherkin
+    Given <Haven't signed-up>  
     When  <Given created password and some basic information about them.> 
     Then  <Profile is created and customizable> 
+  ```
 
 
 - **US‑CUST‑002 — <Browse events>**  
