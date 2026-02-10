@@ -37,7 +37,7 @@
 Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario.
 
 ### 2.1 Customer Stories
-- **US‑CUST‑001 — <Profiles>**  
+- **US‑CUST‑001 — Profiles**  
   Story: As a customer, I want to make a profile so that I can favorite, review and keep track of events I attend.  
   _Acceptance:_
 
@@ -49,7 +49,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
   ```
 
 
-- **US‑CUST‑002 — <Browse events>**  
+- **US‑CUST‑002 — Browse events**  
   _Story:_ As a customer, I want to browse events so that I may select what I wish to attend.  
   _Acceptance:_
   
@@ -61,7 +61,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 ```
 
 ### 2.2 Provider Stories
-- **US‑HOST-001 — <Create/Manage Profile>**  
+- **US‑HOST-001 — Create/Manage Profile**  
   _Story:_ As a provider, I want to create and manage my profile so customers can verify up to date info on my services.  
   _Acceptance:_
 
@@ -72,7 +72,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <The profile is saved and visible on the main event page.>
 ```
 
-- **US‑HOST-002 — <Create Event Packages>**  
+- **US‑HOST-002 — Create Event Packages**  
   _Story:_ As a provider, I want to list different service packages with clear pricing so that customers can easily browse and book packages they want.   
   _Acceptance:_
   
@@ -83,7 +83,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <The package appears as an option on my provider page.>
 ```
   
-- **US‑HOST-003 — <Manage Booking Calendar>**  
+- **US‑HOST-003 — Manage Booking Calendar**  
   _Story:_ As a provider, I want to mark specific dates as 'Busy,' or 'Unavailable' or have the event automatically marked such when request is approved so booking requests do not overlap.   
   _Acceptance:_
   
@@ -94,7 +94,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <The date is greyed out and cannot be selected by customers.>
 ```
   
-- **US‑HOST-004 — <Process Booking Requests>**  
+- **US‑HOST-004 — Process Booking Requests**  
   _Story:_ As a provider, I want to recieve notifications for new booking requests so that I can approve/deny them based on request and event details.  
   _Acceptance:_
 
@@ -105,7 +105,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <The customer is notified of the booking, and the event is added to my upcoming schedule.>
 ```
   
-- **US‑HOST-005 — <Respond to Customer Feedback>**  
+- **US‑HOST-005 — Respond to Customer Feedback**  
   _Story:_ As a provider, I want to reply to reviews left by customers so that I can maintain a professional reputation and address any concerns publicly. 
   _Acceptance:_
   
@@ -116,7 +116,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <My reply is nested directly underneath the review for other potential customers to see.>
 ```
 
-- **US‑HOST-006 — <Promotional Media Gallery>**  
+- **US‑HOST-006 — Promotional Media Gallery**  
   _Story:_ As a provider, I want to upload high-quality photos and videos of my past events so that I can provide evidence of my skills to potential customers. 
   _Acceptance:_
   
@@ -127,7 +127,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <The media appears in my public gallery carousel for customers to view.>
 ```
   
-- **US‑HOST-007 — <Travel and Service Area Radius>**  
+- **US‑HOST-007 — Travel and Service Area Radius**  
   _Story:_ As a provider, I want   
   _Acceptance:_
 
@@ -138,7 +138,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <>
 ```
 
-- **US‑HOST-008 — <Direct Message with Clients>**  
+- **US‑HOST-008 — Direct Message with Clients**  
   _Story:_ As a provider, I want   
   _Acceptance:_
   
@@ -149,7 +149,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <>
 ```
   
-- **US‑HOST-009 — <Track Performance Analytics>**  
+- **US‑HOST-009 — Track Performance Analytics**  
   _Story:_ As a provider, I want   
   _Acceptance:_
   
@@ -160,7 +160,7 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <>
 ```
 
-- **US‑HOST-010 — <Service Category Tagging>**  
+- **US‑HOST-010 — Service Category Tagging**  
   _Story:_ As a provider, I want   
   _Acceptance:_
   
