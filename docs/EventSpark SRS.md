@@ -128,47 +128,47 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 ```
   
 - **US‑HOST-007 — Travel and Service Area Radius**  
-  _Story:_ As a provider, I want   
+  _Story:_ As a provider, I want to set a maximum travel distance from my main location so that I ony recieve booking requests for events that I can realistically attend.   
   _Acceptance:_
 
 ```gherkin 
-  Scenario: <>
-    Given <>
-    When  <>
-    Then  <>
+  Scenario: <Filtered booking requests>
+    Given <I have set my travel radius to 50 miles/>
+    When  <A customer searches for my event type 60 miles away>
+    Then  <My profile does not appear in their search results.>
 ```
 
 - **US‑HOST-008 — Direct Message with Clients**  
-  _Story:_ As a provider, I want   
+  _Story:_ As a provider, I want to message customers who have requested a booking so that I can clairfy any event details.   
   _Acceptance:_
   
 ```gherkin 
-  Scenario: <>
-    Given <>
-    When  <>
-    Then  <>
+  Scenario: <Sending a message>
+    Given <I have a pending or confirmed booking>
+    When  <I send a message through the 'Booking' portal>
+    Then  <The customer recieves a notification of said message and can reply back within the platform or via SMS>
 ```
   
 - **US‑HOST-009 — Track Performance Analytics**  
-  _Story:_ As a provider, I want   
+  _Story:_ As a provider, I want to see how many people have viewed my profile, clicked on packages, or purchased packages/booked so that I can adjust my pricing or media to attract more bookings.  
   _Acceptance:_
   
 ```gherkin 
-  Scenario: <>
-    Given <>
-    When  <>
-    Then  <>
+  Scenario: <View engagement metrics>
+    Given <I open my 'Provider Dashboard'>
+    When  <I select 'Last 30 Days' for analytics>
+    Then  <I see the total number of profile views, packages clicked, and packages purchased.>
 ```
 
 - **US‑HOST-010 — Service Category Tagging**  
-  _Story:_ As a provider, I want   
+  _Story:_ As a provider, I want to tage my profile with specific genres/categories like Wedding DJ, painter, etc so that I show up in filtered searches.
   _Acceptance:_
   
 ```gherkin 
-  Scenario: <>
-    Given <>
-    When  <>
-    Then  <>
+  Scenario: <Filtered discovery>
+    Given <I have tagged myself as a 'Wedding Photographer'>
+    When  <A customer filters their search by 'Wedding' services>
+    Then  <my profile will be included in the search list>
 ```
 
 ---
