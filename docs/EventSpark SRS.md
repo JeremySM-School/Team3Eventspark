@@ -10,24 +10,29 @@
 ---
 
 ## 1. Overview
-**Vision.** Anyone who has ever struggled to plan something be it hard to put the word out, finding a place to have an event or group walk and others. The goal is to make it easier for people to plan things easier.
+**Vision.** Anyone who has ever struggled to plan something be it hard to put the word out, finding a place to have an event or group walk and others. TeamEventSpark is a web-based marketplace that connects event organizers to professional service providers such as DJs, live artists, photographers, etc. The goal is to make it easier for people to plan things easier. Customers will be able to discover service providers, explore specific service packages, and book these services for their events. Service Providers will be able to offer up their services, manage their availability, professional portfolio, and interact with the customer feedback to build up reputation.
 
 **Glossary** Terms used in the project
-- **Plan/Engage: Allow people to follow hosts to be up to date with their events** .
-- **Effeciency: Allow for a simple quick solution to planning and hosting** 
+- **Provider: A user who offers their professional event services (i.e. DJ, Artist, Musician, Photographer, etc).**
+- **Package: A specific service bundle offered by a provider with a set price and description.**
+- **Booking: A scheduled agreement between Customer and a Provider for a specific service package.**
+- **Service Area: The geographic radius within where a Provider is willing to travel for an event.**
 
 **Primary Users / Roles.**
-- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — Participants, friends, and family.
-- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — Hosts, Community managers.
+- **Customer (Event Organizer)** — Finds and books talent; manages event schedule; reviews providers
+- **Provider (Service Provider)** — Publishes service packages; manage booking availability; responds to reviews.
 
 **Scope (this semester).**
-- <Browse Events for using filters and searching>
-- <Create possible base sets of events for common events people usually throw.>
-- <Reviews for quality assurance>
+- Discover events for using filters such as service category, price, location
+- User registration and profile management for Customers and Providers
+- Provider package creation/management
+- Booking request workflow (request, approve, deny).
+- Public review system with provider replies
 
 **Out of scope (deferred).**
-- <Starter pack deliveries for novice planners>
-- <Spot recommendations>
+- Online payment processing and automated invoicing
+- Legal contracts for service
+- Live streaming of events
 
 > This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
 
@@ -174,17 +179,20 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
 ---
 
 ## 3. Non‑Functional Requirements (make them measurable)
-- **Performance:** 
-- **Availability/Reliability:** 
-- **Security/Privacy:** Star covered password, limited attempts.
-- **Usability:** New users will be able to attend right after acoount creation/completion
+- **Performance:** 95% of search/discovery should load in ≤ 2 seconds; profile pages with media galleries should load in ≤ 1.5 seconds
+- **Availability/Reliability:** Platform should maintain ≥ 99% uptime. Since this is a booking site, we want the sytem to ensure that once a date is marked "Busy," it is blocked for all other users to prevent double booking.
+- **Security/Privacy:** Hash/Star covered password, limited attempts. Provider's private contact information should only be revealed AFTER a booking request is approved
+- **Usability:** New Providers should be able to create their first "Service Package" in under 5 minnutes without needing much of a tutorial.
 
 ---
 
 ## 4. Assumptions, Constraints, and Policies
-- Browsers: (Chrome, Edge, Opera, Firefox) etc.
+- Browsers: (Chrome, Edge, Opera, Firefox) etc. Stable internet connection required.
+- Providers are responsible for the accuracy of their own availability calendars.
 - User location, and TOD will apply.
 - Reviews only allowed if event attended, including content guidelines.
+- Canellation Policy, refund discussions happen externally between Customer/Provider (system does not handle payments)
+- Content Policy: Any media uploaded must be professional and related to service, anything inappropriate with result in account suspension
 
 ---
 
