@@ -10,24 +10,29 @@
 ---
 
 ## 1. Overview
-**Vision.** Anyone who has ever struggled to plan something be it hard to put the word out, finding a place to have an event or group walk and others. The goal is to make it easier for people to plan things easier.
+**Vision.** Anyone who has ever struggled to plan something be it hard to put the word out, finding a place to have an event or group walk and others. TeamEventSpark is a web-based marketplace that connects event organizers to professional service providers such as DJs, live artists, photographers, etc. The goal is to make it easier for people to plan things easier. Customers will be able to discover service providers, explore specific service packages, and book these services for their events. Service Providers will be able to offer up their services, manage their availability, professional portfolio, and interact with the customer feedback to build up reputation.
 
 **Glossary** Terms used in the project
-- **Plan/Engage: Allow people to follow hosts to be up to date with their events** .
-- **Effeciency: Allow for a simple quick solution to planning and hosting** 
+- **Provider: A user who offers their professional event services (i.e. DJ, Artist, Musician, Photographer, etc).**
+- **Package: A specific service bundle offered by a provider with a set price and description.**
+- **Booking: A scheduled agreement between Customer and a Provider for a specific service package.**
+- **Service Area: The geographic radius within where a Provider is willing to travel for an event.**
 
 **Primary Users / Roles.**
-- **Customer (e.g., Student/Patient/Pet Owner/etc. )** — Participants, friends, and family.
-- **Provider (e.g., Teacher/Doctor/Pet Sitter/etc. )** — Hosts, Community managers.
+- **Customer (Event Organizer)** — Finds and books talent; manages event schedule; reviews providers
+- **Provider (Service Provider)** — Publishes service packages; manage booking availability; responds to reviews.
 
 **Scope (this semester).**
-- <Browse Events for using filters and searching>
-- <Create possible base sets of events for common events people usually throw.>
-- <Reviews for quality assurance>
+- Discover events for using filters such as service category, price, location
+- User registration and profile management for Customers and Providers
+- Provider package creation/management
+- Booking request workflow (request, approve, deny).
+- Public review system with provider replies
 
 **Out of scope (deferred).**
-- <Starter pack deliveries for novice planners>
-- <Spot recommendations>
+- Online payment processing and automated invoicing
+- Legal contracts for service
+- Live streaming of events
 
 > This document is **requirements‑level** and solution‑neutral; design decisions (UI layouts, API endpoints, schemas) are documented separately.
 
@@ -37,122 +42,157 @@
 Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario.
 
 ### 2.1 Customer Stories
-- **US‑CUST‑001 — <Profiles>**  
+- **US‑CUST‑001 — Profiles**  
   Story: As a customer, I want to make a profile so that I can favorite, review and keep track of events I attend.  
   _Acceptance:_
 
-  Scenario: Profile Creation
-    Given Haven't signed-up
-    When  Given created password and some basic information about them.
-    Then  Profile is created and customizable
+  ```gherkin
+  Scenario: <Profile Creation>  
+    Given <Haven't signed-up>  
+    When  <Given created password and some basic information about them.> 
+    Then  <Profile is created and customizable> 
+  ```
 
 
 - **US‑CUST‑002 — Browse events**  
   _Story:_ As a customer, I want to browse events so that I may select what I wish to attend.  
   _Acceptance:_
   
-  Scenario: Browse events
-    Given Any events occuring
-    When  I search or log in
-    Then  Events appear and selectable for attending.
+```gherkin
+  Scenario: <Browse events> 
+    Given <Any events occuring>  
+    When  <I search or log in>  
+    Then  <Events appear and selectable for attending.> 
+```
 
+### 2.2 Provider Stories
+- **US‑HOST-001 — Create/Manage Profile**  
+  _Story:_ As a provider, I want to create and manage my profile so customers can verify up to date info on my services.  
+  _Acceptance:_
 
-- **US‑CUST‑003 — Browse events by activity**  
-  _Story:_ As a customer, I want to browse events based on their acivity so I know whats going on in the event before attending.  
+```gherkin  
+  Scenario: <Successful profile update> 
+    Given <I am a registered provider.> 
+    When  <I add or update details on my public profile.>
+    Then  <The profile is saved and visible on the main event page.>
+```
+
+- **US‑HOST-002 — Create Event Packages**  
+  _Story:_ As a provider, I want to list different service packages with clear pricing so that customers can easily browse and book packages they want.   
   _Acceptance:_
   
-  Scenario: Sort by activity
-    Given Multiple events occuring
-    When  I search by activity
-    Then  Events appear based on activity search query.
-
-
-- **US‑CUST‑004 — View details**  
-  _Story:_ As a customer I want to see event details when I select an event to learn more about specifics like location, all activities, place, time and more.  
+```gherkin
+  Scenario: <Publish a new package>
+    Given <My profile is active.>
+    When  <I enter a package title, price, and contents list.>
+    Then  <The package appears as an option on my provider page.>
+```
+  
+- **US‑HOST-003 — Manage Booking Calendar**  
+  _Story:_ As a provider, I want to mark specific dates as 'Busy,' or 'Unavailable' or have the event automatically marked such when request is approved so booking requests do not overlap.   
   _Acceptance:_
   
-  Scenario: View details
-    Given Event is occurring
-    When  I select an event
-    Then  Event additional details menu appears.
+```gherkin
+  Scenario: <Prevent double-booking>
+    Given <I have an event scheduled on February 12th OR request for February 12th.>
+    When  <I mark February 12th as unavailable on my provider dashboard OR I accept a request from customer>
+    Then  <The date is greyed out and cannot be selected by customers.>
+```
+  
+- **US‑HOST-004 — Process Booking Requests**  
+  _Story:_ As a provider, I want to recieve notifications for new booking requests so that I can approve/deny them based on request and event details.  
+  _Acceptance:_
 
-
-- **US‑CUST‑005 — Follow host**  
-  _Story:_ As a customer I want to follow a host to know when they plan or make events.  
+```gherkin  
+  Scenario: <Approve a request>
+    Given <A customer has requested a specific date.>
+    When  <I click a button to approve request in my inbox or profile.>
+    Then  <The customer is notified of the booking, and the event is added to my upcoming schedule.>
+```
+  
+- **US‑HOST-005 — Respond to Customer Feedback**  
+  _Story:_ As a provider, I want to reply to reviews left by customers so that I can maintain a professional reputation and address any concerns publicly. 
   _Acceptance:_
   
-  Scenario: Follow host
-    Given Host exists and has made a previous event
-    When  I follow the host
-    Then  I will know when they plan more events.
+```gherkin
+  Scenario: <Replying to positive review>
+    Given <Customer leaves a 5-star rating on my profile>
+    When  <I submit a Thank You response.>
+    Then  <My reply is nested directly underneath the review for other potential customers to see.>
+```
 
-
-    - **US‑CUST‑006 — Write a review**  
-  _Story:_   As a customer I want to write a review after attending a host's event to let others know how the experience was with this host leading the event's activity, location etc.
+- **US‑HOST-006 — Promotional Media Gallery**  
+  _Story:_ As a provider, I want to upload high-quality photos and videos of my past events so that I can provide evidence of my skills to potential customers. 
   _Acceptance:_
   
-  Scenario: Review is open to write after attending
-    Given Event ended, and user is logged in
-    When  I write a review
-    Then  Event review appears under host event for others to see.
+```gherkin
+  Scenario: <Successful Media Upload>
+    Given <I am on my profile page in edit mode.>
+    When  <I upload a file and tag it as what type of event it was.>
+    Then  <The media appears in my public gallery carousel for customers to view.>
+```
+  
+- **US‑HOST-007 — Travel and Service Area Radius**  
+  _Story:_ As a provider, I want to set a maximum travel distance from my main location so that I ony recieve booking requests for events that I can realistically attend.   
+  _Acceptance:_
 
+```gherkin 
+  Scenario: <Filtered booking requests>
+    Given <I have set my travel radius to 50 miles/>
+    When  <A customer searches for my event type 60 miles away>
+    Then  <My profile does not appear in their search results.>
+```
 
-- **US‑CUST‑007 — Read reviews**  
-  _Story:_ As a customer I want to view host reviews before attending their events  
+- **US‑HOST-008 — Direct Message with Clients**  
+  _Story:_ As a provider, I want to message customers who have requested a booking so that I can clairfy any event details.   
   _Acceptance:_
   
-  Scenario: List host reviews
-    Given Event was planned and complete by host
-    When  I open their reviews
-    Then  Event I see their most recent and popular reviews
-
-
-    - **US‑CUST‑008 — Enable notifications**  
-  _Story:_ .  As a customer I want to know when events I selected to attend are nearing their start date.
+```gherkin 
+  Scenario: <Sending a message>
+    Given <I have a pending or confirmed booking>
+    When  <I send a message through the 'Booking' portal>
+    Then  <The customer recieves a notification of said message and can reply back within the platform or via SMS>
+```
+  
+- **US‑HOST-009 — Track Performance Analytics**  
+  _Story:_ As a provider, I want to see how many people have viewed my profile, clicked on packages, or purchased packages/booked so that I can adjust my pricing or media to attract more bookings.  
   _Acceptance:_
   
-  Scenario: Enable notifications
-    Given Event is about to start
-    When  I enable notifications
-    Then  Event alert appears for me to know its about to start.
+```gherkin 
+  Scenario: <View engagement metrics>
+    Given <I open my 'Provider Dashboard'>
+    When  <I select 'Last 30 Days' for analytics>
+    Then  <I see the total number of profile views, packages clicked, and packages purchased.>
+```
 
-
-- **US‑CUST‑009 — Filter notifications**  
-  _Story:_ .  As a customer I want to filter notifications so I don't get information I don't want or need.
+- **US‑HOST-010 — Service Category Tagging**  
+  _Story:_ As a provider, I want to tage my profile with specific genres/categories like Wedding DJ, painter, etc so that I show up in filtered searches.
   _Acceptance:_
   
-  Scenario: Filter notifications
-    Given Notifications enabled
-    When  I filter or restrict them
-    Then  Limited notifications or none will appear for the user.
-
-    - **US‑CUST‑010 — Leave event**  
-  _Story:_ .  As a customer if something comes up or I simply no longer wish to attend the event I would like to leave it.
-  _Acceptance:_
-  
-  Scenario: Customer no longer wishes to attend
-    Given Event hasnt begun
-    When  I select leave or no longer attending
-    Then  Customer is no longer on participant list.
-
-  
-
-
+```gherkin 
+  Scenario: <Filtered discovery>
+    Given <I have tagged myself as a 'Wedding Photographer'>
+    When  <A customer filters their search by 'Wedding' services>
+    Then  <my profile will be included in the search list>
+```
 
 ---
 
 ## 3. Non‑Functional Requirements (make them measurable)
-- **Performance:** 
-- **Availability/Reliability:** 
-- **Security/Privacy:** Star covered password, limited attempts.
-- **Usability:** New users will be able to attend right after acoount creation/completion
+- **Performance:** 95% of search/discovery should load in ≤ 2 seconds; profile pages with media galleries should load in ≤ 1.5 seconds
+- **Availability/Reliability:** Platform should maintain ≥ 99% uptime. Since this is a booking site, we want the sytem to ensure that once a date is marked "Busy," it is blocked for all other users to prevent double booking.
+- **Security/Privacy:** Hash/Star covered password, limited attempts. Provider's private contact information should only be revealed AFTER a booking request is approved
+- **Usability:** New Providers should be able to create their first "Service Package" in under 5 minnutes without needing much of a tutorial.
 
 ---
 
 ## 4. Assumptions, Constraints, and Policies
-- Browsers: (Chrome, Edge, Opera, Firefox) etc.
+- Browsers: (Chrome, Edge, Opera, Firefox) etc. Stable internet connection required.
+- Providers are responsible for the accuracy of their own availability calendars.
 - User location, and TOD will apply.
 - Reviews only allowed if event attended, including content guidelines.
+- Canellation Policy, refund discussions happen externally between Customer/Provider (system does not handle payments)
+- Content Policy: Any media uploaded must be professional and related to service, anything inappropriate with result in account suspension
 
 ---
 
