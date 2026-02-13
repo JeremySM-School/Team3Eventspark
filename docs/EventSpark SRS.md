@@ -39,7 +39,6 @@
 ---
 
 ## 2. Functional Requirements (User Stories)
-Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`.** Each story includes at least one **Given/When/Then** scenario.
 
 ### 2.1 Customer Stories
 - **US‑CUST‑001 — Profiles**  
@@ -53,17 +52,105 @@ Write each story as: **As a `<role>`, I want `<capability>`, so that `<benefit>`
     Then  <Profile is created and customizable> 
   ```
 
-
 - **US‑CUST‑002 — Browse events**  
-  _Story:_ As a customer, I want to browse events so that I may select what I wish to attend.  
+  _Story:_ As a customer, I want to browse services so that I may select what I wish to book.  
   _Acceptance:_
   
 ```gherkin
   Scenario: <Browse events> 
-    Given <Any events occuring>  
-    When  <I search or log in>  
-    Then  <Events appear and selectable for attending.> 
+    Given <I have an event>  
+    When  <I need to browse for aservice>  
+    Then  <I can search for a service provider.> 
 ```
+
+**US‑CUST‑003 — Browse events by activity**  
+  _Story:_ As a customer, I want to browse services based on their acivity so I know what the provider offers before booking.  
+  _Acceptance:_
+
+```gherkin
+  Scenario: <Sort by activity>
+    Given <Multiple providers listed>
+    When  <I search by activity>
+    Then  <Service providers appear based on activity search query.>
+```
+
+- **US‑CUST‑004 — View details**  
+  _Story:_ As a customer I want to see servcice details when I select a service provider to learn more about specifics like location, starting price, availability.  
+  _Acceptance:_
+
+```gherkin
+  Scenario: <View details>
+    Given <Service is offered>
+    When  <I select a service>
+    Then  <Additional details menu appears.>
+```
+
+- **US‑CUST‑005 — Follow providers**  
+  _Story:_ As a customer I want to follow a provider so I know when they might be available again.  
+  _Acceptance:_
+  
+```gherkin
+  Scenario: <Follow provider>
+    Given <Provider exists and has offered services before>
+    When  <I follow the provider>
+    Then  <I will know when they plan more service offerings.>
+```
+
+- **US‑CUST‑006 — Write a review**  
+  _Story:_   As a customer I want to write a review after using a provider's service to let others know how the experience was with this provider like reliability, affordability, communication, etc
+  _Acceptance:_
+  
+```gherkin
+  Scenario: <Review is open to write after booking has ended>
+    Given <Event ended, and user is logged in>
+    When  <I write a review>
+    Then  <Event review appears under provider page for others to see.>
+```
+
+- **US‑CUST‑007 — Read reviews**  
+  _Story:_ As a customer I want to view provider reviews before booking their service  
+  _Acceptance:_
+  
+```gherkin
+  Scenario: <List provider reviews>
+    Given <Event was attended by service provider>
+    When  <I open their reviews>
+    Then  <I see their most recent and popular reviews from event>
+```
+
+- **US‑CUST‑008 — Enable notifications**  
+  _Story:_ .  As a customer I want to know when service providers have accepted bookings or getting close to service date.
+  _Acceptance:_
+  
+```gherkin
+  Scenario: <Enable notifications>
+    Given <Event is about to start>
+    When  <I enable notifications>
+    Then  <Event alert appears for me to know its about to start and if services requested are accepted.>
+```
+
+- **US‑CUST‑009 — Filter notifications**  
+  _Story:_ .  As a customer I want to filter notifications so I don't get information I don't want or need.
+  _Acceptance:_
+  
+```gherkin
+  Scenario: <Filter notifications>
+    Given <Notifications enabled>
+    When  <I filter or restrict them>
+    Then  <Limited notifications or none will appear for the user.>
+```
+
+- **US‑CUST‑010 — Cancel Serivce**  
+  _Story:_ .  As a customer if something comes up or I simply no longer wish to use the service I would like to cancel it.
+  _Acceptance:_
+  
+```gherkin
+  Scenario: <Customer no longer wishes to host their event>
+    Given <Event hasnt begun>
+    When  <I select cancel booking>
+    Then  <Service provider is cancelled for their booking.>
+```
+
 
 ### 2.2 Provider Stories
 - **US‑HOST-001 — Create/Manage Profile**  
