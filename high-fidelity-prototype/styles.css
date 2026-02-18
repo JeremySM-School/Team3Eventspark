@@ -1,61 +1,111 @@
-/* Global Styles for EventSpark High-Fidelity Prototype */
+/* /home/styles.css */
+
+/* --- THEME VARIABLES --- */
 :root {
-    --wood-dark: #4E342E;       /* Primary Navbar/Buttons */
-    --wood-light: #8D6E63;      /* Secondary Accents */
-    --vanilla-bg: #FAF8F5;      /* Main Background */
-    --vanilla-card: #FFFFFF;    /* Card Background */
-    --gold-accent: #D4AF37;     /* Borders/Highlights */
-    --text-main: #2D2D2D;
-    --success-green: #2E7D32;   /* For "Approve" buttons */
-    --danger-red: #C62828;      /* For "Deny" buttons */
+    --wood-dark: #4E342E;       /* Deep Mahogany */
+    --wood-light: #8D6E63;      /* Cedar */
+    --vanilla-bg: #FAF8F5;      /* Warm White */
+    --gold-accent: #D4AF37;     /* Gold */
+    --text-white: #FFFFFF;
 }
 
 body {
     background-color: var(--vanilla-bg);
-    color: var(--text-main);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    min-height: 100vh;
 }
 
-/* Navigation */
-.navbar {
-    background-color: var(--wood-dark) !important;
+/* --- NAVBAR FIX --- */
+/* We use a specific class .custom-navbar to avoid Bootstrap conflicts */
+.custom-navbar {
+    background-color: var(--wood-dark) !important; /* Forces Brown */
     border-bottom: 3px solid var(--gold-accent);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-.navbar-brand, .nav-link { color: #FFF !important; }
-.nav-link:hover { color: var(--gold-accent) !important; }
 
-/* Cards */
-.card {
-    border: none;
-    border-radius: 12px;
-    background-color: var(--vanilla-card);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
+/* Force Title and Links to be White */
+.custom-navbar .navbar-brand, 
+.custom-navbar .nav-link {
+    color: var(--text-white) !important;
+    font-weight: 600;
 }
-.card:hover { transform: translateY(-3px); }
 
-/* Buttons */
+/* Hover Effect (Gold) */
+.custom-navbar .nav-link:hover {
+    color: var(--gold-accent) !important;
+}
+
+/* --- BUTTONS --- */
 .btn-primary {
-    background-color: var(--wood-dark);
-    border: none;
+    background-color: var(--wood-dark) !important;
+    border-color: var(--wood-dark) !important;
+    color: #FFF !important;
 }
-.btn-primary:hover { background-color: var(--wood-light); }
+
+/* Lighter Wood on Hover */
+.btn-primary:hover, 
+.btn-primary:active, 
+.btn-primary:focus {
+    background-color: var(--wood-light) !important;
+    border-color: var(--wood-light) !important;
+}
+
+/* 2. Force 'btn-outline-primary' to be Wood Text/Border */
 .btn-outline-primary {
+    color: var(--wood-dark) !important;
+    border-color: var(--wood-dark) !important;
+}
+
+/* Fill with Wood on Hover */
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:focus {
+    background-color: var(--wood-dark) !important;
+    color: #FFF !important;
+}
+
+/* --- HEADERS --- */
+h1, h2, h3, h4, h5, h6 {
     color: var(--wood-dark);
-    border-color: var(--wood-dark);
+    font-weight: 700;
+}   
+
+/* --- CARDS --- */
+.card {
+    border: 1px solid var(--wood-light);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}   
+.card-title {
+    color: var(--wood-dark);
+    font-weight: 600;
 }
-.btn-outline-primary:hover {
+.card-text {
+    color: var(--wood-dark);
+}
+
+/* --- LINKS --- */
+a {
+    color: var(--wood-dark);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--gold-accent);
+    text-decoration: underline;
+}  
+
+/* --- FOOTER --- */
+footer {
     background-color: var(--wood-dark);
-    color: #FFF;
+    color: var(--text-white);
+    padding: 20px 0;
+    text-align: center;
+    border-top: 3px solid var(--gold-accent);
+}   
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255, 0.9) !important;
 }
-.btn-success {
-    background-color: var(--success-green);
-    border: none;
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: var(--gold-accent) !important;
 }
-.btn-success:hover { background-color: #1B5E20; }
-.btn-danger {
-    background-color: var(--danger-red);
-    border: none;
-}
-.btn-danger:hover { background-color: #B71C1C; }   
