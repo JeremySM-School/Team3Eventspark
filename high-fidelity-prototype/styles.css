@@ -1,0 +1,61 @@
+/* Global Styles for EventSpark High-Fidelity Prototype */
+:root {
+    --wood-dark: #4E342E;       /* Primary Navbar/Buttons */
+    --wood-light: #8D6E63;      /* Secondary Accents */
+    --vanilla-bg: #FAF8F5;      /* Main Background */
+    --vanilla-card: #FFFFFF;    /* Card Background */
+    --gold-accent: #D4AF37;     /* Borders/Highlights */
+    --text-main: #2D2D2D;
+    --success-green: #2E7D32;   /* For "Approve" buttons */
+    --danger-red: #C62828;      /* For "Deny" buttons */
+}
+
+body {
+    background-color: var(--vanilla-bg);
+    color: var(--text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+/* Navigation */
+.navbar {
+    background-color: var(--wood-dark) !important;
+    border-bottom: 3px solid var(--gold-accent);
+}
+.navbar-brand, .nav-link { color: #FFF !important; }
+.nav-link:hover { color: var(--gold-accent) !important; }
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 12px;
+    background-color: var(--vanilla-card);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+.card:hover { transform: translateY(-3px); }
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--wood-dark);
+    border: none;
+}
+.btn-primary:hover { background-color: var(--wood-light); }
+.btn-outline-primary {
+    color: var(--wood-dark);
+    border-color: var(--wood-dark);
+}
+.btn-outline-primary:hover {
+    background-color: var(--wood-dark);
+    color: #FFF;
+}
+.btn-success {
+    background-color: var(--success-green);
+    border: none;
+}
+.btn-success:hover { background-color: #1B5E20; }
+.btn-danger {
+    background-color: var(--danger-red);
+    border: none;
+}
+.btn-danger:hover { background-color: #B71C1C; }   
