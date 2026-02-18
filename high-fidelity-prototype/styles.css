@@ -1,111 +1,134 @@
-/* /home/styles.css */
 
-/* --- THEME VARIABLES --- */
+/* --- THEME VARIABLES (Woody & Vanilla) --- */
 :root {
-    --wood-dark: #4E342E;       /* Deep Mahogany */
-    --wood-light: #8D6E63;      /* Cedar */
-    --vanilla-bg: #FAF8F5;      /* Warm White */
-    --gold-accent: #D4AF37;     /* Gold */
-    --text-white: #FFFFFF;
+    --wood-dark: #4E342E;       /* Deep Mahogany (Navbar/Buttons) */
+    --wood-light: #8D6E63;      /* Cedar (Accents/Hovers) */
+    --vanilla-bg: #FAF8F5;      /* Warm Vanilla (Page Background) */
+    --vanilla-card: #FFFFFF;    /* Pure White (Cards) */
+    --gold-accent: #D4AF37;     /* Gold (Borders/Highlights) */
+    --text-main: #2D2D2D;       /* Soft Black */
+    --text-muted: #6c757d;      /* Grey */
+    --success-green: #2E7D32;   /* Approve/Confirm */
+    --danger-red: #C62828;      /* Deny/Delete */
 }
+
 
 body {
     background-color: var(--vanilla-bg);
+    color: var(--text-main);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
 }
 
-/* --- NAVBAR FIX --- */
-/* We use a specific class .custom-navbar to avoid Bootstrap conflicts */
+a {
+    text-decoration: none;
+}
+
+
+/* Custom Navbar Class - Applied to <nav> */
 .custom-navbar {
-    background-color: var(--wood-dark) !important; /* Forces Brown */
+    background-color: var(--wood-dark) !important;
     border-bottom: 3px solid var(--gold-accent);
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
 }
 
-/* Force Title and Links to be White */
-.custom-navbar .navbar-brand, 
+/* The EventSpark Brand Title */
+.custom-navbar .navbar-brand {
+    color: #FFFFFF !important;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+/* Navigation Links */
 .custom-navbar .nav-link {
-    color: var(--text-white) !important;
-    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9) !important; /* Slightly transparent white */
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
-/* Hover Effect (Gold) */
-.custom-navbar .nav-link:hover {
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
     color: var(--gold-accent) !important;
 }
 
-/* --- BUTTONS --- */
+/* --- NAVBAR BUTTONS (Login/Sign Up) --- */
+
+/* "Login" Button (Outline) */
+.custom-navbar .btn-outline-light {
+    color: #FFFFFF !important;
+    border-color: #FFFFFF !important;
+}
+
+.custom-navbar .btn-outline-light:hover {
+    background-color: #FFFFFF !important;
+    color: var(--wood-dark) !important;
+}
+
+/* "Sign Up" Button (Solid) */
+.custom-navbar .btn-light {
+    background-color: #FFFFFF !important;
+    color: var(--wood-dark) !important;
+    font-weight: bold;
+    border: none;
+}
+
+.custom-navbar .btn-light:hover {
+    background-color: var(--gold-accent) !important;
+    color: #FFFFFF !important;
+}
+
+
+/* Primary Buttons (Wood instead of Blue) */
 .btn-primary {
     background-color: var(--wood-dark) !important;
     border-color: var(--wood-dark) !important;
-    color: #FFF !important;
+    color: #FFFFFF !important;
 }
 
-/* Lighter Wood on Hover */
-.btn-primary:hover, 
-.btn-primary:active, 
-.btn-primary:focus {
+.btn-primary:hover {
     background-color: var(--wood-light) !important;
     border-color: var(--wood-light) !important;
 }
 
-/* 2. Force 'btn-outline-primary' to be Wood Text/Border */
+/* Outline Primary Buttons */
 .btn-outline-primary {
     color: var(--wood-dark) !important;
     border-color: var(--wood-dark) !important;
 }
 
-/* Fill with Wood on Hover */
-.btn-outline-primary:hover,
-.btn-outline-primary:active,
-.btn-outline-primary:focus {
+.btn-outline-primary:hover {
     background-color: var(--wood-dark) !important;
-    color: #FFF !important;
+    color: #FFFFFF !important;
 }
 
-/* --- HEADERS --- */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--wood-dark);
-    font-weight: 700;
-}   
-
-/* --- CARDS --- */
+/* Cards (Floating Effect) */
 .card {
-    border: 1px solid var(--wood-light);
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}   
-.card-title {
-    color: var(--wood-dark);
-    font-weight: 600;
-}
-.card-text {
-    color: var(--wood-dark);
+    border: none;
+    border-radius: 12px;
+    background-color: var(--vanilla-card);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease-in-out;
 }
 
-/* --- LINKS --- */
-a {
-    color: var(--wood-dark) !important;
-    text-decoration: none !important;
-}
-a:hover {
-    color: var(--gold-accent) !important;
-    text-decoration: underline !important;
-}  
-
-/* --- FOOTER --- */
-footer {
-    background-color: var(--wood-dark);
-    color: var(--text-white);
-    padding: 20px 0;
-    text-align: center;
-    border-top: 3px solid var(--gold-accent) !important;
-}   
-
-.navbar-dark .navbar-nav .nav-link {
-    color: rgba(255,255,255, 0.9) !important;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
 }
 
-.navbar-dark .navbar-nav .nav-link:hover {
-    color: var(--gold-accent) !important;
+/* Calendar Specifics (For Provider) */
+.calendar-day { 
+    height: 120px; 
+    border: 1px solid #e0e0e0; 
+    position: relative; 
+    background: #fff;
+}
+.calendar-day:hover { 
+    background-color: #fcfcfc; 
+}
+.calendar-day.booked { 
+    background-color: #ffebee; 
+    border-left: 5px solid var(--danger-red); 
 }
