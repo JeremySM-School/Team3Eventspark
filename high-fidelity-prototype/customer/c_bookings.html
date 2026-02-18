@@ -1,2 +1,82 @@
 /* show all current bookings for the user, with options to view details, cancel, or reschedule each booking */
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Customer Inbox | EventSpark</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container">
+            <a class="navbar-brand fs-3" href="../home/home.html"><i class="bi bi-stars"></i> EventSpark</a>
+            <div class="navbar-nav ms-auto"><a class="nav-link" href="c_dashboard.html">Back to Dashboard</a></div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h2 class="mb-4 fw-bold">Booking Inquiries</h2>
+        
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3">
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item"><a class="nav-link active bg-primary text-white" href="#">Pending</a></li>
+                    <li class="nav-item"><a class="nav-link text-muted" href="#">Confirmed</a></li>
+                    <li class="nav-item"><a class="nav-link text-muted" href="#">Past</a></li>
+                </ul>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Service</th>
+                            <th>Event Date</th>
+                            <th>Package</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-secondary rounded-circle me-2" style="width:35px; height:35px;"></div>
+                                    <strong>Paul White</strong>
+                                </div>
+                            </td>
+                            <td>Sept 7th, 2026</td>
+                            <td>Silver Wedding Set</td>
+                            <td><span class="badge bg-success text-dark">Confirmed</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm me-1"><i class="bi bi-check-lg"></i> View Details</button>
+                                <button class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i> Cancel</button>
+                                <button class="btn btn-light btn-sm border"><i class="bi bi-chat"></i> Message</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-secondary rounded-circle me-2" style="width:35px; height:35px;"></div>
+                                    <strong>Hank J. Wimbleton</strong>
+                                </div>
+                            </td>
+                            <td>Nov 05, 2026</td>
+                            <td>Basic Party Set</td>
+                            <td><span class="badge bg-warning text-dark">Pending</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm me-1"><i class="bi bi-check-lg"></i> View Details</button>
+                                <button class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i> Cancel</button>
+                                <button class="btn btn-light btn-sm border"><i class="bi bi-chat"></i> Message</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
