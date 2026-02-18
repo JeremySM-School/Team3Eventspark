@@ -132,3 +132,18 @@ a {
     background-color: #ffebee; 
     border-left: 5px solid var(--danger-red); 
 }
+
+/* Make the border of the button light and visible */
+.custom-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Add a soft white glow when clicked instead of the default black box */
+.custom-navbar .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Force the 3 lines (SVG) to be pure white */
+.custom-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}

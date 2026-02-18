@@ -6,10 +6,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
     <style>
-        .calendar-day { height: 120px; border: 1px solid #eee; position: relative; }
-        .calendar-day:hover { background-color: #f8f9fa; }
+        .calendar-day { height: 100px; border: 1px solid #eee; position: relative; }
+        .calendar-day:hover { background-color: #f8f9fa; cursor: pointer; }
         .booked { background-color: #ffebee; border-left: 4px solid #c62828; }
-        .day-number { position: absolute; top: 10px; left: 10px; font-weight: bold; }
+        .day-num { position: absolute; top: 5px; left: 8px; font-weight: bold; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -21,48 +21,89 @@
     </nav>
 
     <div class="container py-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold">October 2026</h2>
-            <div>
-                <button class="btn btn-outline-secondary me-1">Previous</button>
-                <button class="btn btn-outline-secondary">Next</button>
-            </div>
-        </div>
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="fw-bold">October 2026</h3>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-secondary btn-sm">&lt;</button>
+                        <button class="btn btn-outline-secondary btn-sm">&gt;</button>
+                    </div>
+                </div>
 
-        <div class="card shadow-sm">
-            <div class="card-body p-0">
-                <div class="row g-0 text-center fw-bold bg-light py-2 border-bottom">
-                    <div class="col">Mon</div><div class="col">Tue</div><div class="col">Wed</div><div class="col">Thu</div><div class="col">Fri</div><div class="col">Sat</div><div class="col">Sun</div>
-                </div>
-                <div class="row g-0">
-                    <div class="col calendar-day"><span class="day-number">1</span></div>
-                    <div class="col calendar-day"><span class="day-number">2</span></div>
-                    <div class="col calendar-day"><span class="day-number">3</span></div>
-                    <div class="col calendar-day"><span class="day-number">4</span></div>
-                    <div class="col calendar-day"><span class="day-number">5</span></div>
-                    <div class="col calendar-day booked">
-                        <span class="day-number">6</span>
-                        <div class="mt-4 ms-1 badge bg-danger text-wrap" style="width: 90%;">Booked: Sarah</div>
+                <div class="card shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="row g-0 text-center fw-bold bg-light py-2 border-bottom">
+                            <div class="col">Mon</div><div class="col">Tue</div><div class="col">Wed</div><div class="col">Thu</div><div class="col">Fri</div><div class="col">Sat</div><div class="col">Sun</div>
+                        </div>
+                        <div class="row g-0">
+                            <div class="col calendar-day"><span class="day-num">1</span></div>
+                            <div class="col calendar-day"><span class="day-num">2</span></div>
+                            <div class="col calendar-day"><span class="day-num">3</span></div>
+                            <div class="col calendar-day"><span class="day-num">4</span></div>
+                            <div class="col calendar-day"><span class="day-num">5</span></div>
+                            <div class="col calendar-day booked"><span class="day-num">6</span><span class="badge bg-danger mt-4 ms-1">Booked</span></div>
+                            <div class="col calendar-day"><span class="day-num">7</span></div>
+                        </div>
+                        <div class="row g-0 border-top">
+                            <div class="col calendar-day"><span class="day-num">8</span></div>
+                            <div class="col calendar-day"><span class="day-num">9</span></div>
+                            <div class="col calendar-day"><span class="day-num">10</span></div>
+                            <div class="col calendar-day"><span class="day-num">11</span></div>
+                            <div class="col calendar-day booked"><span class="day-num">12</span><span class="badge bg-danger mt-4 ms-1">Booked</span></div>
+                            <div class="col calendar-day"><span class="day-num">13</span></div>
+                            <div class="col calendar-day"><span class="day-num">14</span></div>
+                        </div>
+                         <div class="row g-0 border-top">
+                            <div class="col calendar-day"><span class="day-num">15</span></div>
+                            <div class="col calendar-day"><span class="day-num">16</span></div>
+                            <div class="col calendar-day"><span class="day-num">17</span></div>
+                            <div class="col calendar-day"><span class="day-num">18</span></div>
+                            <div class="col calendar-day"><span class="day-num">19</span></div>
+                            <div class="col calendar-day"><span class="day-num">20</span></div>
+                            <div class="col calendar-day"><span class="day-num">21</span></div>
+                        </div>
                     </div>
-                    <div class="col calendar-day"><span class="day-number">7</span></div>
                 </div>
-                <div class="row g-0 border-top">
-                    <div class="col calendar-day"><span class="day-number">8</span></div>
-                    <div class="col calendar-day"><span class="day-number">9</span></div>
-                    <div class="col calendar-day"><span class="day-number">10</span></div>
-                    <div class="col calendar-day"><span class="day-number">11</span></div>
-                    <div class="col calendar-day booked">
-                        <span class="day-number">12</span>
-                        <div class="mt-4 ms-1 badge bg-danger text-wrap" style="width: 90%;">Booked: Jeremy</div>
+            </div>
+
+            <div class="col-lg-4">
+                <h4 class="fw-bold mb-3">Upcoming Agenda</h4>
+                
+                <div class="card mb-3 border-start border-4 border-danger shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <strong class="text-danger">Oct 06</strong>
+                            <span class="badge bg-light text-dark border">Confirmed</span>
+                        </div>
+                        <h6 class="fw-bold mb-1">Mike's Birthday Bash</h6>
+                        <p class="small text-muted mb-2">Standard Club Mix • 8:00 PM</p>
+                        <a href="p_inbox.html" class="btn btn-sm btn-outline-secondary w-100">Message Sarah</a>
                     </div>
-                    <div class="col calendar-day"><span class="day-number">13</span></div>
-                    <div class="col calendar-day"><span class="day-number">14</span></div>
                 </div>
+
+                <div class="card mb-3 border-start border-4 border-danger shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <strong class="text-danger">Oct 12</strong>
+                            <span class="badge bg-light text-dark border">Confirmed</span>
+                        </div>
+                        <h6 class="fw-bold mb-1">Sarah's Wedding</h6>
+                        <p class="small text-muted mb-2">"Another One" Package • 5:00 PM</p>
+                        <a href="p_inbox.html" class="btn btn-sm btn-outline-secondary w-100">Message Jeremy</a>
+                    </div>
+                </div>
+
+                <div class="card bg-light border-0">
+                    <div class="card-body text-center">
+                        <p class="small text-muted mb-2">Need to block out time?</p>
+                        <button class="btn btn-primary btn-sm w-100">Add Personal Time Off</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -8,12 +8,43 @@
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar mb-4">
+    <nav class="navbar navbar-expand-lg custom-navbar mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="home.html"><i class="bi bi-stars"></i>EventSpark</a>
-            <div class="ms-auto">
-                <a href="login.html" class="btn btn-outline-light me-2">Login</a>
-                <a href="signup.html" class="btn btn-light fw-bold">Sign Up</a>  
+            <a class="navbar-brand fw-bold" href="home.html"><i class="bi bi-stars"></i> EventSpark</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="ms-auto">
+    <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white fw-bold d-flex align-items-center" href="#" id="demoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle fs-4 me-2"></i> Quick Switch
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="demoDropdown">
+                <li><h6 class="dropdown-header text-uppercase small fw-bold">Dashboards</h6></li>
+                <li>
+                    <a class="dropdown-item py-2" href="../customer/c_dashboard.html">
+                        <i class="bi bi-person me-2 text-primary"></i> Customer Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item py-2" href="../provider/p_dashboard.html">
+                        <i class="bi bi-briefcase me-2 text-primary"></i> Provider Dashboard
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item py-2 text-danger" href="login.html">
+                        <i class="bi bi-box-arrow-right me-2"></i> Simulate Logout
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
             </div>
         </div>
     </nav>
@@ -23,8 +54,8 @@
         
         <div class="row">
             <div class="col-md-3">
-                <div class="card p-3 mb-4">
-                    <h5 class="fw-bold">Filter By</h5>
+                <div class="card p-3 mb-4 shadow-sm border-0">
+                    <h5 class="fw-bold"><i class="bi bi-sliders me-2"></i>Filter By</h5>
                     <hr>
                     <div class="mb-3">
                         <label class="form-label fw-bold small">Category</label>
@@ -41,49 +72,49 @@
                         <input type="range" class="form-range">
                         <div class="d-flex justify-content-between small text-muted"><span>$0</span><span>$7000+</span></div>
                     </div>
-                    <button class="btn btn-primary w-100">Apply Filters</button>
+                    <button class="btn btn-primary w-100 fw-bold">Apply Filters</button>
                 </div>
             </div>
 
             <div class="col-md-9">
                 <div class="row g-4">
                     <div class="col-md-4">
-                        <div class="card h-100">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/DJ_KHALED_Press_exclusive_%283x4_cropped%29.jpg" class="card-img-top" alt="DJ" style="height: 180px; object-fit: cover;">
-                            <div class="card-body">
+                        <div class="card h-100 shadow-sm border-0">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/DJ_KHALED_Press_exclusive_%283x4_cropped%29.jpg" class="card-img-top" alt="DJ Khaled" style="height: 180px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column">
                                 <h5 class="card-title fw-bold">DJ Khaled</h5>
                                 <p class="small text-muted mb-2">Wedding & Corporate DJ</p>
                                 <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 4.9 (42k)</div>
                                 <p class="fw-bold text-success mb-3">Starts at $10k</p>
-                                <a href="../provider/p_profile.html" class="btn btn-outline-primary w-100">View Profile</a>
+                                <a href="../provider/p_profile.html" class="btn btn-outline-primary w-100 mt-auto fw-bold">View Profile</a>
                             </div>
                         </div>
                     </div>
                     
                     <div class="col-md-4">
-                        <div class="card h-100">
-                            <img src="https://yt3.googleusercontent.com/BIbMb6Bt7DZmTJc7-rtjqv6O59VwHZoQFXzimz3F5u_4Qm9qmvklKfEXCuYmyV2T-k_bkpjnZg=s900-c-k-c0x00ffffff-no-rj" class="card-img-top" alt="Band" style="height: 180px; object-fit: cover;">
-                            <div class="card-body">
+                        <div class="card h-100 shadow-sm border-0">
+                            <img src="https://yt3.googleusercontent.com/BIbMb6Bt7DZmTJc7-rtjqv6O59VwHZoQFXzimz3F5u_4Qm9qmvklKfEXCuYmyV2T-k_bkpjnZg=s900-c-k-c0x00ffffff-no-rj" class="card-img-top" alt="Michael Bublé" style="height: 180px; object-fit: cover;">
+                            <div class="card-body d-flex flex-column">
                                 <h5 class="card-title fw-bold">Michael Bublé</h5>
                                 <p class="small text-muted mb-2">Live Musician</p>
                                 <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 5.0 (12k)</div>
                                 <p class="fw-bold text-success mb-3">Starts at $7.5k</p>
-                                <a href="../provider/p_profile.html" class="btn btn-outline-primary w-100">View Profile</a>
+                                <a href="../provider/p_profile.html" class="btn btn-outline-primary w-100 mt-auto fw-bold">View Profile</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <div class="card h-100">
+                        <div class="card h-100 shadow-sm border-0">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/250px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg" class="card-img-top" alt="Photographer" style="height: 180px; object-fit: cover;">
-                            <div class="card-body">
+                            <div class="card-body d-flex flex-column">
                                 <h5 class="card-title fw-bold">Vincent van Gogh</h5>
                                 <p class="small text-muted mb-2">Live Painter</p>
                                 <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 4.8 (8k)</div>
                                 <p class="fw-bold text-success mb-3">Starts at $60</p>
-                                <a href="../provider/p_profile.html" class="btn btn-outline-primary w-100">View Profile</a>
-                </div>
-            </div>
+                                <a href="../provider/p_profile.html" class="btn btn-outline-primary w-100 mt-auto fw-bold">View Profile</a>
+                            </div> 
+                        </div> </div> </div> </div>
         </div>
     </div>
     

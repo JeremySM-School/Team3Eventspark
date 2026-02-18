@@ -1,2 +1,105 @@
-/* edit public profile for provider, allowing them to update their business information, manage services offered, and set availability for bookings */
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile | EventSpark</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container">
+            <a class="navbar-brand fs-3" href="../home/home.html">EventSpark</a>
+            <div class="navbar-nav ms-auto"><a class="nav-link" href="p_dashboard.html">Back to Dashboard</a></div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="fw-bold">Edit Public Profile</h2>
+                    <a href="p_profile.html" target="_blank" class="btn btn-outline-primary btn-sm">View Public Page</a>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <form action="p_dashboard.html">
+                            <div class="text-center mb-4">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/DJ_KHALED_Press_exclusive_%283x4_cropped%29.jpg" class="rounded-circle border border-4"
+                                style="width: 150px; height: 150px; object-fit: cover;">
+                                <div><button class="btn btn-sm btn-outline-secondary">Upload New Photo</button></div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small">Stage Name</label>
+                                    <input type="text" class="form-control" value="DJ Khaled">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small">Category</label>
+                                    <select class="form-select">
+                                        <option selected>DJ / Musician</option>
+                                        <option>Visual Artist</option>
+                                        <option>Photographer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label fw-bold small">Profile Tags (Select up to 3)</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <input type="checkbox" class="btn-check" id="tag1" autocomplete="off" checked>
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag1">Hip Hop</label>
+
+                                    <input type="checkbox" class="btn-check" id="tag2" autocomplete="off" checked>
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag2">Wedding DJ</label>
+                                    
+                                    <input type="checkbox" class="btn-check" id="tag3" autocomplete="off" checked>
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag3">Motivational Speaker</label>
+
+                                    <input type="checkbox" class="btn-check" id="tag4" autocomplete="off">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag4">Jazz</label>
+
+                                    <input type="checkbox" class="btn-check" id="tag5" autocomplete="off">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag5">Corporate Events</label>
+
+                                    <input type="checkbox" class="btn-check" id="tag6" autocomplete="off">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag6">Live Band</label>
+                                </div>
+                                <div class="form-text mt-2">These tags help customers find you when they use the search filters.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Bio</label>
+                                <textarea class="form-control" rows="4">I bring the best energy to every event.</textarea>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small">Service Radius (Miles)</label>
+                                    <input type="number" class="form-control" value="5000">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small">Zip Code</label>
+                                    <input type="text" class="form-control" value="90210">
+                                </div>
+                            </div>
+
+                            <h5 class="fw-bold mt-4 mb-3 border-bottom pb-2">Media Gallery</h5>
+                            <div class="row g-2 mb-3">
+                                <div class="col-3"><div class="ratio ratio-1x1 bg-light border d-flex align-items-center justify-content-center text-muted">Image 1</div></div>
+                                <div class="col-3"><div class="ratio ratio-1x1 bg-light border d-flex align-items-center justify-content-center text-muted">Image 2</div></div>
+                                <div class="col-3"><div class="ratio ratio-1x1 border border-dashed d-flex align-items-center justify-content-center text-primary bg-white" style="cursor: pointer;"><i class="bi bi-plus-lg"></i></div></div>
+                            </div>
+
+                            <div class="d-grid mt-5">
+                                <button class="btn btn-primary btn-lg">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
