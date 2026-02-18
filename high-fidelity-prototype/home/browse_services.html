@@ -4,58 +4,89 @@
     <meta charset="UTF-8">
     <title>Browse Services | EventSpark</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar mb-4">
         <div class="container">
-            <a class="navbar-brand" href="home.html">EventSpark</a>
+            <a class="navbar-brand fw-bold" href="home.html"><i class="bi bi-stars"></i>EventSpark</a>
+            <div class="ms-auto">
+                <a href="login.html" class="btn btn-outline-light me-2">Login</a>
+                <a href="signup.html" class="btn btn-light fw-bold">Sign Up</a>  
+            </div>
         </div>
     </nav>
 
-    <div class="container">
-        <h2 class="mb-4" style="color: var(--wood-dark);">Browse Talent</h2>
-        <div class="row mb-4">
-            <div class="col-md-3"><input type="text" class="form-control" placeholder="Search..."></div>
-            <div class="col-md-3"><select class="form-select"><option>All Categories</option><option>DJ</option><option>Artist</option></select></div>
-            <div class="col-md-2"><button class="btn btn-primary w-100">Filter</button></div>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <div class="bg-secondary rounded-circle mx-auto mb-3" style="width:80px; height:80px;"></div>
-                        <h5>DJ Sparky</h5>
-                        <p class="text-muted">Wedding & Corporate DJ</p>
-                        <p class="fw-bold">$150/hr</p>
-                        <a href="../provider/p_profile.html" class="btn btn-outline-primary btn-sm">View Profile</a>
+    <div class="container py-5">
+        <h2 class="mb-4 fw-bold" style="color: var(--wood-dark);">Find Your Talent</h2>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card p-3 mb-4">
+                    <h5 class="fw-bold">Filter By</h5>
+                    <hr>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small">Category</label>
+                        <div class="form-check"><input class="form-check-input" type="checkbox" checked> <label class="form-check-label">DJs</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"> <label class="form-check-label">Live Artists</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"> <label class="form-check-label">Photographers</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"> <label class="form-check-label">Caterers</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"> <label class="form-check-label">Decorators</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"> <label class="form-check-label">Painters</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"> <label class="form-check-label">Other</label></div>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small">Price Range</label>
+                        <input type="range" class="form-range">
+                        <div class="d-flex justify-content-between small text-muted"><span>$0</span><span>$1000+</span></div>
+                    </div>
+                    <button class="btn btn-primary w-100">Apply Filters</button>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <div class="bg-secondary rounded-circle mx-auto mb-3" style="width:80px; height:80px;"></div>
-                        <h5>Artist Aiden</h5>
-                        <p class="text-muted">Live Painter for Events</p>
-                        <p class="fw-bold">$200/hr</p>
-                        <a href="../provider/p_profile.html" class="btn btn-outline-primary btn-sm">View Profile</a>       
+
+            <div class="col-md-9">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/DJ_KHALED_Press_exclusive_%283x4_cropped%29.jpg" class="card-img-top" alt="DJ" style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">DJ Khaled</h5>
+                                <p class="small text-muted mb-2">Wedding & Corporate DJ</p>
+                                <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 4.9 (42k)</div>
+                                <p class="fw-bold text-success mb-3">Starts at $900</p>
+                                <a href="../provider/p_profile.html" class="btn btn-outline-primary w-100">View Profile</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <div class="bg-secondary rounded-circle mx-auto mb-3" style="width:80px; height:80px;"></div>
-                        <h5>DJ Jazzy</h5>
-                        <p class="text-muted">Birthday & Party DJ</p>
-                        <p class="fw-bold">$120/hr</p>
-                        <a href="../provider/p_profile.html" class="btn btn-outline-primary btn-sm">View Profile</a>
+                    
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="https://yt3.googleusercontent.com/BIbMb6Bt7DZmTJc7-rtjqv6O59VwHZoQFXzimz3F5u_4Qm9qmvklKfEXCuYmyV2T-k_bkpjnZg=s900-c-k-c0x00ffffff-no-rj" class="card-img-top" alt="Band" style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Michael Bublé</h5>
+                                <p class="small text-muted mb-2">Live Musician</p>
+                                <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 5.0 (12k)</div>
+                                <p class="fw-bold text-success mb-3">Starts at $750</p>
+                                <a href="../provider/p_profile.html" class="btn btn-outline-primary w-100">View Profile</a>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg/250px-Vincent_van_Gogh_-_Self-Portrait_-_Google_Art_Project_%28454045%29.jpg" class="card-img-top" alt="Photographer" style="height: 180px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Vincent van Gogh</h5>
+                                <p class="small text-muted mb-2">Live Painter</p>
+                                <div class="text-warning mb-2"><i class="bi bi-star-fill"></i> 4.8 (8k)</div>
+                                <p class="fw-bold text-success mb-3">Starts at $600</p>
+                                <a href="../provider/p_profile.html" class="btn btn-outline-primary w-100">View Profile</a>
                 </div>
             </div>
         </div>
     </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

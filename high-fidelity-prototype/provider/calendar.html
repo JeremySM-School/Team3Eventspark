@@ -1,2 +1,68 @@
-/* calendar view for provider, showing all upcoming bookings in a calendar format, with options to view details, reschedule, or cancel each booking */
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar | EventSpark</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .calendar-day { height: 120px; border: 1px solid #eee; position: relative; }
+        .calendar-day:hover { background-color: #f8f9fa; }
+        .booked { background-color: #ffebee; border-left: 4px solid #c62828; }
+        .day-number { position: absolute; top: 10px; left: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container">
+            <a class="navbar-brand fs-3" href="../home/home.html">EventSpark</a>
+            <div class="navbar-nav ms-auto"><a class="nav-link" href="p_dashboard.html">Back to Dashboard</a></div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">October 2026</h2>
+            <div>
+                <button class="btn btn-outline-secondary me-1">Previous</button>
+                <button class="btn btn-outline-secondary">Next</button>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="row g-0 text-center fw-bold bg-light py-2 border-bottom">
+                    <div class="col">Mon</div><div class="col">Tue</div><div class="col">Wed</div><div class="col">Thu</div><div class="col">Fri</div><div class="col">Sat</div><div class="col">Sun</div>
+                </div>
+                <div class="row g-0">
+                    <div class="col calendar-day"><span class="day-number">1</span></div>
+                    <div class="col calendar-day"><span class="day-number">2</span></div>
+                    <div class="col calendar-day"><span class="day-number">3</span></div>
+                    <div class="col calendar-day"><span class="day-number">4</span></div>
+                    <div class="col calendar-day"><span class="day-number">5</span></div>
+                    <div class="col calendar-day booked">
+                        <span class="day-number">6</span>
+                        <div class="mt-4 ms-1 badge bg-danger text-wrap" style="width: 90%;">Booked: Sarah</div>
+                    </div>
+                    <div class="col calendar-day"><span class="day-number">7</span></div>
+                </div>
+                <div class="row g-0 border-top">
+                    <div class="col calendar-day"><span class="day-number">8</span></div>
+                    <div class="col calendar-day"><span class="day-number">9</span></div>
+                    <div class="col calendar-day"><span class="day-number">10</span></div>
+                    <div class="col calendar-day"><span class="day-number">11</span></div>
+                    <div class="col calendar-day booked">
+                        <span class="day-number">12</span>
+                        <div class="mt-4 ms-1 badge bg-danger text-wrap" style="width: 90%;">Booked: Jeremy</div>
+                    </div>
+                    <div class="col calendar-day"><span class="day-number">13</span></div>
+                    <div class="col calendar-day"><span class="day-number">14</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

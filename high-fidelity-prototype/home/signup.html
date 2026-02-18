@@ -9,27 +9,36 @@
 </head>
 <body class="d-flex align-items-center justify-content-center vh-100" style="background-color: var(--wood-dark);">
 
-    <div class="card p-5 shadow-lg" style="width: 400px; border-top: 5px solid var(--gold-accent);">
+    <div class="card p-5 shadow-lg" style="width: 100%; max-width: 450px; border-top: 5px solid var(--gold-accent);">
         
         <h3 class="text-center mb-4 fw-bold" style="color: var(--wood-dark);">Join EventSpark</h3>
+        <p class="text-center text-muted mb-4">Create an account to discover or host events.</p>
         
         <form>
             <div class="mb-3">
-                <label class="form-label small fw-bold">Full Name</label>
-                <input type="text" class="form-control" placeholder="First Last">
+                <label class="form-label small fw-bold text-uppercase text-muted">Full Name</label>
+                <input type="text" class="form-control" placeholder="e.g. John Doe">
             </div>
             <div class="mb-3">
-                <label class="form-label small fw-bold">Email Address</label>
+                <label class="form-label small fw-bold text-uppercase text-muted">Email Address</label>
                 <input type="email" class="form-control" placeholder="name@example.com">
             </div>
             <div class="mb-4">
-                <label class="form-label small fw-bold">Password</label>
+                <label class="form-label small fw-bold text-uppercase text-muted">Password</label>
                 <input type="password" class="form-control" placeholder="••••••••">
             </div>
 
-            <div class="d-grid gap-2 mb-3">
-                <a href="../customer/c_dashboard.html" class="btn btn-primary">Sign Up as Customer</a>
-                <a href="../provider/p_dashboard.html" class="btn btn-outline-primary">Sign Up as Provider</a>
+            <div class="row g-2 mb-3">
+                <div class="col-6">
+                    <a href="../customer/c_dashboard.html" class="btn btn-outline-primary w-100 h-100 d-flex align-items-center justify-content-center">
+                        Customer
+                    </a>
+                </div>
+                <div class="col-6">
+                    <a href="../provider/p_dashboard.html" class="btn btn-primary w-100 h-100 d-flex align-items-center justify-content-center">
+                        Provider
+                    </a>
+                </div>
             </div>
         </form>
 
