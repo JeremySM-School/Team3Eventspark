@@ -3,19 +3,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> Customer Inbox | EventSpark</title>
+    <title> Bookings | EventSpark</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg custom-navbar">
+   <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container">
             <a class="navbar-brand fs-3" href="../home/home.html"><i class="bi bi-stars"></i> EventSpark</a>
-            <div class="navbar-nav ms-auto"><a class="nav-link" href="c_dashboard.html">Back to Dashboard</a></div>
+            <div class="navbar-nav ms-auto flex-row">
+                <a class="nav-link me-3" href="c_dashboard.html">Back to Dashboard</a>
+                <a class="nav-link" href="c_inbox.html">Inbox</a>
+            </div>
         </div>
     </nav>
-
     <div class="container py-5">
         <h2 class="mb-4 fw-bold">Booking Inquiries</h2>
         
@@ -48,11 +50,12 @@
                             </td>
                             <td>Sept 7th, 2026</td>
                             <td>Silver Wedding Set</td>
-                            <td><span class="badge bg-success text-dark">Confirmed</span></td>
+                            <td><span class="badge bg-warning text-dark">Pending</span></td>
                             <td>
                                 <button class="btn btn-success btn-sm me-1"><i class="bi bi-check-lg"></i> View Details</button>
                                 <button class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i> Cancel</button>
                                 <button class="btn btn-light btn-sm border"><i class="bi bi-chat"></i> Message</button>
+                                <button class="btn btn-info btn-sm border"><i class="bi bi-chat"></i> Reschedule</button>
                             </td>
                         </tr>
                         <tr>
@@ -69,6 +72,8 @@
                                 <button class="btn btn-success btn-sm me-1"><i class="bi bi-check-lg"></i> View Details</button>
                                 <button class="btn btn-danger btn-sm"><i class="bi bi-x-lg"></i> Cancel</button>
                                 <button class="btn btn-light btn-sm border"><i class="bi bi-chat"></i> Message</button>
+                                <button class="btn btn-info btn-sm border"><i class="bi bi-chat"></i> Reschedule</button>
+
                             </td>
                         </tr>
                     </tbody>
