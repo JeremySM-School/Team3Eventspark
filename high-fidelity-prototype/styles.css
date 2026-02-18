@@ -85,12 +85,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* --- LINKS --- */
 a {
-    color: var(--wood-dark);
-    text-decoration: none;
+    color: var(--wood-dark) !important;
+    text-decoration: none !important;
 }
 a:hover {
-    color: var(--gold-accent);
-    text-decoration: underline;
+    color: var(--gold-accent) !important;
+    text-decoration: underline !important;
 }  
 
 /* --- FOOTER --- */
@@ -99,7 +99,7 @@ footer {
     color: var(--text-white);
     padding: 20px 0;
     text-align: center;
-    border-top: 3px solid var(--gold-accent);
+    border-top: 3px solid var(--gold-accent) !important;
 }   
 
 .navbar-dark .navbar-nav .nav-link {
