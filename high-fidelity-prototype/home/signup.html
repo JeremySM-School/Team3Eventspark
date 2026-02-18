@@ -1,2 +1,46 @@
-/* signup page for both customers and providers, with options to switch between registration forms, and a link to the login page */
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EventSpark | Sign Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body class="d-flex align-items-center justify-content-center vh-100" style="background-color: var(--wood-dark);">
+
+    <div class="card p-5 shadow-lg" style="width: 400px; border-top: 5px solid var(--gold-accent);">
+        
+        <h3 class="text-center mb-4 fw-bold" style="color: var(--wood-dark);">Join EventSpark</h3>
+        
+        <form>
+            <div class="mb-3">
+                <label class="form-label small fw-bold">Full Name</label>
+                <input type="text" class="form-control" placeholder="First Last">
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold">Email Address</label>
+                <input type="email" class="form-control" placeholder="name@example.com">
+            </div>
+            <div class="mb-4">
+                <label class="form-label small fw-bold">Password</label>
+                <input type="password" class="form-control" placeholder="••••••••">
+            </div>
+
+            <div class="d-grid gap-2 mb-3">
+                <a href="../customer/c_dashboard.html" class="btn btn-primary">Sign Up as Customer</a>
+                <a href="../provider/p_dashboard.html" class="btn btn-outline-primary">Sign Up as Provider</a>
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            <p class="small text-muted">Already have an account? <a href="login.html" class="fw-bold text-decoration-none" style="color: var(--wood-light);">Login</a></p>
+            
+            <a href="home.html" class="btn btn-sm btn-light text-muted w-100 mt-2">
+                <i class="bi bi-arrow-left"></i> Return to Home
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
