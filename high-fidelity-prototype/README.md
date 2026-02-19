@@ -67,3 +67,11 @@ EventSpark/
     ├── p_profile.html      # Public-facing provider page
     ├── p_reviews.html      # Reputation management
     └── packages.html       # Service and pricing configuration
+
+---
+
+## Things we will add in the future updates:
+* **home.html** Banner image on home page
+* **c_bookings** Separate bookings/events for customer in two columns
+* **p_dashboard** Inbox/Notifications separate
+
