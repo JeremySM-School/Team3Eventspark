@@ -74,4 +74,8 @@ EventSpark/
 * **home.html** Banner image on home page
 * **c_bookings** Separate bookings/events for customer in two columns
 * **p_dashboard** Inbox/Notifications separate
+**differences for customer and provider (i.e. log in, browse, navbar, inbox)**
+* **c_profile and c/p_account_settings** account settings, edit name and email, password there. profile edit is just what the public profile should look like (do separate customer profile public)
+* **g_login** login as guest
+
 
