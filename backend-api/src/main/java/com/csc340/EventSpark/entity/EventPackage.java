@@ -24,5 +24,5 @@ public class EventPackage {
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false)
     @JsonIgnoreProperties("eventPackages")
-    private ServiceProvider provider;
+    private Provider provider;
 }
