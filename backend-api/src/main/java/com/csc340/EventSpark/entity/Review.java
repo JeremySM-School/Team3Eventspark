@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,30 +13,39 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Integer starRating;
-
+    
     @Column(columnDefinition = "TEXT")
     private String comment;
-
+    
     @Column(columnDefinition = "TEXT")
     private String replyText;
-
-    private LocalDateTime reviewDate;
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    @JsonIgnoreProperties("reviews")
-    private Customer customer;
 
     @OneToOne
     @JoinColumn(name = "book_request_id", nullable = false)
     @JsonIgnoreProperties("review")
     private BookRequest bookRequest;
 
+    // --- Professor's Timestamp Requirements ---
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
     @PrePersist
     protected void onCreate() {
-        this.reviewDate = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }
