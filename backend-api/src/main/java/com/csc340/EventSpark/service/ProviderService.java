@@ -45,4 +45,22 @@ public class ProviderService {
     public void deleteProvider(Long id) {
         providerRepository.deleteById(id);
     }
+
+    public List<Provider> getProvidersByCategory(String category) {
+        return providerRepository.findByCategory(category);
+    }
+
+    public Provider addMediaToGallery(Long id, String imageUrl) {
+        return providerRepository.findById(id).map(provider -> {
+            provider.getImageUrls().add(imageUrl);
+            return providerRepository.save(provider);
+        }).orElseThrow(() -> new RuntimeException("Provider not found"));
+    }
+
+    public String getProviderAnalytics(Long id) {
+        Provider provider = providerRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Provider not found"));
+        return "Profile Views: " + provider.getProfileViews() + 
+               ", Package Clicks: " + provider.getPackageClicks();
+    }
 }
