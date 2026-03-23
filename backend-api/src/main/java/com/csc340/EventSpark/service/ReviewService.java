@@ -26,6 +26,10 @@ public class ReviewService {
         return reviewRepository.findByBookingId(bookingId);
     }
 
+    public List<Review> getAllReviews() {
+        return reviewRepository.findAll();
+    }
+
     public Review updateReview(Long id, Review reviewDetails){
         return reviewRepository.findById(id).map(review -> {
             review.setStarRating(reviewDetails.getStarRating());

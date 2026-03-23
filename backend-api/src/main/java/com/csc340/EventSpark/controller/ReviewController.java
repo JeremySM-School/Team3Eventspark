@@ -26,7 +26,7 @@ public class ReviewController {
     @GetMapping
     public ResponseEntity<List<Review>> getAllReviews() {
         List<Review> reviews = reviewService.getAllReviews();
-        return ResponseEntity<>(reviews, HttpStatus.OK);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -35,25 +35,25 @@ public class ReviewController {
         return review.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/event/{eventId}")
-    public ResponseEntity<List<Review>> getReviewsByEventId(@PathVariable Long eventId) {
-        List<Review> reviews = reviewService.getReviewsByEventId(eventId);
-        return ResponseEntity.ok(reviews);
+    @GetMapping("/booking/{bookingId}")
+    public ResponseEntity<List<Review>> getReviewsByBookingId(@PathVariable Long bookingId) {
+        List<Review> reviews = reviewService.getReviewsByBookingId(bookingId);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody Review review) {
-        Optional<Review> updatedReview = reviewService.updateReview(id, review);
-        return updatedReview.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        try {
+            Review updatedReview = reviewService.updateReview(id, review);
+            return ResponseEntity.ok(updatedReview);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReview(@PathVariable Long id) {
-        boolean deleted = reviewService.deleteReview(id);
-        if (deleted) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        reviewService.deleteReview(id);
+        return ResponseEntity.noContent().build();
     }
-}
+    }

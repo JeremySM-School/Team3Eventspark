@@ -35,10 +35,20 @@ public class BookRequestService {
         return bookRequestRepository.findByEventId(eventId);
     }
 
+    public List<BookRequest> getBookRequestsByCustomerId(Long customerId) {
+        return bookRequestRepository.findByCustomerId(customerId);
+    }
+
+    public List<BookRequest> getBookRequestsByPackageId(Long packageId) {
+        return bookRequestRepository.findByPackageId(packageId);
+    }
+
     public BookRequest updateBookRequest(Long id, BookRequest requestDetails) {
         return bookRequestRepository.findById(id).map(request -> {
             request.setStatus(requestDetails.getStatus());
-            request.setTotalPrice(requestDetails.getTotalPrice());
+            if (requestDetails.getTotalPrice() != null) {
+                request.setTotalPrice(requestDetails.getTotalPrice());
+            }
             return bookRequestRepository.save(request);
         }).orElseThrow(() -> new RuntimeException("Booking Request not found"));
     }
