@@ -28,6 +28,21 @@ public class Provider extends User{
     private String zipCode;
     private Double rating; // average rating from reviews
 
+    private Integer profileViews = 0; // track profile views
+    private Integer packageClicks = 0; // track clicks on event packages
+
+    //image urls
+    @ElementCollection
+    @CollectionTable(name = "provider_images", joinColumns = @JoinColumn(name = "provider_id"))
+    @Column(name = "image_url")
+    private List<String> imageUrls;
+
+    //booking calendar
+    @ElementCollection
+    @CollectionTable(name = "provider_blocked_dates", joinColumns = @JoinColumn(name = "provider_id"))
+    @Column(name = "blocked_date")
+    private List<String> blockedDates; // store blocked dates as strings for simplicity
+
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("provider")
     private List<EventPackage> packages;

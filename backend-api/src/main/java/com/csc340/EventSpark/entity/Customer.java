@@ -21,6 +21,18 @@ public class Customer extends User {
     private String lastName;
     private String phone;
 
+    private Boolean notificationsEnabled = true; // default to true
+
+    //follow providers
+    @ManyToMany
+    @JoinTable(
+        name = "customer_favorites",
+        joinColumns = @JoinColumn(name = "customer_id"),
+        inverseJoinColumns = @JoinColumn(name = "provider_id")
+    )
+    @JsonIgnoreProperties("favorites")
+    private List<Provider> favoriteProviders;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("customer")
     private List<Event> events;
