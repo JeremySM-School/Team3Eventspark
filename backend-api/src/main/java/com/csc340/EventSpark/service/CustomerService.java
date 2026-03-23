@@ -31,8 +31,14 @@ public class CustomerService {
             if (customerDetails.getEmail() != null){
                 customer.setEmail(customerDetails.getEmail());
             }
-            if (customerDetails.getName() != null){
-                customer.setStatus(customerDetails.getStatus());
+            if (customerDetails.getFirstName() != null) {
+                customer.setFirstName(customerDetails.getFirstName());
+            }
+            if (customerDetails.getLastName() != null) {
+                customer.setLastName(customerDetails.getLastName());
+            }
+            if (customerDetails.getPhone() != null) {
+                customer.setPhone(customerDetails.getPhone());
             }
             return customerRepository.save(customer);
         }).orElseThrow(() -> new RuntimeException("Customer not found"));
