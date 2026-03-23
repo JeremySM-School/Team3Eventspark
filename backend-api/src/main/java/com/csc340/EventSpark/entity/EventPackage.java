@@ -42,6 +42,10 @@ public class EventPackage {
     @Enumerated(EnumType.STRING)
     private PackageCategory category;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PackageStatus status;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -70,5 +74,10 @@ public class EventPackage {
         DECORATOR,
         BAKER,
         OTHER
+    }
+
+    public enum PackageStatus {
+        ACTIVE,
+        INACTIVE
     }
 }
