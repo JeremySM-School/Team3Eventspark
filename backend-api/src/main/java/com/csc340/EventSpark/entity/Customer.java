@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.List;
 
 @Entity
@@ -18,8 +17,12 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Customer extends User {
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private String firstName;
+    private String lastName;
+    private String phone;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("customer")
-    private List<BookRequest> bookRequests;
+    private List<Event> events;
 
 }

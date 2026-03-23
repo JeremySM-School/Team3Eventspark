@@ -1,4 +1,4 @@
-package com.example.EventSpark.entity;
+package com.csc340.EventSpark.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,9 +24,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
-    private String username;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
@@ -34,22 +31,13 @@ public class User {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
-
     @PrePersist
     protected void onCreate(){
         createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate(){
-        updatedAt = LocalDateTime.now();
     }
 
     enum UserRole {
-        HOST,
+        PROVIDER,
         CUSTOMER
     }
 

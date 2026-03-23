@@ -18,7 +18,6 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Integer starRating;
 
     @Column(columnDefinition = "TEXT")
@@ -27,32 +26,18 @@ public class Review {
     @Column(columnDefinition = "TEXT")
     private String replyText;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime reviewDate;
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    @JsonIgnoreProperties("reviews")
+    private Customer customer;
 
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    @OneToOne
+    @JoinColumn(name = "book_request_id", nullable = false)
+    @JsonIgnoreProperties("review")
+    private BookRequest bookRequest;
 
     @PrePersist
-    protected void onCreate(){
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate(){
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    
-
-    @ManyToOne
-    @JoinColumn(name = "event_id")
-    @JsonIgnoreProperties("reviews")
-    private Event event;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties("reviews")
-    private User user;
+    protected void onCreate() {
+        this.reviewDate = LocalDateTime.now();
 }
