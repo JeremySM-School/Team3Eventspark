@@ -1,5 +1,7 @@
 package com.csc340.EventSpark.repository;
 
-public class ReviewRepository {
-    
-}
+import com.csc340.EventSpark.entity.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface ReviewRepository extends JpaRepository<Review, Long> {}
