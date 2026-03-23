@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
+import com.csc340.EventSpark.entity.User.UserRole;
+
 
 @Entity
 @Table(name = "users")
@@ -22,18 +24,37 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String password;
+    private String passwordHash;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+    public enum UserStatus {
+        ACTIVE,
+        INACTIVE,
+        SUSPENDED
     }
 
     enum UserRole {

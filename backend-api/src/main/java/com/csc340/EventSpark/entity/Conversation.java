@@ -33,7 +33,7 @@ public class Conversation {
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false)
     @JsonIgnoreProperties("conversations")
-    private ServiceProvider provider;
+    private Provider provider;
 
     @ManyToOne
     @JoinColumn(name = "book_request_id", nullable = false)
