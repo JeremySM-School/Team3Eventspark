@@ -45,6 +45,6 @@ public class Provider extends User{
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("provider")
-    private List<EventPackage> packages;
+    private List<ServicePackage> packages;
 
 }
