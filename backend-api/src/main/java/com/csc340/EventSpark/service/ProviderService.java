@@ -63,4 +63,26 @@ public class ProviderService {
         return "Profile Views: " + provider.getProfileViews() + 
                ", Package Clicks: " + provider.getPackageClicks();
     }
+
+    public void incrementProfileViews(Long id) {
+        providerRepository.findById(id).ifPresent(provider -> {
+            provider.setProfileViews(provider.getProfileViews() + 1);
+            providerRepository.save(provider);
+        });
+    }
+
+    public void incrementPackageClicks(Long id) {
+        providerRepository.findById(id).ifPresent(provider -> {
+            provider.setPackageClicks(provider.getPackageClicks() + 1);
+            providerRepository.save(provider);
+        });
+    }
+
+    public List<Provider> searchProviders(String keyword) {
+        return providerRepository.findAll().stream()
+            .filter(provider -> provider.getName().toLowerCase().contains(keyword.toLowerCase()) ||
+                                provider.getCategory().toLowerCase().contains(keyword.toLowerCase()) ||
+                                provider.getBio().toLowerCase().contains(keyword.toLowerCase()))
+            .toList();
+    }
 }
