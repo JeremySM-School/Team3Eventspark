@@ -1,5 +1,8 @@
 package com.csc340.EventSpark.repository;
 
-public class EventRepository {
+import com.csc340.EventSpark.entity.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EventRepository extends JpaRepository<Event, Long> {
     
 }
