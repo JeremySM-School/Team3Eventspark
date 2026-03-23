@@ -1,58 +1,48 @@
 package com.csc340.EventSpark.service;
 
-import com.csc340.EventSpark.entity.*;
-import com.csc340.EventSpark.repository.*;
+import com.csc340.EventSpark.entity.Provider;
+import com.csc340.EventSpark.repository.ProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProviderService {
 
     @Autowired
-    private ProviderRepository providerRepo;
-    @Autowired
-    private EventPackageRepository packageRepo;
-    @Autowired
-    private BookRequestRepository bookRequestRepo;
-    @Autowired
-    private ReviewRepository reviewRepo;
-
-    public Provider getProviderById(Long id) {
-        return providerRepo.findById(id).orElseThrow(() -> new RuntimeException("Provider not found"));
-    }
+    private ProviderRepository providerRepository;
 
     public Provider createProvider(Provider provider) {
-        provider.setRole(User.UserRole.PROVIDER); 
-        return providerRepo.save(provider);
+        return providerRepository.save(provider);
     }
 
-    public Provider updateProvider(Long id, Provider updatedInfo) {
-        Provider existing = getProviderById(id);
-        existing.setBio(updatedInfo.getBio());
-        existing.setName(updatedInfo.getName());
-        existing.setServiceRadius(updatedInfo.getServiceRadius());
-        existing.setZipCode(updatedInfo.getZipCode());
-        return providerRepo.save(existing);
+    public Optional<Provider> getProviderById(Long id) {
+        return providerRepository.findById(id);
     }
 
-    public EventPackage createPackage(Long providerId, EventPackage eventPackage) {
-        Provider provider = getProviderById(providerId);
-        eventPackage.setProvider(provider);
-        return packageRepo.save(eventPackage);
+    public List<Provider> getAllProviders() {
+        return providerRepository.findAll();
     }
 
-    public List<EventPackage> getProviderPackages(Long providerId) {
-        return packageRepo.findByProvider(providerId);
+    public Provider getProviderByEmail(String email) {
+        return providerRepository.findByEmail(email);
     }
 
-    public List<BookRequest> getProviderBookings(Long providerId) {
-        return bookRequestRepo.findByProviderId(providerId);
+    public Provider updateProvider(Long id, Provider providerDetails) {
+        return providerRepository.findById(id).map(provider -> {
+            if (providerDetails.getName() != null) provider.setName(providerDetails.getName());
+            if (providerDetails.getCategory() != null) provider.setCategory(providerDetails.getCategory());
+            if (providerDetails.getBio() != null) provider.setBio(providerDetails.getBio());
+            if (providerDetails.getServiceRadius() != null) provider.setServiceRadius(providerDetails.getServiceRadius());
+            if (providerDetails.getZipCode() != null) provider.setZipCode(providerDetails.getZipCode());
+            if (providerDetails.getStatus() != null) provider.setStatus(providerDetails.getStatus());
+            return providerRepository.save(provider);
+        }).orElseThrow(() -> new RuntimeException("Provider not found"));
     }
 
-    public Review replyToReview(Long reviewId, String replyText) {
-        Review review = reviewRepo.findById(reviewId).orElseThrow();
-        review.setReplyText(replyText);
-        return reviewRepo.save(review);
+    public void deleteProvider(Long id) {
+        providerRepository.deleteById(id);
     }
 }
