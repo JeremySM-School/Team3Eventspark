@@ -22,8 +22,12 @@ public class ReviewService {
         return reviewRepository.findById(id);
     }
 
-    public List<Review> getReviewsByBookingId(Long bookingId){
-        return reviewRepository.findByBookingId(bookingId);
+    public List<Review> getReviewsByBookingRequestId(Long bookingRequestId){
+        return reviewRepository.findByBookingRequestId(bookingRequestId);
+    }
+
+    public List<Review> getReviewsByEventId(Long eventId){
+        return reviewRepository.findByEventId(eventId);
     }
 
     public List<Review> getAllReviews() {

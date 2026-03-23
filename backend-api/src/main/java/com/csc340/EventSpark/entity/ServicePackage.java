@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class EventPackage {
+public class ServicePackage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

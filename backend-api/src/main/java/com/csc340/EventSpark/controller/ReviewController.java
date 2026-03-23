@@ -35,9 +35,9 @@ public class ReviewController {
         return review.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/booking/{bookingId}")
-    public ResponseEntity<List<Review>> getReviewsByBookingId(@PathVariable Long bookingId) {
-        List<Review> reviews = reviewService.getReviewsByBookingId(bookingId);
+    @GetMapping("/booking/{bookingRequestId}")
+    public ResponseEntity<List<Review>> getReviewsByBookingRequestId(@PathVariable Long bookingRequestId) {
+        List<Review> reviews = reviewService.getReviewsByBookingRequestId(bookingRequestId);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 

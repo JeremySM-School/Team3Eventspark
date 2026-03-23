@@ -1,8 +1,8 @@
 package com.csc340.EventSpark.controller;
 
-import com.csc340.EventSpark.entity.EventPackage;
-import com.csc340.EventSpark.entity.EventPackage.PackageStatus;
-import com.csc340.EventSpark.service.EventPackageService;
+import com.csc340.EventSpark.entity.ServicePackage;
+import com.csc340.EventSpark.entity.ServicePackage.PackageStatus;
+import com.csc340.EventSpark.service.ServicePackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,46 +13,46 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/packages")
-public class EventPackageController {
+public class ServicePackageController {
 
     @Autowired
-    private EventPackageService packageService;
+    private ServicePackageService packageService;
 
     @PostMapping
-    public ResponseEntity<EventPackage> createPackage(@RequestBody EventPackage eventPackage) {
-        EventPackage createdPackage = packageService.createPackage(eventPackage);
+    public ResponseEntity<ServicePackage> createPackage(@RequestBody ServicePackage eventPackage) {
+        ServicePackage createdPackage = packageService.createPackage(eventPackage);
         return new ResponseEntity<>(createdPackage, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<EventPackage>> getAllPackages() {
-        List<EventPackage> packages = packageService.getAllPackages();
+    public ResponseEntity<List<ServicePackage>> getAllPackages() {
+        List<ServicePackage> packages = packageService.getAllPackages();
         return new ResponseEntity<>(packages, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventPackage> getPackageById(@PathVariable Long id) {
-        Optional<EventPackage> pkg = packageService.getPackageById(id);
+    public ResponseEntity<ServicePackage> getPackageById(@PathVariable Long id) {
+        Optional<ServicePackage> pkg = packageService.getPackageById(id);
         return pkg.map(p -> new ResponseEntity<>(p, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/provider/{providerId}")
-    public ResponseEntity<List<EventPackage>> getPackagesByProviderId(@PathVariable Long providerId) {
-        List<EventPackage> packages = packageService.getPackagesByProviderId(providerId);
+    public ResponseEntity<List<ServicePackage>> getPackagesByProviderId(@PathVariable Long providerId) {
+        List<ServicePackage> packages = packageService.getPackagesByProviderId(providerId);
         return new ResponseEntity<>(packages, HttpStatus.OK);
     }
 
     @GetMapping("/status/{status}")
-    public ResponseEntity<List<EventPackage>> getPackagesByStatus(@PathVariable PackageStatus status) {
-        List<EventPackage> packages = packageService.getPackagesByStatus(status);
+    public ResponseEntity<List<ServicePackage>> getPackagesByStatus(@PathVariable PackageStatus status) {
+        List<ServicePackage> packages = packageService.getPackagesByStatus(status);
         return new ResponseEntity<>(packages, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EventPackage> updatePackage(@PathVariable Long id, @RequestBody EventPackage packageDetails) {
+    public ResponseEntity<ServicePackage> updatePackage(@PathVariable Long id, @RequestBody ServicePackage packageDetails) {
         try {
-            EventPackage updatedPackage = packageService.updatePackage(id, packageDetails);
+            ServicePackage updatedPackage = packageService.updatePackage(id, packageDetails);
             return new ResponseEntity<>(updatedPackage, HttpStatus.OK);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

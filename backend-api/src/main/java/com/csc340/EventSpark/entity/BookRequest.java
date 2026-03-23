@@ -59,7 +59,7 @@ public class BookRequest {
         joinColumns = @JoinColumn(name = "book_request_id"),
         inverseJoinColumns = @JoinColumn(name = "event_package_id")
     )
-    private List<EventPackage> eventPackages;
+    private List<ServicePackage> eventPackages;
 
     public enum BookingStatus {
         PENDING,
