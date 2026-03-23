@@ -1,4 +1,4 @@
-package com.csc30.EventSpark.entity;
+package com.csc340.EventSpark.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
