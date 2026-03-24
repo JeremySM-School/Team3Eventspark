@@ -18,7 +18,7 @@ public interface BookRequestRepository extends JpaRepository<BookRequest, Long> 
     @Query(value = "SELECT b.* FROM book_requests b JOIN events e ON b.event_id = e.id WHERE e.customer_id = :customerId", nativeQuery = true)
     List<BookRequest> findByCustomerId(Long customerId);
 
-    @Query(value = "SELECT b.* FROM book_requests b JOIN booking_request_packages bpl ON b.id = bpl.book_request_id WHERE bpl.package_id = :packageId", nativeQuery = true)
+    @Query(value = "SELECT b.* FROM book_requests b JOIN booking_request_packages brp ON b.id = brp.book_request_id WHERE brp.service_package_id = :packageId", nativeQuery = true)
     List<BookRequest> findByPackageId(Long packageId);
 
     List<BookRequest> findByStatus(BookingStatus status);

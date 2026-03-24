@@ -21,7 +21,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "event_packages")
+@Table(name = "service_packages")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -54,7 +54,7 @@ public class ServicePackage {
 
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false)
-    @JsonIgnoreProperties("eventPackages")
+    @JsonIgnoreProperties("packages")
     private Provider provider;
 
     @PrePersist

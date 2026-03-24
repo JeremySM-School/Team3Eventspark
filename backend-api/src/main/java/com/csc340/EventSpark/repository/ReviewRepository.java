@@ -8,8 +8,8 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    @Query(value = "SELECT r.* FROM reviews r WHERE r.booking_id = :bookingRequestId", nativeQuery = true)
-    List<Review> findByBookingRequestId(Long bookingRequestId);
+    @Query(value = "SELECT r.* FROM reviews r WHERE r.book_request_id = :bookRequestId", nativeQuery = true)
+    List<Review> findByBookingRequestId(Long bookRequestId);
 
     @Query(value = "SELECT r.* FROM reviews r JOIN book_requests br ON r.book_request_id = br.id WHERE br.event_id = :eventId", nativeQuery = true)
     List<Review> findByEventId(Long eventId);
