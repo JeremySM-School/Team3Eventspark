@@ -1,0 +1,20 @@
+meta {
+  name: 3_Update Provider (Bio, Radius, Dates)
+  type: http
+  seq: 1
+}
+
+put {
+  url: http://localhost:8080/api/providers/2
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "bio": "Premium stage and ambient lighting for all occasions.",
+    "serviceRadius": 100,
+    "zipCode": "27260",
+    "blockedDates": ["2026-12-24", "2026-12-25"]
+  }
+}

@@ -1,0 +1,23 @@
+meta {
+  name: 1_Create Customer Profile
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/customers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "jeremy@example.com",
+    "passwordHash": "hashed_password_123",
+    "status": "ACTIVE",
+    "role": "CUSTOMER",
+    "firstName": "Jeremy",
+    "lastName": "Mayas",
+    "phone": "555-0192"
+  }
+}

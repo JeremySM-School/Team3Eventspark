@@ -1,0 +1,22 @@
+meta {
+  name: 4_Create a Service Package (Provider)
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/packages
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "provider": { "id": 2 },
+    "title": "Ambient Glow Set",
+    "description": "2 hours of soft lighting.",
+    "category": "DECORATOR",
+    "price": 250.00,
+    "status": "ACTIVE"
+  }
+}
