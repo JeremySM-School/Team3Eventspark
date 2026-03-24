@@ -43,7 +43,7 @@ The API supports two primary user roles based on the `UserRole` Enum:
 
 ---
 ## 3. UML Class Diagram
-![UML Class Diagram](../doc/UML.png)
+![UML Class Diagram](../docs/UML.png)
 
 ---
 ## 4. API Endpoints
