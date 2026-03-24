@@ -57,9 +57,9 @@ public class BookRequest {
     @JoinTable(
         name = "book_request_packages",
         joinColumns = @JoinColumn(name = "book_request_id"),
-        inverseJoinColumns = @JoinColumn(name = "event_package_id")
+        inverseJoinColumns = @JoinColumn(name = "service_package_id")
     )
-    private List<ServicePackage> eventPackages;
+    private List<ServicePackage> servicePackages;
 
     public enum BookingStatus {
         PENDING,
