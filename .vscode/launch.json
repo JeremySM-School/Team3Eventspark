@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-EventSparkApplication<EventSpark>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.csc340.EventSpark.EventSparkApplication",
+            "projectName": "EventSpark",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
