@@ -1,0 +1,17 @@
+meta {
+  name: 10_Approve the Booking (Provider)
+  type: http
+  seq: 1
+}
+
+put {
+  url: http://localhost:8080/api/book-requests/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "status": "APPROVED"
+  }
+}
