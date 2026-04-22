@@ -1,0 +1,21 @@
+meta {
+  name: 5_Create an Event (Customer)
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/events
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "customer": { "id": 1 },
+    "eventName": "UNC-G Graduation Bash",
+    "eventDate": "2026-12-15T18:00:00",
+    "location": "Greensboro, NC",
+    "status": "PLANNING"
+  }
+}

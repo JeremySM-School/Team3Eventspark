@@ -1,0 +1,56 @@
+package com.csc340.EventSpark.service;
+
+import com.csc340.EventSpark.entity.Customer;
+import com.csc340.EventSpark.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class CustomerService {
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    public Customer createCustomer(Customer customer) {
+        return customerRepository.save(customer);
+    }
+    
+    public Optional<Customer> getCustomerById(Long id){
+        return customerRepository.findById(id);
+    }
+
+    public List<Customer> getAllCustomers(){
+        return customerRepository.findAll();
+    }
+
+    public Customer updateCustomer(Long id, Customer customerDetails){
+        return customerRepository.findById(id).map(customer -> {
+            if (customerDetails.getEmail() != null){
+                customer.setEmail(customerDetails.getEmail());
+            }
+            if (customerDetails.getFirstName() != null) {
+                customer.setFirstName(customerDetails.getFirstName());
+            }
+            if (customerDetails.getLastName() != null) {
+                customer.setLastName(customerDetails.getLastName());
+            }
+            if (customerDetails.getPhone() != null) {
+                customer.setPhone(customerDetails.getPhone());
+            }
+            return customerRepository.save(customer);
+        }).orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        }
+
+        public void deleteCustomer(Long id) {
+            customerRepository.deleteById(id);
+        }
+
+        public Customer getCustomerByEmail(String email){
+            return customerRepository.findByEmail(email);
+        }
+    }
+

@@ -1,0 +1,17 @@
+meta {
+  name: 12_Reply to Review (Provider)
+  type: http
+  seq: 1
+}
+
+put {
+  url: http://localhost:8080/api/reviews/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "replyText": "Thank you! It was a pleasure lighting up the graduation bash."
+  }
+}
