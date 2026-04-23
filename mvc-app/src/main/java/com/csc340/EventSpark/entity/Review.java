@@ -31,7 +31,6 @@ public class Review {
     @JsonIgnoreProperties("review")
     private BookRequest bookRequest;
 
-    // --- Professor's Timestamp Requirements ---
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
