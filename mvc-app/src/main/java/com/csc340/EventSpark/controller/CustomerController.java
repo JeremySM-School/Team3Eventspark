@@ -6,56 +6,70 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/api/customers")
+@Controller
+@RequestMapping("/customers")
 public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        Customer createdCustomer = customerService.createCustomer(customer);
-        return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
+    @PostMapping("/create")
+    public String createCustomer(Customer customer) {
+        Customer created = customerService.createCustomer(customer);
+        return "redirect:/customers/dashboard/" + created.getId();
     }
 
-    @GetMapping
-    public ResponseEntity<List<Customer>> getAllCustomers() {
-        List<Customer> customers = customerService.getAllCustomers();
-        return new ResponseEntity<>(customers, HttpStatus.OK);
+
+@GetMapping("/dashboard/{id}")
+    public String showDashboard(@PathVariable Long id, Model model) {
+        Customer customer = customerService.getCustomerById(id).orElse(null);
+        if (customer != null) {
+            model.addAttribute("customer", customer);
+            return "Customer/c_dashboard"; 
+        }
+        return "redirect:/login"; 
     }
+
 
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
-        Optional<Customer> customer = customerService.getCustomerById(id);
-        return customer.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public String getCustomerById(@PathVariable Long id, Model model) {
+        Customer customer = customerService.getCustomerById(id).orElse(null);
+        model.addAttribute("customer", customer);
+        return "Customer/c_dashboard";
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<Customer> getCustomerByEmail(@PathVariable String email) {
-        Customer customer = customerService.getCustomerByEmail(email);
-        return customer != null ? new ResponseEntity<>(customer, HttpStatus.OK) 
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+public String getCustomerByEmail(@PathVariable String email, Model model) {
+    Customer customer = customerService.getCustomerByEmail(email);
+    if (customer != null) {
+        model.addAttribute("customer", customer);
+        return "Customer/c_dashboard"; 
+    }
+    return "redirect:/customers/not-found"; // Redirect to a not-found page or handle as needed
+}
+
+   @PostMapping("/update/{id}")
+    public String updateCustomer(@PathVariable Long id, Customer customerDetails) {
+        customerService.updateCustomer(id, customerDetails);
+        return "redirect:/customers/dashboard/" + id;
+    }
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Customer customer = customerService.getCustomerById(id).orElse(null);
+        model.addAttribute("customer", customer);
+        return "Customer/edit_c_profile";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customerDetails) {
-        Optional<Customer> existing = customerService.getCustomerById(id);
-        if(existing.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        try {
-            Customer updatedCustomer = customerService.updateCustomer(id, customerDetails);
-            return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+   @GetMapping("/delete/{id}")
+    public String deleteCustomer(@PathVariable Long id) {
+        customerService.deleteCustomer(id);
+        return "redirect:/login";
     }
-    
+
 }
