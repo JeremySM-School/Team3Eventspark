@@ -34,19 +34,16 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label fw-bold small">Profile Tags (Select up to 3)</label>
+                                <label class="form-label fw-bold small">Profile Categories (Select up to 3)</label>
                                 <div class="d-flex flex-wrap gap-2">
-                                    <input type="checkbox" class="btn-check" id="tag1" name="tags" value="Hip Hop" autocomplete="off">
-                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag1">Hip Hop</label>
+                                    <input type="checkbox" class="btn-check" id="cat1" name="category" value="DJ" autocomplete="off">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat1">DJ</label>
 
-                                    <input type="checkbox" class="btn-check" id="tag2" name="tags" value="Wedding DJ" autocomplete="off">
-                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag2">Wedding DJ</label>
+                                    <input type="checkbox" class="btn-check" id="cat2" name="category" value="Photographer" autocomplete="off">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat2">Photographer</label>
                                     
-                                    <input type="checkbox" class="btn-check" id="tag3" name="tags" value="Motivational Speaker" autocomplete="off">
-                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag3">Motivational</label>
-
-                                    <input type="checkbox" class="btn-check" id="tag4" name="tags" value="Jazz" autocomplete="off">
-                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag4">Jazz</label>
+                                    <input type="checkbox" class="btn-check" id="cat3" name="category" value="Painter" autocomplete="off">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat3">Painter</label>
                                 </div>
                             </div>
 
