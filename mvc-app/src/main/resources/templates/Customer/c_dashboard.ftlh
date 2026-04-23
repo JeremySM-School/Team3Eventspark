@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Dashboard | EventSpark</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="../home/home.html">
+                <i class="bi bi-stars"></i> EventSpark
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link active" href="c_dashboard.html">Dashboard</a>
+                    <a class="nav-link" href="../home/browse_services.html">Browse Services</a>
+                    <a class="nav-link" href="c_inbox.html">Inbox</a>
+                    <a class="nav-link" href="c_bookings.html">My Events</a>
+                    <a class="nav-link text-warning" href="../home/home.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0 fw-bold">Welcome back, Sarah!</h2>
+            <a href="create_event.html" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Plan New Event</a>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4"><div class="card p-4 text-center border-start border-5 border-primary">
+                <h2 class="fw-bold text-primary">3</h2><p class="text-muted mb-0">Upcoming Events</p>
+            </div></div>
+            <div class="col-md-4"><div class="card p-4 text-center border-start border-5 border-warning">
+                <h2 class="fw-bold text-warning">5</h2><p class="text-muted mb-0">Pending Requests</p>
+            </div></div>
+            <div class="col-md-4"><div class="card p-4 text-center border-start border-5 border-success">
+                <h2 class="fw-bold text-success">$12,000</h2><p class="text-muted mb-0">Total Budget</p>
+            </div></div>
+        </div>
+        
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header fw-bold bg-white py-3">Quick Actions</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-6"><a href="../home/browse_services.html" class="btn btn-outline-primary w-100 py-3"><i class="bi bi-search fs-4 d-block mb-2"></i>Find Talent</a></div>
+                            <div class="col-6"><a href="c_bookings.html" class="btn btn-outline-primary w-100 py-3"><i class="bi bi-calendar-event fs-4 d-block mb-2"></i>Manage Bookings</a></div>
+                            <div class="col-6"><a href="edit_c_profile.html" class="btn btn-outline-primary w-100 py-3"><i class="bi bi-person-gear fs-4 d-block mb-2"></i>Edit Profile</a></div>
+                            <div class="col-6"><a href="c_inbox.html" class="btn btn-outline-primary w-100 py-3"><i class="bi bi-envelope fs-4 d-block mb-2"></i>Messages</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-white fw-bold py-3">Notifications</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong class="text-success small">Booking Confirmed</strong>
+                            <p class="small text-muted mb-0">DJ Khaled accepted your request.</p>
+                        </li>
+                        <li class="list-group-item">
+                            <strong class="text-primary small">New Message</strong>
+                            <p class="small text-muted mb-0">Vincent van Gogh sent you a message.</p>
+                        </li>
+                    </ul>
+                    <div class="card-body text-center">
+                        <a href="c_inbox.html" class="btn btn-sm btn-link text-decoration-none">View Inbox</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold"><i class="bi bi-heart-fill text-danger me-2"></i>Saved Talent</h4>
+        <a href="../home/browse_services.html" class="btn btn-sm btn-outline-secondary">Find More</a>
+    </div>
+    
+    <div class="row g-3">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body d-flex align-items-center p-3">
+                    <img src="https://ui-avatars.com/api/?name=DJ+Khaled&background=0D8ABC&color=fff&size=60" class="rounded-circle me-3 shadow-sm">
+                    <div class="flex-grow-1">
+                        <h6 class="fw-bold mb-0">DJ Khaled</h6>
+                        <small class="text-muted">DJ / Musician</small>
+                    </div>
+                    <div class="text-end">
+                        <button class="btn btn-light btn-sm text-danger mb-1 px-2 py-0"><i class="bi bi-heart-fill"></i></button>
+                        <a href="../provider/p_profile.html" class="btn btn-primary btn-sm d-block" style="font-size: 0.75rem;">Book</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body d-flex align-items-center p-3">
+                    <img src="https://ui-avatars.com/api/?name=Michael+Buble&background=6D4C41&color=fff&size=60" class="rounded-circle me-3 shadow-sm">
+                    <div class="flex-grow-1">
+                        <h6 class="fw-bold mb-0">Michael Bublé</h6>
+                        <small class="text-muted">Live Singer</small>
+                    </div>
+                    <div class="text-end">
+                        <button class="btn btn-light btn-sm text-danger mb-1 px-2 py-0"><i class="bi bi-heart-fill"></i></button>
+                        <a href="../provider/p_profile.html" class="btn btn-primary btn-sm d-block" style="font-size: 0.75rem;">Book</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+            <a href="../home/browse_services.html" class="text-decoration-none">
+                <div class="card shadow-sm border border-dashed h-100 bg-light" style="border-style: dashed !important; border-width: 2px !important; border-color: #ccc !important;">
+                    <div class="card-body d-flex flex-column justify-content-center align-items-center text-muted p-3">
+                        <i class="bi bi-plus-circle fs-3 mb-1"></i>
+                        <small class="fw-bold">Discover More Pros</small>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>
