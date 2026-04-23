@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Calendar | EventSpark</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
     <style>
         .calendar-day { height: 100px; border: 1px solid #eee; position: relative; }
         .calendar-day:hover { background-color: #f8f9fa; cursor: pointer; }

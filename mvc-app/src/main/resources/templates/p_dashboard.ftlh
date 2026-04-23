@@ -5,7 +5,7 @@
     <title>Provider Dashboard | EventSpark</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg custom-navbar">
@@ -59,17 +59,17 @@
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-6">
-                                <a href="packages.html" class="btn btn-outline-primary w-100 py-4 fw-bold">
+                                <a href="/provider/packages" class="btn btn-outline-primary w-100 py-4 fw-bold">
                                     <i class="bi bi-box-seam fs-3 d-block mb-2"></i>Packages
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="calendar.html" class="btn btn-outline-primary w-100 py-4 fw-bold">
+                                <a href="/provider/calendar" class="btn btn-outline-primary w-100 py-4 fw-bold">
                                     <i class="bi bi-calendar-check fs-3 d-block mb-2"></i>Calendar
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="edit_p_profile.html" class="btn btn-outline-primary w-100 py-4 fw-bold">
+                                <a href="/provider/profile/edit" class="btn btn-outline-primary w-100 py-4 fw-bold">
                                     <i class="bi bi-person-gear fs-3 d-block mb-2"></i>Edit Profile
                                 </a>
                             </div>
