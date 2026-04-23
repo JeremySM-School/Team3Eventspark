@@ -25,20 +25,38 @@
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
                         <form action="/provider/profile/edit" method="POST">
+                            
                             <div class="row mb-3">
                                 <div class="col-md-12">
                                     <label class="form-label fw-bold small">Stage Name</label>
-                                    <input type="text" name="name" class="form-control" value="${provider.name!''}">
+                                    <input type="text" name="name" class="form-control" value="${(provider.name)!''}" required>
                                 </div>
                             </div>
-                            
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold small">Profile Tags (Select up to 3)</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <input type="checkbox" class="btn-check" id="tag1" name="tags" value="Hip Hop" autocomplete="off">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag1">Hip Hop</label>
+
+                                    <input type="checkbox" class="btn-check" id="tag2" name="tags" value="Wedding DJ" autocomplete="off">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag2">Wedding DJ</label>
+                                    
+                                    <input type="checkbox" class="btn-check" id="tag3" name="tags" value="Motivational Speaker" autocomplete="off">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag3">Motivational</label>
+
+                                    <input type="checkbox" class="btn-check" id="tag4" name="tags" value="Jazz" autocomplete="off">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="tag4">Jazz</label>
+                                </div>
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label fw-bold small">Bio</label>
-                                <textarea name="bio" class="form-control" rows="4">${provider.bio!''}</textarea>
+                                <textarea name="bio" class="form-control" rows="4" required>${(provider.bio)!''}</textarea>
                             </div>
 
                             <div class="d-grid mt-5">
-                                <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+                                <button type="submit" class="btn btn-primary btn-lg">Save Profile & Tags</button>
                             </div>
                         </form>
                     </div>

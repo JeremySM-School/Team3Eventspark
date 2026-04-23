@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.csc340.EventSpark.entity.Provider;
 import com.csc340.EventSpark.entity.ServicePackage;
 import com.csc340.EventSpark.repository.ServicePackageRepository;
-
+import com.csc340.EventSpark.repository.ProviderRepository;
+import java.util.*;
 
 
 @Controller
@@ -22,7 +23,7 @@ public class ProviderUIController {
     private ServicePackageRepository packageRepo;
 
     @Autowired
-    private com.csc340.EventSpark.repository.ProviderRepository providerRepo;
+    private ProviderRepository providerRepo;
 
     @GetMapping("/dashboard")
     public String getDashboard(Model model) {
@@ -82,7 +83,8 @@ public class ProviderUIController {
     @PostMapping("/profile/edit")
     public String updateProfile(
             @RequestParam String name,
-            @RequestParam String bio) {
+            @RequestParam String bio,
+            @RequestParam(required = false) List<String> category) {
         
         // Grab the existing provider
         Provider p = providerRepo.findById(2L).orElse(new Provider());
@@ -90,6 +92,12 @@ public class ProviderUIController {
         // Update the fields (assuming your Provider entity has 'name' and 'bio')
         p.setName(name); 
         p.setBio(bio);
+
+        if (category != null) {
+            p.setCategory(String.join(", ", category)); // Join the list into a comma-separated string
+        } else {
+            p.setCategory(""); // Set to empty string if no categories selected
+        }
         
         // Save it back to Neon
         providerRepo.save(p);
