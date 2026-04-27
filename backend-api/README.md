@@ -43,7 +43,7 @@ The API supports two primary user roles based on the `UserRole` Enum:
 
 ---
 ## 3. UML Class Diagram
-![UML Class Diagram](../doc/UML.png)
+![UML Class Diagram](../docs/UML.png)
 
 ---
 ## 4. API Endpoints
@@ -149,7 +149,7 @@ GET /customers
 
 ### Service Package Management
 
-####Create Service Package
+#### Create Service Package
 **Endpoint:** `POST /packages`
 **Use Case:** US-HOST-002 (Create Event Packages)
 **Description:** Provider creates a new service bundle.
