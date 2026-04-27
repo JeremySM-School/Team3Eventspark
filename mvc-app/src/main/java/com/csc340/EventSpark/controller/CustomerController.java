@@ -26,16 +26,16 @@ public class CustomerController {
     }
 
 
-@GetMapping("/dashboard/{id}")
+@GetMapping("/dashboard")
     public String showDashboard(@PathVariable Long id, Model model) {
         Customer customer = customerService.getCustomerById(id).orElse(null);
-        if (customer != null) {
+        if(customer != null) {
             model.addAttribute("customer", customer);
-            return "Customer/c_dashboard"; 
+            return "Customer/c_dashboard";
         }
-        return "redirect:/login"; 
+        return "redirect:/customers/not-found";
+    
     }
-
 
     @GetMapping("/{id}")
     public String getCustomerById(@PathVariable Long id, Model model) {
@@ -51,7 +51,7 @@ public String getCustomerByEmail(@PathVariable String email, Model model) {
         model.addAttribute("customer", customer);
         return "Customer/c_dashboard"; 
     }
-    return "redirect:/customers/not-found"; // Redirect to a not-found page or handle as needed
+    return "redirect:/customers/not-found"; 
 }
 
    @PostMapping("/update/{id}")
