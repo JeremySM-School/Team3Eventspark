@@ -10,7 +10,9 @@ import com.csc340.EventSpark.entity.Review;
 import com.csc340.EventSpark.repository.CustomerRepository;
 import com.csc340.EventSpark.repository.MessageRepository;
 import com.csc340.EventSpark.repository.ReviewRepository;
-
+import com.csc340.EventSpark.service.EventService;
+import com.csc340.EventSpark.entity.Event;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -25,6 +27,9 @@ public class CustomerUIController {
 
     @Autowired
     private ReviewRepository reviewRepo;
+
+    @Autowired
+    private EventService eventService;
 
     private final Long TEST_CUSTOMER_ID = 1L;
 
@@ -66,15 +71,52 @@ public class CustomerUIController {
         return "edit_c_profile";
     }
 
-    @PostMapping("/profile/edit")
-    public String updateProfile(@RequestParam String firstName, @RequestParam String lastName, 
-                                 @RequestParam String email, @RequestParam String phone) {
-        Customer c = customerRepo.findById(TEST_CUSTOMER_ID).orElse(new Customer());
-        c.setFirstName(firstName);
-        c.setLastName(lastName);
-        c.setEmail(email);
-        c.setPhone(phone);
-        customerRepo.save(c);
-        return "redirect:/customer/dashboard";
+   @PostMapping("/profile/edit")
+public String updateProfile(@RequestParam String firstName, 
+                             @RequestParam String lastName, 
+                             @RequestParam String email, 
+                             @RequestParam String phone) {
+    // 1. Fetch Jeremy (ID: 1)
+    Customer c = customerRepo.findById(TEST_CUSTOMER_ID).orElse(new Customer());
+    
+    // 2. Map the text fields
+    c.setFirstName(firstName);
+    c.setLastName(lastName);
+    c.setEmail(email);
+    c.setPhone(phone);
+    
+    // 3. Force notifications to '1' by default
+    c.setNotificationsEnabled(true); 
+    
+    // 4. Save back to Neon
+    customerRepo.save(c);
+    
+    return "redirect:/customer/dashboard";
+}
+
+@PostMapping("/events/new")
+public String createEvent(@RequestParam String eventName, 
+                          @RequestParam String eventDate,
+                          @RequestParam String eventLocation) {
+    
+    Event newEvent = new Event(); 
+    newEvent.setEventName(eventName);
+    
+    
+    if (eventDate != null && !eventDate.isEmpty()) {
+        newEvent.setEventDate(LocalDateTime.parse(eventDate));
     }
+    
+    newEvent.setLocation(eventLocation); 
+    newEvent.setStatus("Planning");
+
+    // Associate with Jeremy (ID: 1)
+    Customer c = customerRepo.findById(TEST_CUSTOMER_ID).orElse(new Customer());
+    newEvent.setCustomer(c);
+
+
+    eventService.createEvent(newEvent);
+
+    return "redirect:/customer/dashboard";
+}
 }

@@ -30,7 +30,7 @@
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-0 fw-bold">Welcome back, ${customer.firstName!"Guest"}!</h2>
-            <a href="/customer/inbox" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Plan New Event</a>
+            <a href="/customer/events/new" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Plan New Event</a>
         </div>
 
         <div class="row g-4 mb-5">
