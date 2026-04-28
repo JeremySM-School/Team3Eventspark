@@ -94,6 +94,11 @@ public String updateProfile(@RequestParam String firstName,
     return "redirect:/customer/dashboard";
 }
 
+@GetMapping("/events/new")
+public String showCreateEventForm() {
+    return "create_event"; 
+}
+
 @PostMapping("/events/new")
 public String createEvent(@RequestParam String eventName, 
                           @RequestParam String eventDate,
