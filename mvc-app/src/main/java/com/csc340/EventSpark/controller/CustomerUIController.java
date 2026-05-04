@@ -59,7 +59,6 @@ public class CustomerUIController {
         Review newReview = new Review();
         newReview.setStarRating(starRating);
         newReview.setComment(comment);
-        // Note: In a real scenario, you'd associate a BookRequest here
         reviewRepo.save(newReview);
         return "redirect:/customer/reviews";
     }
@@ -79,13 +78,11 @@ public String updateProfile(@RequestParam String firstName,
     // 1. Fetch Jeremy (ID: 1)
     Customer c = customerRepo.findById(TEST_CUSTOMER_ID).orElse(new Customer());
     
-    // 2. Map the text fields
     c.setFirstName(firstName);
     c.setLastName(lastName);
     c.setEmail(email);
     c.setPhone(phone);
     
-    // 3. Force notifications to '1' by default
     c.setNotificationsEnabled(true); 
     
     // 4. Save back to Neon
