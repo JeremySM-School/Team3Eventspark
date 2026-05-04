@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.csc340.EventSpark.entity.Provider;
 import com.csc340.EventSpark.entity.ServicePackage;
+import com.csc340.EventSpark.entity.BookRequest;
 import com.csc340.EventSpark.repository.ServicePackageRepository;
 import com.csc340.EventSpark.repository.ProviderRepository;
-import java.util.*;
+import com.csc340.EventSpark.repository.BookRequestRepository;
 
+import jakarta.servlet.http.HttpSession;
+import java.util.*;
 
 @Controller
 @RequestMapping("/provider")
@@ -25,89 +28,126 @@ public class ProviderUIController {
     @Autowired
     private ProviderRepository providerRepo;
 
+    @Autowired
+    private BookRequestRepository bookRequestRepo;
+
+    // --- DASHBOARD ---
     @GetMapping("/dashboard")
-    public String getDashboard(Model model) {
-        // Still hardcoding ID 2L for now until we build the Login system
-        Provider p = providerRepo.findById(2L).orElse(new Provider());
+    public String getDashboard(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        Provider p = providerRepo.findById(userId).orElse(new Provider());
         model.addAttribute("provider", p);
-        int unreadMessages = 1; 
-        model.addAttribute("pendingCount", unreadMessages);
+        
+        // REAL NOTIFICATION BADGE: Count only "PENDING" requests for this provider
+        List<BookRequest> allRequests = bookRequestRepo.findByProviderId(userId);
+        long pendingCount = allRequests.stream()
+            .filter(req -> req.getStatus() == BookRequest.BookingStatus.PENDING)
+            .count();
+            
+        model.addAttribute("pendingCount", pendingCount);
         return "p_dashboard";
     }
 
-    @GetMapping("/packages")
-    public String getPackages(Model model) {
-        // Fetch all packages from the database
-        // We use model.addAttribute to pass this list to the HTML page
-        model.addAttribute("packageList", packageRepo.findAll());
-        return "packages";
+    // --- USE CASE 4: INBOX & BOOKING REQUESTS ---
+    @GetMapping("/inbox")
+    public String getInbox(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        // Pass the requests and the pending count to the view
+        List<BookRequest> requests = bookRequestRepo.findByProviderId(userId);
+        model.addAttribute("requests", requests);
+        
+        long pendingCount = requests.stream()
+            .filter(req -> req.getStatus() == BookRequest.BookingStatus.PENDING)
+            .count();
+        model.addAttribute("pendingCount", pendingCount);
+
+        return "p_inbox";
     }
 
-    @GetMapping("/calendar")
-    public String getCalendar(Model model) {
-        return "calendar";
+    @PostMapping("/inbox/update")
+    public String updateRequestStatus(
+            @RequestParam Long requestId,
+            @RequestParam String newStatus,
+            HttpSession session) {
+        
+        // Find the request, update it to APPROVED or REJECTED, and save it
+        BookRequest request = bookRequestRepo.findById(requestId).orElse(null);
+        if (request != null) {
+            request.setStatus(BookRequest.BookingStatus.valueOf(newStatus));
+            bookRequestRepo.save(request);
+        }
+        
+        return "redirect:/provider/inbox";
+    }
+
+    // --- USE CASE 1: PACKAGES ---
+    @GetMapping("/packages")
+    public String getPackages(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        // Only load packages for THIS logged-in provider
+        model.addAttribute("packageList", packageRepo.findByProviderId(userId));
+        return "packages";
     }
 
     @PostMapping("/packages/new")
     public String createNewPackage(
             @RequestParam String title,
             @RequestParam String description,
-            @RequestParam Double price) {
+            @RequestParam Double price,
+            HttpSession session) {
         
+        Long userId = (Long) session.getAttribute("userId");
+        Provider p = providerRepo.findById(userId).orElseThrow();
+
         ServicePackage newPackage = new ServicePackage();
         newPackage.setTitle(title);
         newPackage.setDescription(description);
         newPackage.setPrice(price);
-        
-        // FIXED: Set default values for category and status
         newPackage.setStatus(ServicePackage.PackageStatus.ACTIVE); 
         newPackage.setCategory(ServicePackage.PackageCategory.OTHER); 
-        
-        // Hardcoding the Provider ID to 2 
-        Provider p = new Provider(); 
-        p.setId(2L); 
         newPackage.setProvider(p);
 
-        // Save to Neon Database
         packageRepo.save(newPackage);
-        
-        // Reload the page
         return "redirect:/provider/packages";
     }
 
-    // Loads the Edit Profile page with your current data
+    // --- USE CASE 2: EDIT PROFILE ---
     @GetMapping("/profile/edit")
-    public String getEditProfile(Model model) {
-        // Hardcoding ID 2 just like we did for packages
-        Provider p = providerRepo.findById(2L).orElse(new Provider());
+    public String getEditProfile(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        Provider p = providerRepo.findById(userId).orElse(new Provider());
         model.addAttribute("provider", p);
         return "edit_p_profile";
     }
 
-    // Catches the form submission and saves the new bio/name
     @PostMapping("/profile/edit")
     public String updateProfile(
             @RequestParam String name,
             @RequestParam String bio,
-            @RequestParam(required = false) List<String> category) {
+            @RequestParam(required = false) List<String> category,
+            HttpSession session) {
         
-        // Grab the existing provider
-        Provider p = providerRepo.findById(2L).orElse(new Provider());
+        Long userId = (Long) session.getAttribute("userId");
+        Provider p = providerRepo.findById(userId).orElseThrow();
         
-        // Update the fields (assuming your Provider entity has 'name' and 'bio')
         p.setName(name); 
         p.setBio(bio);
 
         if (category != null) {
-            p.setCategory(String.join(", ", category)); // Join the list into a comma-separated string
+            p.setCategory(String.join(", ", category)); 
         } else {
-            p.setCategory(""); // Set to empty string if no categories selected
+            p.setCategory(""); 
         }
         
-        // Save it back to Neon
         providerRepo.save(p);
-        
-        // Send you back to the dashboard when done
         return "redirect:/provider/dashboard";
     }
 }
