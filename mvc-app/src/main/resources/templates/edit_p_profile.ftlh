@@ -34,16 +34,25 @@
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label fw-bold small">Profile Categories (Select up to 3)</label>
+                                <label class="form-label fw-bold small">Profile Categories (Select all that apply)</label>
                                 <div class="d-flex flex-wrap gap-2">
-                                    <input type="checkbox" class="btn-check" id="cat1" name="category" value="DJ" autocomplete="off">
+                                    <input type="checkbox" class="btn-check" id="cat1" name="category" value="DJ">
                                     <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat1">DJ</label>
 
-                                    <input type="checkbox" class="btn-check" id="cat2" name="category" value="Photographer" autocomplete="off">
-                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat2">Photographer</label>
+                                    <input type="checkbox" class="btn-check" id="cat2" name="category" value="Live Band">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat2">Live Band</label>
                                     
-                                    <input type="checkbox" class="btn-check" id="cat3" name="category" value="Painter" autocomplete="off">
-                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat3">Painter</label>
+                                    <input type="checkbox" class="btn-check" id="cat3" name="category" value="Photographer">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat3">Photographer</label>
+
+                                    <input type="checkbox" class="btn-check" id="cat4" name="category" value="Videographer">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat4">Videographer</label>
+
+                                    <input type="checkbox" class="btn-check" id="cat5" name="category" value="Catering">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat5">Catering</label>
+
+                                    <input type="checkbox" class="btn-check" id="cat6" name="category" value="Decorator">
+                                    <label class="btn btn-outline-secondary btn-sm rounded-pill px-3" for="cat6">Decorator</label>
                                 </div>
                             </div>
 

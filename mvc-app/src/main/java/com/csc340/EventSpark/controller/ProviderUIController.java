@@ -27,6 +27,11 @@ public class ProviderUIController {
 
     @GetMapping("/dashboard")
     public String getDashboard(Model model) {
+        // Still hardcoding ID 2L for now until we build the Login system
+        Provider p = providerRepo.findById(2L).orElse(new Provider());
+        model.addAttribute("provider", p);
+        int unreadMessages = 1; 
+        model.addAttribute("pendingCount", unreadMessages);
         return "p_dashboard";
     }
 

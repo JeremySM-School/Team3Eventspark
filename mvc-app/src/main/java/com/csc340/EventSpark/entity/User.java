@@ -67,7 +67,7 @@ public class User {
         SUSPENDED
     }
 
-    enum UserRole {
+    public enum UserRole {
         PROVIDER,
         CUSTOMER
     }

@@ -17,7 +17,12 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link active" href="p_dashboard.html">Dashboard</a>
-                    <a class="nav-link" href="p_inbox.html">Inbox <span class="badge bg-danger rounded-pill">1</span></a>
+                    <a class="nav-link" href="/provider/inbox">
+                        Inbox 
+                        <#if pendingCount &gt; 0>
+                            <span class="badge bg-danger rounded-pill">${pendingCount}</span>
+                        </#if>
+                    </a>
                     <a class="nav-link" href="p_profile.html">My Profile</a>
                     <a class="nav-link text-warning" href="../home/home.html">Logout</a>
                 </div>
@@ -27,8 +32,9 @@
 
     <div class="container py-5">
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h2 class="fw-bold">Welcome back, Khaled!</h2>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/DJ_KHALED_Press_exclusive_%283x4_cropped%29.jpg" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 150px; height: 150px; object-fit: cover;">
+            <h2 class="fw-bold">Welcome back, ${(provider.name)!'Provider'}!</h2>
+            
+            <img src="img" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 150px; height: 150px; object-fit: cover;">
         </div>
         
         <div class="row g-4 mb-5">
