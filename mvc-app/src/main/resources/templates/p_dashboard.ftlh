@@ -10,13 +10,13 @@
 <body>
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container">
-            <a class="navbar-brand fs-3" href="../home/home.html"><i class="bi bi-stars"></i> EventSpark</a>
+            <a class="navbar-brand fs-3" href="/"><i class="bi bi-stars"></i> EventSpark</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav ms-auto">
-                    <a class="nav-link active" href="p_dashboard.html">Dashboard</a>
+                    <a class="nav-link active" href="/provider/dashboard">Dashboard</a>
                     <a class="nav-link" href="/provider/inbox">
                         Inbox 
                         <#if pendingCount &gt; 0>
@@ -24,7 +24,8 @@
                         </#if>
                     </a>
                     <a class="nav-link" href="p_profile.html">My Profile</a>
-                    <a class="nav-link text-warning" href="../home/home.html">Logout</a>
+                    
+                    <a class="nav-link text-warning" href="/logout">Logout</a>
                 </div>
             </div>
         </div>

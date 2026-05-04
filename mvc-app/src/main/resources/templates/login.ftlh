@@ -19,6 +19,13 @@
 
         <h4 class="mb-4 text-muted">Welcome Back</h4>
 
+        <#if RequestParameters.error??>
+            <div class="alert alert-danger alert-dismissible fade show text-start small shadow-sm" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> <strong>Login Failed.</strong> Please check your email and password.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </#if>
+
         <form action="/login" method="POST" class="text-start">
             <div class="mb-3">
                 <label class="form-label fw-bold small text-muted">Email Address</label>
