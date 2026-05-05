@@ -30,7 +30,11 @@ public class HomeController {
     private ServicePackageRepository packageRepo;
 
     @GetMapping("/")
-    public String getHome() { return "home"; }
+    public String getHome(HttpSession session, Model model) { 
+        model.addAttribute("userId", session.getAttribute("userId"));
+        model.addAttribute("userRole", session.getAttribute("userRole"));
+        return "home"; 
+    }
 
     @GetMapping("/login")
     public String getLogin() { return "login"; }
@@ -93,7 +97,7 @@ public class HomeController {
         if (customer != null && customer.getPasswordHash().equals(password)) {
             session.setAttribute("userId", customer.getId());
             session.setAttribute("userRole", customer.getRole().name());
-            return "redirect:/customer/c_dashboard";
+            return "redirect:/customer/dashboard";
         }
         
         // 3. Fail -> Back to login
@@ -106,9 +110,11 @@ public class HomeController {
         return "redirect:/";
     }
 
-    // --- BROWSE SERVICES (For the next step!) ---
+    // --- BROWSE SERVICES  ---
     @GetMapping("/browse")
-    public String browseServices(Model model) {
+    public String browseServices(HttpSession session, Model model) {
+        model.addAttribute("userId", session.getAttribute("userId"));
+        model.addAttribute("userRole", session.getAttribute("userRole"));
         model.addAttribute("packages", packageRepo.findAll());
         return "browse_services";
     }

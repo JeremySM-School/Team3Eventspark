@@ -8,11 +8,16 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg custom-navbar">
+    <nav class="navbar navbar-expand-lg custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
-            <a class="navbar-brand fs-3" href="../home/home.html"><i class="bi bi-stars"></i> EventSpark</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="p_dashboard.html">Back to Dashboard</a>
+            <a class="navbar-brand fs-3" href="/"><i class="bi bi-stars"></i> EventSpark</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link fw-bold text-light" href="/provider/dashboard">Back to Dashboard</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -58,7 +63,12 @@
                     <h3 class="text-success fw-bold mb-1">$${pkg.price}</h3>
                     <div>
                         <button class="btn btn-sm btn-outline-secondary me-1">Edit</button>
-                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                        <form action="/provider/packages/delete" method="POST" class="mt-3" onsubmit="return confirm('Are you sure you want to delete this package?');">
+                            <input type="hidden" name="packageId" value="${pkg.id}">
+                            <button type="submit" class="btn btn-sm btn-outline-danger w-100">
+                                <i class="bi bi-trash3-fill me-2"></i>Delete Package
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

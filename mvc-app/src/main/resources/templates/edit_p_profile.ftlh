@@ -9,8 +9,8 @@
 <body>
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container">
-            <a class="navbar-brand fs-3" href="../home/home.html">EventSpark</a>
-            <div class="navbar-nav ms-auto"><a class="nav-link" href="p_dashboard.html">Back to Dashboard</a></div>
+            <a class="navbar-brand fs-3" href="/">EventSpark</a>
+            <div class="navbar-nav ms-auto"><a class="nav-link" href="/provider/dashboard">Back to Dashboard</a></div>
         </div>
     </nav>
 
@@ -19,19 +19,37 @@
             <div class="col-md-8">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2 class="fw-bold">Edit Public Profile</h2>
-                    <a href="p_profile.html" target="_blank" class="btn btn-outline-primary btn-sm">View Public Page</a>
+                    <a href="/provider/profile" target="_blank" class="btn btn-outline-primary btn-sm">View Public Page</a>
                 </div>
 
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
                         <form action="/provider/profile/edit" method="POST">
                             
-                            <div class="row mb-3">
-                                <div class="col-md-12">
-                                    <label class="form-label fw-bold small">Stage Name</label>
+                            <form action="/provider/profile/edit" method="POST">
+                                <div class="text-center mb-4">
+                                    <img src="${(provider.imageUrls[0])!'https://ui-avatars.com/api/?name=${(provider.name)!\"P\"}&background=4e342e&color=fff&size=150'}" 
+                                        class="rounded-circle shadow-sm border border-3 border-primary mb-3" 
+                                        style="width: 120px; height: 120px; object-fit: cover;">
+                                    <br>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">Change Photo (Coming Soon)</button>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Stage / Business Name</label>
                                     <input type="text" name="name" class="form-control" value="${(provider.name)!''}" required>
                                 </div>
-                            </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <label class="form-label fw-bold">Zip Code</label>
+                                        <input type="text" name="zipCode" class="form-control" value="${(provider.zipCode)!''}">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label fw-bold">Travel Radius (Miles)</label>
+                                        <input type="number" name="serviceRadius" class="form-control" value="${(provider.serviceRadius)!25}">
+                                    </div>
+                                </div>
 
                             <div class="mb-4">
                                 <label class="form-label fw-bold small">Profile Categories (Select all that apply)</label>

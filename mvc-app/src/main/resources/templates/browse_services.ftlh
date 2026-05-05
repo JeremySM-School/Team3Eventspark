@@ -13,8 +13,17 @@
         <div class="container">
             <a class="navbar-brand fw-bold" href="/"><i class="bi bi-stars"></i> EventSpark</a>
             <div class="ms-auto">
-                <a href="/login" class="btn btn-outline-light me-2">Login</a>
-                <a href="/signup" class="btn btn-light fw-bold">Sign Up</a>  
+                <#if userId??>
+                    <#if userRole == 'PROVIDER'>
+                        <a href="/provider/dashboard" class="btn btn-outline-light me-2">My Dashboard</a>
+                    <#else>
+                        <a href="/customer/c_dashboard" class="btn btn-outline-light me-2">My Dashboard</a>
+                    </#if>
+                    <a href="/logout" class="btn btn-warning fw-bold text-dark">Logout</a>
+                <#else>
+                    <a href="/login" class="btn btn-outline-light me-2">Login</a>
+                    <a href="/signup" class="btn btn-light fw-bold text-dark">Sign Up</a>  
+                </#if>
             </div>
         </div>
     </nav>
