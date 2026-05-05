@@ -40,42 +40,30 @@
                 
                 <#assign hasPending = false>
                 <#list requests as req>
-                    <#if req.status == 'PENDING'>
-                        <#assign hasPending = true>
-                        <div class="card shadow-sm border-0 mb-3" style="border-left: 5px solid var(--gold-accent) !important;">
-                            <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <div class="d-flex align-items-center mb-2">
-                                            <span class="badge bg-warning text-dark me-2">PENDING</span>
-                                            <small class="text-muted">Requested on ${req.createdAt.toLocalDate()}</small>
-                                        </div>
-                                        <h5 class="fw-bold mb-1">${(req.event.eventName)!'Unnamed Event'}</h5>
-                                        <p class="text-muted mb-0"><i class="bi bi-person me-1"></i> Customer: ${(req.event.customer.firstName)!''} ${(req.event.customer.lastName)!''}</p>
-                                        
-                                        <hr class="opacity-25">
-                                        <p class="mb-0 small fw-bold">Requested Package: 
-                                            <span class="text-primary">${req.servicePackages[0].title}</span> 
-                                            <span class="text-success ms-2">($${req.totalPrice})</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-4 text-end">
-                                        <form action="/provider/inbox/update" method="POST" class="d-inline">
-                                            <input type="hidden" name="requestId" value="${req.id}">
-                                            <input type="hidden" name="newStatus" value="APPROVED">
-                                            <button type="submit" class="btn btn-success fw-bold px-4 me-2 shadow-sm"><i class="bi bi-check-lg me-1"></i>Approve</button>
-                                        </form>
-                                        
-                                        <form action="/provider/inbox/update" method="POST" class="d-inline">
-                                            <input type="hidden" name="requestId" value="${req.id}">
-                                            <input type="hidden" name="newStatus" value="REJECTED">
-                                            <button type="submit" class="btn btn-outline-danger fw-bold px-3"><i class="bi bi-x-lg"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </#if>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="/provider/messages" class="btn btn-sm btn-outline-primary fw-bold"><i class="bi bi-chat-dots me-1"></i>Message Customer</a>
+                        
+                        <#if req.status == 'PENDING'>
+                            <form action="/provider/inbox/update" method="POST" class="d-inline">
+                                <input type="hidden" name="requestId" value="${req.id}">
+                                <input type="hidden" name="newStatus" value="APPROVED">
+                                <button type="submit" class="btn btn-sm btn-success fw-bold">Approve</button>
+                            </form>
+                            <form action="/provider/inbox/update" method="POST" class="d-inline">
+                                <input type="hidden" name="requestId" value="${req.id}">
+                                <input type="hidden" name="newStatus" value="REJECTED">
+                                <button type="submit" class="btn btn-sm btn-danger fw-bold">Deny</button>
+                            </form>
+                        </#if>
+                        
+                        <#if req.status == 'APPROVED'>
+                            <form action="/provider/inbox/update" method="POST" class="d-inline">
+                                <input type="hidden" name="requestId" value="${req.id}">
+                                <input type="hidden" name="newStatus" value="CANCELLED">
+                                <button type="submit" class="btn btn-sm btn-outline-danger fw-bold" onclick="return confirm('Are you sure you want to cancel this booking?');">Cancel Booking</button>
+                            </form>
+                        </#if>
+                    </div>
                 </#list>
 
                 <#if !hasPending>

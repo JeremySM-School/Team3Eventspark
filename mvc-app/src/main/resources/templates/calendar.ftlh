@@ -55,7 +55,7 @@
                         
                         // Pull dates from FreeMarker into a JS Array safely
                         const gigDates = [
-                            <#list gigs as gig>"${gig.eventDate!gig.createdAt.toLocalDate()}"<#sep>,</#list>
+                            <#list gigs as gig>"${(gig.event.eventDate?keep_before('T'))!''}"<#sep>,</#list>
                         ];
 
                         let gridHTML = '';
@@ -89,8 +89,7 @@
                 <div class="card mb-3 border-start border-4 border-danger shadow-sm">
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-2">
-                            <strong class="text-danger">${gig.eventDate!gig.createdAt.toLocalDate()}</strong>
-                            <span class="badge bg-success border text-white">Confirmed</span>
+                            <strong class="text-danger">${(gig.event.eventDate?replace('T', ' at '))!'Date TBD'}</strong>                            <span class="badge bg-success border text-white">Confirmed</span>
                         </div>
                         <h6 class="fw-bold mb-1">${(gig.event.eventName)!'Unnamed Event'}</h6>
                         <p class="small text-muted mb-2">Package: ${gig.servicePackages[0].title}</p>

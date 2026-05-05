@@ -1,13 +1,21 @@
 package com.csc340.EventSpark.controller;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.csc340.EventSpark.entity.BookRequest;
 import com.csc340.EventSpark.entity.Conversation;
 import com.csc340.EventSpark.entity.Customer;
+import com.csc340.EventSpark.entity.Event;
+import com.csc340.EventSpark.entity.Message;
 import com.csc340.EventSpark.entity.Review;
 import com.csc340.EventSpark.entity.ServicePackage;
 import com.csc340.EventSpark.repository.BookRequestRepository;
@@ -18,12 +26,8 @@ import com.csc340.EventSpark.repository.MessageRepository;
 import com.csc340.EventSpark.repository.ReviewRepository;
 import com.csc340.EventSpark.repository.ServicePackageRepository;
 import com.csc340.EventSpark.service.EventService;
-import com.csc340.EventSpark.entity.Event;
-import com.csc340.EventSpark.entity.Message;
 
 import jakarta.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
@@ -111,6 +115,11 @@ public class CustomerUIController {
         // Pass the logged-in ID so FreeMarker knows which chat bubbles to turn blue
         model.addAttribute("currentUserId", userId);
 
+        List<BookRequest> pendingRequests = bookRequestRepo.findByCustomerId(userId).stream()
+            .filter(req -> req.getStatus() == BookRequest.BookingStatus.PENDING)
+            .toList();
+        model.addAttribute("pendingRequests", pendingRequests);
+        
         return "c_inbox";
     }
 

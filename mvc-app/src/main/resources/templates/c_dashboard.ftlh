@@ -35,19 +35,19 @@
 
         <div class="row g-4 mb-5">
             <div class="col-md-4">
-                <div class="card p-4 text-center border-start border-5 border-primary">
+                <div class="card p-4 text-center border-start border-5 border-primary h-100 shadow-sm d-flex flex-column justify-content-center">
                     <h2 class="fw-bold text-primary">${(upcomingEventsCount)!0}</h2>
                     <p class="text-muted mb-0">Upcoming Events</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card p-4 text-center border-start border-5 border-warning">
+                <div class="card p-4 text-center border-start border-5 border-warning h-100 shadow-sm d-flex flex-column justify-content-center">
                     <h2 class="fw-bold text-warning">${(pendingRequestsCount)!0}</h2>
                     <p class="text-muted mb-0">Pending Requests</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <<div class="card p-4 text-center border-start border-5 border-success shadow-sm">
+                <<div class="card p-4 text-center border-start border-5 border-success h-100 shadow-sm d-flex flex-column justify-content-center">
                     <h2 class="fw-bold text-success">$${totalSpent!0}</h2>
                     <p class="text-muted mb-0 fw-bold text-uppercase small">Total Spent</p>
                 </div>

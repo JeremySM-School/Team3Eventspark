@@ -43,6 +43,15 @@
                             </div>
                             
                             <p class="card-text fs-5">"${review.comment!''}"</p>
+
+                            <div class="mb-3 mt-2">
+                                <span class="badge bg-light text-dark border me-2">
+                                    <i class="bi bi-calendar-event me-1 text-primary"></i> ${(review.bookRequest.event.eventName)!'Event'}
+                                </span>
+                                <span class="badge bg-light text-dark border">
+                                    <i class="bi bi-box-seam me-1 text-primary"></i> ${(review.bookRequest.servicePackages[0].title)!'Service'}
+                                </span>
+                            </div>
                             
                             <#if review.replyText??>
                                 <div class="mt-3 p-3 bg-light rounded border-start border-4">
