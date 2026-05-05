@@ -377,9 +377,12 @@ public class CustomerUIController {
         // We still want them logged in as a customer to view this properly
         if (session.getAttribute("userId") == null) return "redirect:/login";
 
-        // Fetch the Provider
         Provider provider = providerRepo.findById(providerId).orElse(null);
         if (provider == null) return "redirect:/browse";
+
+        // --- NEW: INCREMENT PROFILE VIEWS ---
+        provider.setProfileViews(provider.getProfileViews() + 1);
+        providerRepo.save(provider);
 
         // Fetch the Provider's active packages
         List<ServicePackage> packages = packageRepo.findByProviderId(providerId).stream()

@@ -39,22 +39,28 @@
         </div>
         
         <div class="row g-4 mb-5">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card p-4 text-center border-start border-5 border-primary shadow-sm">
                     <h2 class="fw-bold text-primary">${upcomingGigs}</h2>
                     <p class="text-muted mb-0 fw-bold text-uppercase small">Upcoming Gigs</p>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card p-4 text-center border-start border-5 border-success shadow-sm">
                     <h2 class="fw-bold text-success">$${totalRevenue}</h2>
                     <p class="text-muted mb-0 fw-bold text-uppercase small">Month Revenue</p>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card p-4 text-center border-start border-5 border-warning shadow-sm">
                     <h2 class="fw-bold text-warning">${avgRating!5.0} <i class="bi bi-star-fill fs-5"></i></h2>                    
                     <p class="text-muted mb-0 fw-bold text-uppercase small">Average Rating</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-4 text-center border-start border-5 border-info shadow-sm">
+                    <h2 class="fw-bold text-info">${provider.profileViews!0}</h2>
+                    <p class="text-muted mb-0 fw-bold text-uppercase small">Profile Views</p>
                 </div>
             </div>
         </div>
