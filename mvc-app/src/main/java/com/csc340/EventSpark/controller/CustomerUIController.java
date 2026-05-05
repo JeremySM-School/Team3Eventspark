@@ -30,8 +30,11 @@ public class CustomerUIController {
     @Autowired
     private ReviewRepository reviewRepo;
 
+
     @Autowired
     private EventService eventService;
+
+
 
     // --- DASHBOARD ---
     @GetMapping("/dashboard")
@@ -145,4 +148,7 @@ public class CustomerUIController {
         eventService.createEvent(newEvent);
         return "redirect:/customer/dashboard";
     }
+
 }
+   
+
