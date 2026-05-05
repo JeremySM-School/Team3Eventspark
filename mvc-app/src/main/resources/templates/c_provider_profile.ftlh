@@ -84,7 +84,7 @@
                         <div class="card shadow-sm border-0 mb-3">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between mb-2">
-                                    <strong class="text-dark">${(review.customer.firstName)!'Guest'}</strong>
+                                    <strong class="text-dark">${(review.customer.fullName)!'Guest'}</strong>
                                     <span class="text-warning fw-bold">${review.starRating}/5 <i class="bi bi-star-fill"></i></span>
                                 </div>
                                 <p class="text-muted small mb-0">"${review.comment}"</p>
