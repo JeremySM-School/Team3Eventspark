@@ -50,7 +50,7 @@
                                             <span class="badge bg-warning text-dark me-2">PENDING</span>
                                             <small class="text-muted">Requested on ${req.createdAt.toLocalDate()}</small>
                                         </div>
-                                        <h5 class="fw-bold mb-1">${req.event.name}</h5>
+                                        <h5 class="fw-bold mb-1">${(req.event.eventName)!'Unnamed Event'}</h5>
                                         <p class="text-muted mb-0"><i class="bi bi-person me-1"></i> Customer: ${(req.event.customer.firstName)!''} ${(req.event.customer.lastName)!''}</p>
                                         
                                         <hr class="opacity-25">
@@ -95,7 +95,7 @@
                             <div class="card-body py-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h6 class="fw-bold mb-1">${req.event.name}</h6>
+                                        <h6 class="fw-bold mb-1">${(req.event.eventName)!'Unnamed Event'}</h6>
                                         <small class="text-muted">${req.servicePackages[0].title} • $${req.totalPrice}</small>
                                     </div>
                                     <div>

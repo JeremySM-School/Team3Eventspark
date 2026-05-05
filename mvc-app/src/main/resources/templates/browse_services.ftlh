@@ -17,7 +17,7 @@
                     <#if userRole == 'PROVIDER'>
                         <a href="/provider/dashboard" class="btn btn-outline-light me-2">My Dashboard</a>
                     <#else>
-                        <a href="/customer/c_dashboard" class="btn btn-outline-light me-2">My Dashboard</a>
+                        <a href="/customer/dashboard" class="btn btn-outline-light me-2">My Dashboard</a>
                     </#if>
                     <a href="/logout" class="btn btn-warning fw-bold text-dark">Logout</a>
                 <#else>

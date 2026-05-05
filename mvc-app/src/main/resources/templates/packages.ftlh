@@ -36,6 +36,18 @@
                         <label class="form-label fw-bold small">Package Title</label>
                         <input type="text" name="title" class="form-control" placeholder='e.g., "Another One" Wedding Set' required>
                     </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small">Service Category</label>
+                        <select name="category" class="form-select border-primary" required>
+                            <option value="WEDDING">Wedding Services</option>
+                            <option value="CORPORATE">Corporate Events</option>
+                            <option value="PARTY">Private Party</option>
+                            <option value="MUSIC">Music & Entertainment</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+
                     <div class="mb-3">
                         <label class="form-label fw-bold small">Description</label>
                         <textarea name="description" class="form-control" rows="2" required></textarea>
@@ -44,7 +56,7 @@
                         <label class="form-label fw-bold small">Price ($)</label>
                         <input type="number" step="0.01" name="price" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-primary fw-bold">Submit Package</button>
+                    <button type="submit" class="btn btn-primary fw-bold w-100">Submit Package</button>
                 </form>
             </div>
         </div>

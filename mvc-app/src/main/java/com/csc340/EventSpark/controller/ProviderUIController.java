@@ -176,10 +176,11 @@ public class ProviderUIController {
             @RequestParam String title,
             @RequestParam String description,
             @RequestParam Double price,
+            @RequestParam String category, // NEW: Catches the dropdown value
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:/login"; // SECURITY CHECK
+        if (userId == null) return "redirect:/login"; 
         
         Provider p = providerRepo.findById(userId).orElseThrow();
 
@@ -188,7 +189,14 @@ public class ProviderUIController {
         newPackage.setDescription(description);
         newPackage.setPrice(price);
         newPackage.setStatus(ServicePackage.PackageStatus.ACTIVE); 
-        newPackage.setCategory(ServicePackage.PackageCategory.OTHER); 
+        
+        // Convert the HTML String into your specific Java Enum safely
+        try {
+            newPackage.setCategory(ServicePackage.PackageCategory.valueOf(category.toUpperCase())); 
+        } catch (IllegalArgumentException e) {
+            newPackage.setCategory(ServicePackage.PackageCategory.OTHER); // Fallback if it fails
+        }
+        
         newPackage.setProvider(p);
 
         packageRepo.save(newPackage);
