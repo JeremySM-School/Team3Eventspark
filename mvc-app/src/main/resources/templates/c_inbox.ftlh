@@ -20,14 +20,19 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-md-4">
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action active bg-primary border-primary">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Active Conversation</h5>
-                            <small>Thread #${threadId!1}</small>
-                        </div>
-                        <p class="mb-1 small">Viewing live messages from DB</p>
-                    </a>
+                <div class="list-group shadow-sm">
+                    <#if threads?? && threads?has_content>
+                        <#list threads as thread>
+                            <a href="/customer/inbox?threadId=${thread.id}" class="list-group-item list-group-item-action ${(currentThreadId?? && currentThreadId == thread.id)?string('active bg-primary border-primary', '')}">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1 fw-bold">Chat with ${(thread.provider.name)!'Provider'}</h6>
+                                </div>
+                                <small class="mb-1 text-truncate d-block">Thread #${thread.id}</small>
+                            </a>
+                        </#list>
+                    <#else>
+                        <div class="p-3 text-muted small text-center">No active conversations.</div>
+                    </#if>
                 </div>
             </div>
 
@@ -38,26 +43,28 @@
                     </div>
                     <div class="card-body d-flex flex-column" style="height: 500px; overflow-y: auto;">
                         <div class="mb-auto">
-                            <#list messages as msg>
-                                <div class="p-3 rounded mb-2 w-75 ${(msg.senderId == 1)?string('bg-primary text-white ms-auto', 'bg-light')}">
-                                    <small class="fw-bold ${(msg.senderId == 1)?string('text-white-50', 'text-muted')}">
-                                        ${(msg.senderId == 1)?string('You', 'Provider')}
-                                    </small>
-                                    <p class="mb-0">${msg.content}</p>
-                                    <small class="d-block mt-1 opacity-75" style="font-size: 0.7rem;">
-                                        ${msg.createdAt!""}
-                                    </small>
-                                </div>
+                            <#if messages?? && messages?has_content>
+                                <#list messages as msg>
+                                    <div class="p-3 rounded mb-2 w-75 ${(msg.senderId == currentUserId)?string('bg-primary text-white ms-auto', 'bg-light')}">
+                                        <small class="fw-bold ${(msg.senderId == currentUserId)?string('text-white-50', 'text-muted')}">
+                                            ${(msg.senderId == currentUserId)?string('You', 'Provider')}
+                                        </small>
+                                        <p class="mb-0">${msg.content}</p>
+                                        <small class="d-block mt-1 opacity-75" style="font-size: 0.7rem;">
+                                            ${msg.createdAt!""}
+                                        </small>
+                                    </div>
+                                </#list>
                             <#else>
                                 <div class="text-center py-5">
-                                    <p class="text-muted">No messages in this thread yet.</p>
+                                    <p class="text-muted">No messages in this thread yet, or no active thread selected.</p>
                                 </div>
-                            </#list>
+                            </#if>
                         </div>
                         
                         <div class="mt-3 border-top pt-3">
                             <form action="/customer/inbox/send" method="post">
-                                <input type="hidden" name="threadId" value="${threadId!1}">
+                                <input type="hidden" name="threadId" value="${currentThreadId!''}">
                                 <div class="input-group">
                                     <input type="text" name="content" class="form-control" placeholder="Type a message..." required>
                                     <button type="submit" class="btn btn-primary">Send</button>

@@ -9,11 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.csc340.EventSpark.entity.Provider;
+import com.csc340.EventSpark.entity.Review;
 import com.csc340.EventSpark.entity.ServicePackage;
 import com.csc340.EventSpark.entity.BookRequest;
+import com.csc340.EventSpark.entity.Conversation;
 import com.csc340.EventSpark.repository.ServicePackageRepository;
 import com.csc340.EventSpark.repository.ProviderRepository;
+import com.csc340.EventSpark.repository.ReviewRepository;
 import com.csc340.EventSpark.repository.BookRequestRepository;
+import com.csc340.EventSpark.repository.ConversationRepository;
+import com.csc340.EventSpark.repository.MessageRepository;
+import com.csc340.EventSpark.entity.Message;
 
 import jakarta.servlet.http.HttpSession;
 import java.util.*;
@@ -30,6 +36,55 @@ public class ProviderUIController {
 
     @Autowired
     private BookRequestRepository bookRequestRepo;
+
+    @Autowired
+    private ConversationRepository conversationRepo;
+
+    @Autowired
+    private MessageRepository messageRepo;
+
+    @Autowired
+    private ReviewRepository reviewRepo;
+
+    // --- DIRECT MESSAGING ---
+    @GetMapping("/messages")
+    public String getMessages(@RequestParam(required = false) Long threadId, Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        List<Conversation> threads = conversationRepo.findByProviderId(userId);
+        model.addAttribute("threads", threads);
+
+        if (threadId == null && !threads.isEmpty()) {
+            threadId = threads.get(0).getId();
+        }
+
+        if (threadId != null) {
+            model.addAttribute("messages", messageRepo.findByThreadId(threadId));
+            model.addAttribute("currentThreadId", threadId);
+        }
+
+        model.addAttribute("currentUserId", userId);
+        return "p_messages";
+    }
+
+    @PostMapping("/messages/send")
+    public String sendProviderMessage(@RequestParam Long threadId, @RequestParam String content, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        // Fetch the actual objects from the database
+        Provider sender = providerRepo.findById(userId).orElseThrow();
+        Conversation thread = conversationRepo.findById(threadId).orElseThrow();
+
+        Message newMessage = new Message();
+        newMessage.setContent(content);
+        newMessage.setSender(sender); // Set the object, not the ID!
+        newMessage.setThread(thread); // Set the object, not the ID!
+        messageRepo.save(newMessage);
+
+        return "redirect:/provider/messages?threadId=" + threadId;
+    }
 
     // --- DASHBOARD ---
     @GetMapping("/dashboard")
@@ -193,10 +248,34 @@ public class ProviderUIController {
         return "redirect:/provider/dashboard";
     }
 
+    // --- REVIEWS & FAN LOVE ---
     @GetMapping("/reviews")
-    public String getReviews(HttpSession session) {
-        if (session.getAttribute("userId") == null) return "redirect:/login";
+    public String getProviderReviews(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        // Fetch all reviews where this provider was reviewed
+        // (Assuming Review entity has a getProvider() method, if not we can use findAll for the MVP)
+        List<Review> reviews = reviewRepo.findAll().stream()
+            .filter(r -> r.getBookRequest() != null && 
+                         r.getBookRequest().getProvider() != null && 
+                         r.getBookRequest().getProvider().getId().equals(userId))
+            .toList();
+            
+        model.addAttribute("reviews", reviews);
         return "p_reviews";
+    }
+
+    @PostMapping("/reviews/reply")
+    public String replyToReview(@RequestParam Long reviewId, @RequestParam String replyText, HttpSession session) {
+        if (session.getAttribute("userId") == null) return "redirect:/login";
+
+        Review review = reviewRepo.findById(reviewId).orElse(null);
+        if (review != null) {
+            review.setReplyText(replyText); // Save the provider's response
+            reviewRepo.save(review);
+        }
+        return "redirect:/provider/reviews";
     }
 
     @GetMapping("/calendar")

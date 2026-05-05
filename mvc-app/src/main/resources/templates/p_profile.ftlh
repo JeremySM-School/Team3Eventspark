@@ -73,7 +73,7 @@
                             <#if userRole?? && userRole == 'CUSTOMER'>
                                 <a href="/customer/inbox" class="btn btn-warning btn-lg fw-bold">Message Provider</a>
                             <#else>
-                                <button class="btn btn-warning btn-lg fw-bold" disabled>Login as Customer to Book</button>
+                                <a href="/login" class="btn btn-warning btn-lg fw-bold">Login as Customer to Book</a>
                             </#if>
                         </div>
                     </div>

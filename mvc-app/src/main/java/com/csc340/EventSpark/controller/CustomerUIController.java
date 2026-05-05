@@ -5,13 +5,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.csc340.EventSpark.entity.BookRequest;
+import com.csc340.EventSpark.entity.Conversation;
 import com.csc340.EventSpark.entity.Customer;
 import com.csc340.EventSpark.entity.Review;
+import com.csc340.EventSpark.entity.ServicePackage;
+import com.csc340.EventSpark.repository.BookRequestRepository;
+import com.csc340.EventSpark.repository.ConversationRepository;
 import com.csc340.EventSpark.repository.CustomerRepository;
+import com.csc340.EventSpark.repository.EventRepository;
 import com.csc340.EventSpark.repository.MessageRepository;
 import com.csc340.EventSpark.repository.ReviewRepository;
+import com.csc340.EventSpark.repository.ServicePackageRepository;
 import com.csc340.EventSpark.service.EventService;
 import com.csc340.EventSpark.entity.Event;
+import com.csc340.EventSpark.entity.Message;
 
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
@@ -34,6 +42,18 @@ public class CustomerUIController {
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private ServicePackageRepository packageRepo;
+    
+    @Autowired
+    private EventRepository eventRepo;
+    
+    @Autowired
+    private BookRequestRepository bookRequestRepo;
+
+    @Autowired
+    private ConversationRepository conversationRepo;
+
 
 
     // --- DASHBOARD ---
@@ -44,17 +64,72 @@ public class CustomerUIController {
 
         Customer c = customerRepo.findById(userId).orElse(new Customer());
         model.addAttribute("customer", c);
+
+        // 1. Upcoming Events 
+        long upcomingEventsCount = c.getEvents() != null ? c.getEvents().size() : 0;
+        model.addAttribute("upcomingEventsCount", upcomingEventsCount);
+
+        List<BookRequest> customerRequests = bookRequestRepo.findByCustomerId(userId);
+
+        // 2. Pending Requests 
+        long pendingRequestsCount = customerRequests.stream()
+            .filter(req -> req.getStatus() == BookRequest.BookingStatus.PENDING)
+            .count();
+        model.addAttribute("pendingRequestsCount", pendingRequestsCount);
+
+        // 3. Total Budget Spent
+        double totalSpent = customerRequests.stream()
+            .filter(req -> req.getStatus() == BookRequest.BookingStatus.APPROVED)
+            .mapToDouble(BookRequest::getTotalPrice)
+            .sum();
+        model.addAttribute("totalSpent", totalSpent);
+
         return "c_dashboard";
     }
 
-    // --- INBOX ---
+    // --- MESSAGING / INBOX ---
     @GetMapping("/inbox")
-    public String getInbox(@RequestParam(required = false, defaultValue = "1") Long threadId, Model model, HttpSession session) {
-        if (session.getAttribute("userId") == null) return "redirect:/login";
+    public String getInbox(@RequestParam(required = false) Long threadId, Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
 
-        model.addAttribute("messages", messageRepo.findByThreadId(threadId));
-        model.addAttribute("threadId", threadId);
+        // 1. Fetch all chat threads belonging to this customer
+        List<Conversation> threads = conversationRepo.findByCustomerId(userId);
+        model.addAttribute("threads", threads);
+
+        // 2. Default to the first thread if none is selected
+        if (threadId == null && !threads.isEmpty()) {
+            threadId = threads.get(0).getId();
+        }
+
+        // 3. Load the messages for the active thread
+        if (threadId != null) {
+            model.addAttribute("messages", messageRepo.findByThreadId(threadId));
+            model.addAttribute("currentThreadId", threadId);
+        }
+
+        // Pass the logged-in ID so FreeMarker knows which chat bubbles to turn blue
+        model.addAttribute("currentUserId", userId);
+
         return "c_inbox";
+    }
+
+    @PostMapping("/inbox/send")
+    public String sendMessage(@RequestParam Long threadId, @RequestParam String content, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        // Fetch the actual objects from the database
+        Customer sender = customerRepo.findById(userId).orElseThrow();
+        Conversation thread = conversationRepo.findById(threadId).orElseThrow();
+
+        Message newMessage = new Message();
+        newMessage.setContent(content);
+        newMessage.setSender(sender); // Set the object, not the ID!
+        newMessage.setThread(thread); // Set the object, not the ID!
+        messageRepo.save(newMessage);
+
+        return "redirect:/customer/inbox?threadId=" + threadId;
     }
 
     // --- REVIEWS ---
@@ -70,12 +145,23 @@ public class CustomerUIController {
     }
 
     @PostMapping("/reviews/add")
-    public String addReview(@RequestParam int starRating, @RequestParam String comment, HttpSession session) {
-        if (session.getAttribute("userId") == null) return "redirect:/login";
+    public String addReview(
+            @RequestParam int starRating, 
+            @RequestParam String comment, 
+            @RequestParam Long bookingId, // NEW: Targets the exact booking
+            HttpSession session) {
+        
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        // Fetch the specific booking we are reviewing
+        BookRequest booking = bookRequestRepo.findById(bookingId).orElseThrow();
 
         Review newReview = new Review();
         newReview.setStarRating(starRating);
         newReview.setComment(comment);
+        newReview.setBookRequest(booking); // Link it to the booking!
+        
         reviewRepo.save(newReview);
         return "redirect:/customer/reviews";
     }
@@ -126,13 +212,17 @@ public class CustomerUIController {
             @RequestParam String eventName, 
             @RequestParam String eventDate,
             @RequestParam String eventLocation,
+            @RequestParam(required = false) String eventType,
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
         if (userId == null) return "redirect:/login";
         
         Event newEvent = new Event(); 
-        newEvent.setEventName(eventName);
+        
+        // Append the category type to the name so it saves to the database seamlessly
+        String finalName = (eventType != null && !eventType.isEmpty()) ? eventName + " (" + eventType + ")" : eventName;
+        newEvent.setEventName(finalName);
         
         if (eventDate != null && !eventDate.isEmpty()) {
             newEvent.setEventDate(LocalDateTime.parse(eventDate));
@@ -141,11 +231,72 @@ public class CustomerUIController {
         newEvent.setLocation(eventLocation); 
         newEvent.setStatus("Planning");
 
-        // Associate with the dynamically logged-in Customer
         Customer c = customerRepo.findById(userId).orElseThrow();
         newEvent.setCustomer(c);
 
         eventService.createEvent(newEvent);
+        return "redirect:/customer/dashboard";
+    }
+
+    // --- CHECKOUT FLOW ---
+    @GetMapping("/checkout")
+    public String getCheckout(@RequestParam Long packageId, Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        // Fetch the package the user wants to buy
+        ServicePackage pkg = packageRepo.findById(packageId).orElse(null);
+        if (pkg == null) return "redirect:/browse";
+
+        // Fetch the customer so we can show their existing events in a dropdown
+        Customer customer = customerRepo.findById(userId).orElseThrow();
+        
+        model.addAttribute("pkg", pkg);
+        model.addAttribute("existingEvents", customer.getEvents()); 
+        return "c_checkout";
+    }
+
+    @PostMapping("/checkout/process")
+    public String processCheckout(
+            @RequestParam Long packageId,
+            @RequestParam(required = false) Long existingEventId, 
+            @RequestParam(required = false) String eventName,     
+            @RequestParam(required = false) String eventDate,
+            @RequestParam(required = false) String eventLocation,
+            HttpSession session) {
+        
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        Customer customer = customerRepo.findById(userId).orElseThrow();
+        ServicePackage pkg = packageRepo.findById(packageId).orElseThrow();
+
+        Event targetEvent;
+
+        //  Use an existing event OR create a new one on the fly
+        if (existingEventId != null) {
+            targetEvent = eventRepo.findById(existingEventId).orElseThrow();
+        } else {
+            targetEvent = new Event();
+            targetEvent.setEventName(eventName); 
+            targetEvent.setCustomer(customer);
+            targetEvent.setLocation(eventLocation);
+            if (eventDate != null && !eventDate.isEmpty()) {
+                targetEvent.setEventDate(LocalDateTime.parse(eventDate));
+            }
+            targetEvent = eventRepo.save(targetEvent); 
+        }
+
+        // Generate the Official Booking Request!
+        BookRequest request = new BookRequest();
+        request.setEvent(targetEvent);
+        request.setProvider(pkg.getProvider());
+        request.setServicePackages(List.of(pkg)); 
+        request.setStatus(BookRequest.BookingStatus.PENDING);
+        request.setTotalPrice(pkg.getPrice());
+        
+        bookRequestRepo.save(request);
+
         return "redirect:/customer/dashboard";
     }
 
