@@ -21,7 +21,7 @@
                     <a class="nav-link active" href="/customer/dashboard">Dashboard</a>
                     <a class="nav-link" href="/customer/inbox">Inbox</a>
                     <a class="nav-link" href="/customer/reviews">My Reviews</a>
-                    <a class="nav-link text-warning" href="/">Logout</a>
+                    <a class="nav-link text-warning" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
