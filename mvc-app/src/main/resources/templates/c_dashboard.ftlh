@@ -36,20 +36,20 @@
         <div class="row g-4 mb-5">
             <div class="col-md-4">
                 <div class="card p-4 text-center border-start border-5 border-primary">
-                    <h2 class="fw-bold text-primary">3</h2>
+                    <h2 class="fw-bold text-primary">${(upcomingEventsCount)!0}</h2>
                     <p class="text-muted mb-0">Upcoming Events</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card p-4 text-center border-start border-5 border-warning">
-                    <h2 class="fw-bold text-warning">5</h2>
+                    <h2 class="fw-bold text-warning">${(pendingRequestsCount)!0}</h2>
                     <p class="text-muted mb-0">Pending Requests</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card p-4 text-center border-start border-5 border-success">
-                    <h2 class="fw-bold text-success">$12,000</h2>
-                    <p class="text-muted mb-0">Total Budget</p>
+                <<div class="card p-4 text-center border-start border-5 border-success shadow-sm">
+                    <h2 class="fw-bold text-success">$${totalSpent!0}</h2>
+                    <p class="text-muted mb-0 fw-bold text-uppercase small">Total Spent</p>
                 </div>
             </div>
         </div>
@@ -87,20 +87,42 @@
 
             <div class="col-md-6">
                 <div class="card h-100 shadow-sm">
-                    <div class="card-header bg-white fw-bold py-3">Account Details</div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <strong class="small">Full Name</strong>
-                            <p class="small text-muted mb-0">${customer.firstName!""} ${customer.lastName!""}</p>
-                        </li>
-                        <li class="list-group-item">
-                            <strong class="small">Email Address</strong>
-                            <p class="small text-muted mb-0">${customer.email!"No email set"}</p>
-                        </li>
-                        <li class="list-group-item">
-                            <strong class="small">Phone</strong>
-                            <p class="small text-muted mb-0">${customer.phone!"Not provided"}</p>
-                        </li>
+                    <div class="card-header bg-white fw-bold py-3">My Events</div>
+                    <ul class="list-group list-group-flush" style="max-height: 300px; overflow-y: auto;">
+                        <#if customer.events?? && customer.events?has_content>
+                            <#list customer.events as event>
+                                <li class="list-group-item py-3">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <strong class="text-primary">${event.eventName}</strong>
+                                        <span class="badge bg-light text-dark border">${event.status!"Planning"}</span>
+                                    </div>
+                                    <small class="text-muted d-block mb-2"><i class="bi bi-calendar"></i> ${(event.eventDate?string('MMMM d, yyyy'))!'Date TBD'}</small>
+                                    
+                                    <#if event.bookRequests?? && event.bookRequests?has_content>
+                                        <#list event.bookRequests as booking>
+                                            <#if booking.status == 'APPROVED'>
+                                                <form action="/customer/reviews/add" method="POST" class="bg-light p-2 rounded border mt-2">
+                                                    <input type="hidden" name="bookingId" value="${booking.id}">
+                                                    <div class="input-group input-group-sm">
+                                                        <select name="starRating" class="form-select border-warning" style="max-width: 80px;" required>
+                                                            <option value="5">5 ★</option>
+                                                            <option value="4">4 ★</option>
+                                                            <option value="3">3 ★</option>
+                                                            <option value="2">2 ★</option>
+                                                            <option value="1">1 ★</option>
+                                                        </select>
+                                                        <input type="text" name="comment" class="form-control" placeholder="Review ${booking.provider.name}..." required>
+                                                        <button type="submit" class="btn btn-outline-primary fw-bold">Post</button>
+                                                    </div>
+                                                </form>
+                                            </#if>
+                                        </#list>
+                                    </#if>
+                                </li>
+                            </#list>
+                        <#else>
+                            <li class="list-group-item text-center py-4 text-muted">No events planned yet.</li>
+                        </#if>
                     </ul>
                 </div>
             </div>

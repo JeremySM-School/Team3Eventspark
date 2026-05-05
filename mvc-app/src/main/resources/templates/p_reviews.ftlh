@@ -25,10 +25,28 @@
             <div class="card mb-4 shadow-sm border-0 border-start border-4 border-warning">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h5 class="fw-bold">Verified Customer <span class="text-warning ms-2">★★★★★</span></h5>
-                        <small class="text-muted">Recent</small>
+                        <h5 class="fw-bold">${(review.customer.firstName)!'Customer'} <span class="text-warning ms-2">${review.starRating}/5 ★</span></h5>
+                        <small class="text-muted">${review.createdAt!''}</small>
                     </div>
                     <p class="mb-3">"${review.comment!''}"</p>
+                    
+                    <#if review.replyText??>
+                        <div class="ms-4 mt-3 ps-3 border-start border-4 border-primary bg-light p-2 rounded">
+                            <small class="fw-bold text-primary">You replied:</small>
+                            <p class="small text-muted mb-0">"${review.replyText}"</p>
+                        </div>
+                    <#else>
+                        <div class="bg-light p-3 rounded border mt-3">
+                            <label class="small fw-bold mb-2">Reply to customer:</label>
+                            <form action="/provider/reviews/reply" method="POST">
+                                <input type="hidden" name="reviewId" value="${review.id}">
+                                <div class="input-group">
+                                    <input type="text" name="replyText" class="form-control" placeholder="Write a professional response..." required>
+                                    <button type="submit" class="btn btn-primary fw-bold">Post Reply</button>
+                                </div>
+                            </form>
+                        </div>
+                    </#if>
                 </div>
             </div>
             </#list>

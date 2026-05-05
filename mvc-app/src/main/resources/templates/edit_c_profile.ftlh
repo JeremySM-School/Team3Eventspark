@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg custom-navbar">
+    <nav class="navbar navbar-expand-lg custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
-            <a class="navbar-brand fs-3" href="/">EventSpark</a>
-            <a class="nav-link text-light" href="/customer/dashboard">Back to Dashboard</a>
+            <a class="navbar-brand fs-3 fw-bold text-white" href="/"><i class="bi bi-stars"></i> EventSpark</a>
+            <div class="navbar-nav ms-auto"><a class="nav-link text-light" href="/customer/dashboard">Back to Dashboard</a></div>
         </div>
     </nav>
 
-    <div class="card p-4 shadow-sm">
+    <div class="container"><div class="row justify-content-center"><div class="col-md-8">
     <form action="/customer/profile/edit" method="POST">
         <div class="text-center mb-4">
             <div class="bg-secondary rounded-circle mx-auto mb-2" style="width: 100px; height: 100px;"></div>
@@ -53,6 +53,8 @@
 
         <button type="submit" class="btn btn-primary w-100" style="background-color: #4b3621; border: none;">Save Changes</button>
     </form>
+</div>
+</div>
 </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

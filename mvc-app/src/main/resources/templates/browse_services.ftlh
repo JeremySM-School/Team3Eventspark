@@ -32,6 +32,11 @@
         <div class="text-center mb-5">
             <h2 class="fw-bold display-5" style="color: var(--wood-dark);">Discover Event Services</h2>
             <p class="text-muted lead">Find the perfect provider for your next big event.</p>
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-6">
+                    <input type="text" id="serviceSearch" class="form-control form-control-lg shadow-sm border-primary" placeholder="Search by provider, category, or title...">
+                </div>
+            </div>
         </div>
 
         <div class="row g-4">
@@ -50,7 +55,7 @@
                         
                         <div class="mt-3 text-center">
                             <h3 class="text-success fw-bold mb-3">$${pkg.price}</h3>
-                            <a href="/checkout?packageId=${pkg.id}" class="btn btn-primary w-100 fw-bold shadow-sm">
+                            <a href="/customer/checkout?packageId=${pkg.id}" class="btn btn-primary w-100 fw-bold shadow-sm">
                                 <i class="bi bi-calendar-plus me-2"></i>Request Booking
                             </a>
                         </div>
@@ -71,5 +76,15 @@
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('serviceSearch').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let cards = document.querySelectorAll('.col-md-4'); // The package cards
+            cards.forEach(card => {
+                let text = card.innerText.toLowerCase();
+                card.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
+    </script>
 </body>
 </html>

@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css">
     <style>
-        .calendar-day { height: 100px; border: 1px solid #eee; position: relative; }
+        .calendar-day { height: 100px; border: 1px solid #eee; position: relative; flex: 0 0 14.28%; max-width: 14.28%; }
         .calendar-day:hover { background-color: #f8f9fa; cursor: pointer; }
         .booked { background-color: #ffebee; border-left: 4px solid #c62828; }
         .day-num { position: absolute; top: 5px; left: 8px; font-weight: bold; font-size: 0.9rem; }
@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container">
-            <a class="navbar-brand fs-3" href="../home/home.html">EventSpark</a>
+            <a class="navbar-brand fs-3" href="/">EventSpark</a>
             <div class="navbar-nav ms-auto"><a class="nav-link" href="/provider/dashboard">Back to Dashboard</a></div>
         </div>
     </nav>
@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-lg-8 mb-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="fw-bold">October 2026</h3>
+                    <h3 class="fw-bold" id="calendar-month-year">Current Month</h3>
                     <div class="btn-group">
                         <button class="btn btn-outline-secondary btn-sm">&lt;</button>
                         <button class="btn btn-outline-secondary btn-sm">&gt;</button>
@@ -48,11 +48,12 @@
                         const today = new Date();
                         const month = today.getMonth();
                         const year = today.getFullYear();
+                        document.getElementById('calendar-month-year').innerText = today.toLocaleString('default', { month: 'long', year: 'numeric' });
                         
                         const firstDay = new Date(year, month, 1).getDay();
                         const daysInMonth = new Date(year, month + 1, 0).getDate();
                         
-                        // Pull dates from FreeMarker into a JS Array
+                        // Pull dates from FreeMarker into a JS Array safely
                         const gigDates = [
                             <#list gigs as gig>"${gig.eventDate!gig.createdAt.toLocalDate()}"<#sep>,</#list>
                         ];
@@ -61,7 +62,7 @@
                         
                         // Empty slots before the 1st
                         for(let i=0; i < firstDay; i++) {
-                             gridHTML += `<div class="col calendar-day bg-light border-bottom border-end"></div>`;
+                             gridHTML += '<div class="col calendar-day bg-light border-bottom border-end"></div>';
                         }
                         
                         // Actual days
@@ -70,11 +71,11 @@
                              const dateStr = year + "-" + String(month+1).padStart(2, '0') + "-" + String(i).padStart(2, '0');
                              const isBooked = gigDates.some(g => g.startsWith(dateStr));
                              
-                             gridHTML += `
-                                <div class="col calendar-day border-bottom border-end ${isBooked ? 'booked' : ''}" style="min-width: 14%;">
-                                    <span class="day-num">${i}</span>
-                                    ${isBooked ? '<span class="badge bg-danger mt-4 ms-1">Gig</span>' : ''}
-                                </div>`;
+                             // Using standard JS string concatenation so FreeMarker doesn't crash
+                             gridHTML += '<div class="col calendar-day border-bottom border-end ' + (isBooked ? 'booked' : '') + '" style="min-width: 14%;">' +
+                                         '<span class="day-num">' + i + '</span>' +
+                                         (isBooked ? '<span class="badge bg-danger mt-4 ms-1">Gig</span>' : '') +
+                                         '</div>';
                         }
                         calendarGrid.innerHTML = gridHTML;
                     });
