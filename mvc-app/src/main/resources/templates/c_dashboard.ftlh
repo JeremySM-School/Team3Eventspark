@@ -96,7 +96,7 @@
                                         <strong class="text-primary">${event.eventName}</strong>
                                         <span class="badge bg-light text-dark border">${event.status!"Planning"}</span>
                                     </div>
-                                    <small class="text-muted d-block mb-2"><i class="bi bi-calendar"></i> ${(event.eventDate?string('MMMM d, yyyy'))!'Date TBD'}</small>
+                                    <small class="text-muted d-block mb-2"><i class="bi bi-calendar"></i> ${(event.eventDate?replace('T', ' at '))!'Date TBD'}</small>
                                     
                                     <#if event.bookRequests?? && event.bookRequests?has_content>
                                         <#list event.bookRequests as booking>
