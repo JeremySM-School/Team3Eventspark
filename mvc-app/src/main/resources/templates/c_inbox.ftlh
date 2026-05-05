@@ -10,9 +10,18 @@
 <body class="bg-light">
     <nav class="navbar navbar-expand-lg custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
-            <a class="navbar-brand fs-3 text-white" href="/"><i class="bi bi-stars"></i> EventSpark</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link text-light" href="/customer/dashboard">Back to Dashboard</a>
+            <a class="navbar-brand fs-3 text-white fw-bold" href="/"><i class="bi bi-stars"></i> EventSpark</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#customerNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="customerNav">
+                <div class="navbar-nav ms-auto align-items-center">
+                    <a class="nav-link text-light px-3" href="/customer/dashboard">Dashboard</a>
+                    <a class="nav-link text-light px-3" href="/browse">Find Talent</a>
+                    <a class="nav-link text-light px-3" href="/customer/inbox">Inbox</a>
+                    <a class="nav-link text-light px-3" href="/customer/reviews">My Reviews</a>
+                    <a class="nav-link text-warning fw-bold px-3" href="/logout">Logout</a>
+                </div>
             </div>
         </div>
     </nav>

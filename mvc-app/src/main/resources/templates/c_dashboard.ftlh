@@ -8,20 +8,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg custom-navbar">
+    <nav class="navbar navbar-expand-lg custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
-            <a class="navbar-brand" href="/">
-                <i class="bi bi-stars"></i> EventSpark
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <a class="navbar-brand fs-3 text-white fw-bold" href="/"><i class="bi bi-stars"></i> EventSpark</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#customerNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link active" href="/customer/dashboard">Dashboard</a>
-                    <a class="nav-link" href="/customer/inbox">Inbox</a>
-                    <a class="nav-link" href="/customer/reviews">My Reviews</a>
-                    <a class="nav-link text-warning" href="/logout">Logout</a>
+            <div class="collapse navbar-collapse" id="customerNav">
+                <div class="navbar-nav ms-auto align-items-center">
+                    <a class="nav-link text-light px-3" href="/customer/dashboard">Dashboard</a>
+                    <a class="nav-link text-light px-3" href="/browse">Find Talent</a>
+                    <a class="nav-link text-light px-3" href="/customer/inbox">Inbox</a>
+                    <a class="nav-link text-light px-3" href="/customer/reviews">My Reviews</a>
+                    <a class="nav-link text-warning fw-bold px-3" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
@@ -29,8 +28,11 @@
 
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="mb-0 fw-bold">Welcome back, ${customer.firstName!"Guest"}!</h2>
-            <a href="/customer/events/new" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Plan New Event</a>
+            <div class="d-flex align-items-center gap-3">
+                <img src="https://ui-avatars.com/api/?name=${(customer.firstName!'C')?url}+${(customer.lastName!'')?url}&background=0D8ABC&color=fff&size=150" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 80px; height: 80px; object-fit: cover;">
+                <h2 class="mb-0 fw-bold">Welcome back, ${customer.firstName!"Guest"}!</h2>
+            </div>
+            <a href="/customer/events/new" class="btn btn-primary btn-lg shadow-sm"><i class="bi bi-plus-lg me-2"></i> Plan New Event</a>
         </div>
 
         <div class="row g-4 mb-5">
@@ -47,7 +49,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <<div class="card p-4 text-center border-start border-5 border-success h-100 shadow-sm d-flex flex-column justify-content-center">
+                <div class="card p-4 text-center border-start border-5 border-success h-100 shadow-sm d-flex flex-column justify-content-center">
                     <h2 class="fw-bold text-success">$${totalSpent!0}</h2>
                     <p class="text-muted mb-0 fw-bold text-uppercase small">Total Spent</p>
                 </div>

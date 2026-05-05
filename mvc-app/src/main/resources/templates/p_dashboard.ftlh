@@ -8,24 +8,24 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg custom-navbar">
+    <nav class="navbar navbar-expand-lg custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
-            <a class="navbar-brand fs-3" href="/"><i class="bi bi-stars"></i> EventSpark</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <a class="navbar-brand fs-3 text-white fw-bold" href="/"><i class="bi bi-stars"></i> EventSpark</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#providerNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link active" href="/provider/dashboard">Dashboard</a>
-                    <a class="nav-link" href="/provider/inbox">
-                        Inbox 
-                        <#if pendingCount &gt; 0>
-                            <span class="badge bg-danger rounded-pill">${pendingCount}</span>
+            <div class="collapse navbar-collapse" id="providerNav">
+                <div class="navbar-nav ms-auto align-items-center">
+                    <a class="nav-link text-light px-3" href="/provider/dashboard">Dashboard</a>
+                    <a class="nav-link text-light px-3" href="/provider/messages">
+                        Messages 
+                        <#if pendingCount?? && pendingCount &gt; 0>
+                            <span class="badge bg-danger rounded-pill ms-1">${pendingCount}</span>
                         </#if>
                     </a>
-                    <a class="nav-link" href="/provider/profile">Public Page</a>
-                    
-                    <a class="nav-link text-warning" href="/logout">Logout</a>
+                    <a class="nav-link text-light px-3" href="/provider/history">History</a>
+                    <a class="nav-link text-light px-3" href="/provider/profile">Public Page</a>
+                    <a class="nav-link text-warning fw-bold px-3" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
                         </#if>
                     </ul>
                     <div class="card-body text-center mt-auto">
-                        <a href="/provider/inbox" class="btn btn-sm btn-outline-secondary w-100 fw-bold">View All Activity</a>
+                        <a href="/provider/messages" class="btn btn-sm btn-outline-secondary w-100 fw-bold">View All Activity</a>
                     </div>
                 </div>
             </div>

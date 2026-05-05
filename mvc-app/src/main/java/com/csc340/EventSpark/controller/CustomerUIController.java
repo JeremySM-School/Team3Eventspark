@@ -306,6 +306,23 @@ public class CustomerUIController {
         
         bookRequestRepo.save(request);
 
+        // Save the request and capture the generated ID
+        request = bookRequestRepo.save(request);
+
+        // Instantly create a chat thread for this specific booking!
+        Conversation thread = new Conversation();
+        thread.setCustomer(customer);
+        thread.setProvider(pkg.getProvider());
+        thread.setBookRequest(request);
+        thread = conversationRepo.save(thread);
+
+        // Auto-send an introductory message from the customer
+        Message firstMsg = new Message();
+        firstMsg.setThread(thread);
+        firstMsg.setSender(customer);
+        firstMsg.setContent("Hi! I would like to book your '" + pkg.getTitle() + "' package for my upcoming event.");
+        messageRepo.save(firstMsg);
+
         return "redirect:/customer/dashboard";
     }
 

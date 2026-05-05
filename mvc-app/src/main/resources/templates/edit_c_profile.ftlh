@@ -9,16 +9,28 @@
 <body>
     <nav class="navbar navbar-expand-lg custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
-            <a class="navbar-brand fs-3 fw-bold text-white" href="/"><i class="bi bi-stars"></i> EventSpark</a>
-            <div class="navbar-nav ms-auto"><a class="nav-link text-light" href="/customer/dashboard">Back to Dashboard</a></div>
+            <a class="navbar-brand fs-3 text-white fw-bold" href="/"><i class="bi bi-stars"></i> EventSpark</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#customerNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="customerNav">
+                <div class="navbar-nav ms-auto align-items-center">
+                    <a class="nav-link text-light px-3" href="/customer/dashboard">Dashboard</a>
+                    <a class="nav-link text-light px-3" href="/browse">Find Talent</a>
+                    <a class="nav-link text-light px-3" href="/customer/inbox">Inbox</a>
+                    <a class="nav-link text-light px-3" href="/customer/reviews">My Reviews</a>
+                    <a class="nav-link text-warning fw-bold px-3" href="/logout">Logout</a>
+                </div>
+            </div>
         </div>
     </nav>
 
     <div class="container"><div class="row justify-content-center"><div class="col-md-8">
     <form action="/customer/profile/edit" method="POST">
         <div class="text-center mb-4">
-            <div class="bg-secondary rounded-circle mx-auto mb-2" style="width: 100px; height: 100px;"></div>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Change Photo</button>
+            <img src="https://ui-avatars.com/api/?name=${(customer.firstName!'C')?url}+${(customer.lastName!'')?url}&background=0D8ABC&color=fff&size=150" class="rounded-circle shadow-sm border border-3 border-primary mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+            <br>
+            <button type="button" class="btn btn-sm btn-outline-secondary fw-bold">Change Photo</button>
         </div>
 
         <div class="mb-3">

@@ -1,5 +1,8 @@
 package com.csc340.EventSpark.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,21 +11,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.csc340.EventSpark.entity.BookRequest;
+import com.csc340.EventSpark.entity.Conversation;
+import com.csc340.EventSpark.entity.Message;
 import com.csc340.EventSpark.entity.Provider;
 import com.csc340.EventSpark.entity.Review;
 import com.csc340.EventSpark.entity.ServicePackage;
-import com.csc340.EventSpark.entity.BookRequest;
-import com.csc340.EventSpark.entity.Conversation;
-import com.csc340.EventSpark.repository.ServicePackageRepository;
-import com.csc340.EventSpark.repository.ProviderRepository;
-import com.csc340.EventSpark.repository.ReviewRepository;
 import com.csc340.EventSpark.repository.BookRequestRepository;
 import com.csc340.EventSpark.repository.ConversationRepository;
 import com.csc340.EventSpark.repository.MessageRepository;
-import com.csc340.EventSpark.entity.Message;
+import com.csc340.EventSpark.repository.ProviderRepository;
+import com.csc340.EventSpark.repository.ReviewRepository;
+import com.csc340.EventSpark.repository.ServicePackageRepository;
 
 import jakarta.servlet.http.HttpSession;
-import java.util.*;
 
 @Controller
 @RequestMapping("/provider")
@@ -62,6 +64,12 @@ public class ProviderUIController {
         if (threadId != null) {
             model.addAttribute("messages", messageRepo.findByThreadId(threadId));
             model.addAttribute("currentThreadId", threadId);
+            
+            // NEW: Pass the associated booking request to the chat UI
+            Conversation activeThread = conversationRepo.findById(threadId).orElse(null);
+            if (activeThread != null) {
+                model.addAttribute("activeRequest", activeThread.getBookRequest());
+            }
         }
 
         model.addAttribute("currentUserId", userId);
@@ -121,43 +129,45 @@ public class ProviderUIController {
         return "p_dashboard";
     }
 
-    // --- USE CASE 4: INBOX & BOOKING REQUESTS ---
-    @GetMapping("/inbox")
-    public String getInbox(Model model, HttpSession session) {
+    // --- BOOKING HISTORY & LEDGER ---
+    @GetMapping("/history")
+    public String getHistory(Model model, HttpSession session) {
         Long userId = (Long) session.getAttribute("userId");
         if (userId == null) return "redirect:/login";
 
-        // Pass the requests and the pending count to the view
-        List<BookRequest> requests = bookRequestRepo.findByProviderId(userId);
-        model.addAttribute("requests", requests);
-        
-        long pendingCount = requests.stream()
-            .filter(req -> req.getStatus() == BookRequest.BookingStatus.PENDING)
-            .count();
-        model.addAttribute("pendingCount", pendingCount);
-
-        return "p_inbox";
+        // Fetch all requests, filter out the PENDING ones, and sort by newest first
+        List<BookRequest> history = bookRequestRepo.findByProviderId(userId).stream()
+            .filter(req -> req.getStatus() != BookRequest.BookingStatus.PENDING)
+            .sorted((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt()))
+            .toList();
+            
+        model.addAttribute("requests", history);
+        return "p_history"; 
     }
 
     @PostMapping("/inbox/update")
     public String updateRequestStatus(
             @RequestParam Long requestId,
             @RequestParam String newStatus,
+            @RequestParam(required = false) Long threadId, 
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:/login"; // SECURITY CHECK
+        if (userId == null) return "redirect:/login"; 
         
-        // Find the request, update it to APPROVED or REJECTED, and save it
         BookRequest request = bookRequestRepo.findById(requestId).orElse(null);
         
-        // SECURITY CHECK: Ensure this provider actually owns the request they are trying to update
         if (request != null && request.getProvider().getId().equals(userId)) {
             request.setStatus(BookRequest.BookingStatus.valueOf(newStatus));
             bookRequestRepo.save(request);
         }
         
-        return "redirect:/provider/inbox";
+        if (threadId != null) {
+            return "redirect:/provider/messages?threadId=" + threadId;
+        }
+        
+        // THE FIX: Change this fallback from /inbox to /history!
+        return "redirect:/provider/history"; 
     }
 
     // --- USE CASE 1: PACKAGES ---

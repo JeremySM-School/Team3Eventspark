@@ -93,7 +93,7 @@
                         </div>
                         <h6 class="fw-bold mb-1">${(gig.event.eventName)!'Unnamed Event'}</h6>
                         <p class="small text-muted mb-2">Package: ${gig.servicePackages[0].title}</p>
-                        <a href="/provider/inbox" class="btn btn-sm btn-outline-secondary w-100">Go to Inbox</a>
+                        <a href="/provider/messages" class="btn btn-sm btn-outline-secondary w-100">Go to Inbox</a>
                     </div>
                 </div>
                 </#list>
