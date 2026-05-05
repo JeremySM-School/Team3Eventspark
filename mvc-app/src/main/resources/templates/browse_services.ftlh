@@ -33,6 +33,23 @@
             <h2 class="fw-bold display-5" style="color: var(--wood-dark);">Discover Event Services</h2>
             <p class="text-muted lead">Find the perfect provider for your next big event.</p>
             <div class="row justify-content-center mt-4">
+                <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+                    <button class="btn btn-sm btn-outline-primary filter-chip" onclick="filterCategory('All')">All</button>
+                    <button class="btn btn-sm btn-outline-primary filter-chip" onclick="filterCategory('DJ')">🎧 DJ</button>
+                    <button class="btn btn-sm btn-outline-primary filter-chip" onclick="filterCategory('Photography')">📸 Photo</button>
+                    <button class="btn btn-sm btn-outline-primary filter-chip" onclick="filterCategory('Catering')">🍲 Catering</button>
+                </div>
+
+                <script>
+                    function filterCategory(category) {
+                        let filter = category.toLowerCase();
+                        let cards = document.querySelectorAll('.col-md-4');
+                        cards.forEach(card => {
+                            let catText = card.querySelector('.badge').innerText.toLowerCase();
+                            card.style.display = (filter === 'all' || catText.includes(filter)) ? '' : 'none';
+                        });
+                    }
+                </script>
                 <div class="col-md-6">
                     <input type="text" id="serviceSearch" class="form-control form-control-lg shadow-sm border-primary" placeholder="Search by provider, category, or title...">
                 </div>
