@@ -207,27 +207,19 @@ public class ProviderUIController {
             @RequestParam String title,
             @RequestParam String description,
             @RequestParam Double price,
-            @RequestParam String category, // NEW: Catches the dropdown value
+            @RequestParam String category,
+            @RequestParam(required = false) String imageUrl, // NEW: Capture optional package image
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:/login"; 
-        
         Provider p = providerRepo.findById(userId).orElseThrow();
 
         ServicePackage newPackage = new ServicePackage();
         newPackage.setTitle(title);
         newPackage.setDescription(description);
         newPackage.setPrice(price);
+        newPackage.setImageUrl(imageUrl); // Save the image URL
         newPackage.setStatus(ServicePackage.PackageStatus.ACTIVE); 
-        
-        // Convert the HTML String into your specific Java Enum safely
-        try {
-            newPackage.setCategory(ServicePackage.PackageCategory.valueOf(category.toUpperCase())); 
-        } catch (IllegalArgumentException e) {
-            newPackage.setCategory(ServicePackage.PackageCategory.OTHER); // Fallback if it fails
-        }
-        
         newPackage.setProvider(p);
 
         packageRepo.save(newPackage);
@@ -266,16 +258,21 @@ public class ProviderUIController {
             @RequestParam(required = false) String zipCode,
             @RequestParam(required = false) Integer serviceRadius,
             @RequestParam(required = false) List<String> category,
+            @RequestParam(required = false) String portfolioUrls, // NEW: Capture the text box
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:/login"; 
-        
         Provider p = providerRepo.findById(userId).orElseThrow();
         p.setName(name); 
         p.setBio(bio);
         p.setZipCode(zipCode);
         if (serviceRadius != null) p.setServiceRadius(serviceRadius);
+
+        // Convert Comma-Separated String back into the List<String> imageUrls
+        if (portfolioUrls != null && !portfolioUrls.isEmpty()) {
+            List<String> urlList = new ArrayList<>(List.of(portfolioUrls.split("\\s*,\\s*")));
+            p.setImageUrls(urlList);
+        }
 
         if (category != null) {
             p.setCategory(String.join(", ", category)); 

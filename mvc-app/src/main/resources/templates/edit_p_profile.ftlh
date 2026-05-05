@@ -40,6 +40,11 @@
                                     <input type="text" name="name" class="form-control" value="${(provider.name)!''}" required>
                                 </div>
 
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Portfolio Image URLs (Comma Separated)</label>
+                                    <textarea name="imageUrls" class="form-control" rows="2" placeholder="http://image1.jpg, http://image2.jpg">${(provider.imageUrls?join(', '))!''}</textarea>
+                                </div>
+
                                 <div class="row mb-3">
                                     <div class="col-6">
                                         <label class="form-label fw-bold">Zip Code</label>

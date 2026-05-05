@@ -36,6 +36,11 @@
                         <label class="form-label fw-bold small">Package Title</label>
                         <input type="text" name="title" class="form-control" placeholder='e.g., "Another One" Wedding Set' required>
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Package Image URL (Optional)</label>
+                        <input type="text" name="imageUrl" class="form-control" placeholder="https://example.com/dj-setup.jpg">
+                    </div>
                     
                     <div class="mb-3">
                         <label class="form-label fw-bold small">Service Category</label>

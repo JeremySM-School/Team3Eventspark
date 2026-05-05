@@ -80,4 +80,10 @@ public class ServicePackage {
         ACTIVE,
         INACTIVE
     }
+
+    private String imageUrl; // Optional image for this specific package
+
+    // Add Getter and Setter
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }

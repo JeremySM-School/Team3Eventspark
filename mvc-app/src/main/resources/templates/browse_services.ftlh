@@ -58,40 +58,52 @@
 
         <div class="row g-4">
             <#list packages as pkg>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0" style="border-top: 4px solid var(--gold-accent) !important;">
-                    <div class="card-body d-flex flex-column">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0" style="border-top: 4px solid var(--gold-accent) !important;">
                         
-                        <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
-                            <span class="badge bg-primary text-uppercase">${pkg.category}</span>
-                            <span class="text-muted small fw-bold"><i class="bi bi-person-circle me-1"></i> ${(pkg.provider.name)!'Provider'}</span>
-                        </div>
-                        
-                        <h4 class="card-title fw-bold" style="color: var(--wood-dark);">${pkg.title}</h4>
-                        <p class="card-text text-muted small flex-grow-1">${pkg.description}</p>
-                        
-                        <div class="mt-3 text-center">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h3 class="text-success fw-bold mb-0">$${pkg.price}</h3>
-                                
-                                <#if userId?? && userRole == 'CUSTOMER'>
-                                    <form action="/customer/favorites/toggle" method="POST" class="m-0">
-                                        <input type="hidden" name="packageId" value="${pkg.id}">
-                                        <input type="hidden" name="redirectUrl" value="/browse">
-                                        <button type="submit" class="btn btn-outline-danger border-0 fs-4 py-0">
-                                            <i class="bi bi-heart"></i>
-                                        </button>
-                                    </form>
-                                </#if>
+                        <#if pkg.imageUrl?? && pkg.imageUrl?has_content>
+                            <img src="${pkg.imageUrl}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="${pkg.title}">
+                        </#if>
+
+                        <div class="card-body d-flex flex-column">
+                            
+                            <div class="d-flex justify-content-between mb-2 border-bottom pb-2">
+                                <span class="badge bg-primary text-uppercase">${pkg.category}</span>
+                                <span class="text-muted small fw-bold"><i class="bi bi-person-circle me-1"></i> ${(pkg.provider.name)!'Provider'}</span>
+                            </div>
+
+                            <div class="mb-2">
+                                <small class="text-muted">
+                                    <i class="bi bi-truck me-1"></i> 
+                                    Within ${(pkg.provider.serviceRadius)!25} miles of ${(pkg.provider.zipCode)!'Local'}
+                                </small>
                             </div>
                             
-                            <a href="/customer/provider/${pkg.provider.id}" class="btn btn-outline-primary w-100 fw-bold shadow-sm">View Profile & Book</a>
+                            <h4 class="card-title fw-bold" style="color: var(--wood-dark);">${pkg.title}</h4>
+                            <p class="card-text text-muted small flex-grow-1">${pkg.description}</p>
+                            
+                            <div class="mt-3 text-center">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h3 class="text-success fw-bold mb-0">$${pkg.price}</h3>
+                                    
+                                    <#if userId?? && userRole == 'CUSTOMER'>
+                                        <form action="/customer/favorites/toggle" method="POST" class="m-0">
+                                            <input type="hidden" name="packageId" value="${pkg.id}">
+                                            <input type="hidden" name="redirectUrl" value="/browse">
+                                            <button type="submit" class="btn btn-outline-danger border-0 fs-4 py-0">
+                                                <i class="bi bi-heart"></i>
+                                            </button>
+                                        </form>
+                                    </#if>
+                                </div>
+                                
+                                <a href="/customer/provider/${pkg.provider.id}" class="btn btn-outline-primary w-100 fw-bold shadow-sm">View Profile & Book</a>
+                            </div>
+                            
                         </div>
-                        
                     </div>
                 </div>
-            </div>
-            </#list>
+                </#list>
 
             <#if packages?size == 0>
                 <div class="col-12 text-center py-5">
