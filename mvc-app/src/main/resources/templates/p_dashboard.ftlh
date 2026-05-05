@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card p-4 text-center border-start border-5 border-warning shadow-sm">
-                    <h2 class="fw-bold text-warning">${(provider.rating)!5.0} <i class="bi bi-star-fill fs-5"></i></h2>
+                    <h2 class="fw-bold text-warning">${avgRating!5.0} <i class="bi bi-star-fill fs-5"></i></h2>                    
                     <p class="text-muted mb-0 fw-bold text-uppercase small">Average Rating</p>
                 </div>
             </div>
@@ -98,8 +98,7 @@
                             <#list recentActivity as req>
                                 <li class="list-group-item py-3">
                                     <div class="d-flex justify-content-between mb-1">
-                                        <strong class="small text-primary">Booking Request</strong>
-                                        <span class="badge bg-${(req.status == 'PENDING')?string('warning', (req.status == 'APPROVED')?string('success', 'secondary'))} text-dark">${req.status}</span>
+                                        <strong class="small text-primary"><i class="bi bi-calendar-event me-1"></i> ${(req.event.eventName)!'Unnamed Event'}</strong>                                        <span class="badge bg-${(req.status == 'PENDING')?string('warning', (req.status == 'APPROVED')?string('success', 'secondary'))} text-dark">${req.status}</span>
                                     </div>
                                     <p class="small text-muted mb-0">${(req.event.customer.firstName)!'Customer'} wants to book "${req.servicePackages[0].title}"</p>
                                 </li>

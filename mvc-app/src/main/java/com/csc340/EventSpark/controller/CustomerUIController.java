@@ -406,16 +406,21 @@ public class CustomerUIController {
         Customer c = customerRepo.findById(userId).orElseThrow();
         ServicePackage pkg = packageRepo.findById(packageId).orElseThrow();
 
-        // If they already favorited it, remove it. Otherwise, add it!
-        if (c.getFavoritePackages().contains(pkg)) {
-            c.getFavoritePackages().remove(pkg);
-        } else {
+        // SAFE CHECK: Compare by ID to prevent infinite loops!
+        boolean isFavorited = false;
+        for (int i = 0; i < c.getFavoritePackages().size(); i++) {
+            if (c.getFavoritePackages().get(i).getId().equals(packageId)) {
+                c.getFavoritePackages().remove(i);
+                isFavorited = true;
+                break;
+            }
+        }
+        
+        if (!isFavorited) {
             c.getFavoritePackages().add(pkg);
         }
         
         customerRepo.save(c);
-        
-        // Return them to whatever page they clicked the heart on
         return "redirect:" + redirectUrl; 
     }
 

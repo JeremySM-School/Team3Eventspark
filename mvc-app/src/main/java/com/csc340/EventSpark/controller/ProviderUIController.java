@@ -120,6 +120,27 @@ public class ProviderUIController {
             .sum();
         model.addAttribute("totalRevenue", totalRevenue);
 
+        // --- NEW: DYNAMIC RATING CALCULATION ---
+        // Fetch all reviews for this specific provider
+        List<Review> myReviews = reviewRepo.findAll().stream()
+            .filter(r -> r.getBookRequest() != null && 
+                         r.getBookRequest().getProvider() != null && 
+                         r.getBookRequest().getProvider().getId().equals(userId))
+            .toList();
+            
+        double avgRating = 5.0; // Default to 5.0 if no reviews exist
+        if (!myReviews.isEmpty()) {
+            double totalStars = 0;
+            for (Review r : myReviews) {
+                totalStars += r.getStarRating();
+            }
+            avgRating = totalStars / myReviews.size();
+            avgRating = Math.round(avgRating * 10.0) / 10.0; // Round to 1 decimal (e.g. 4.7)
+        }
+        
+        // Pass the live calculated rating to the HTML page!
+        model.addAttribute("avgRating", avgRating);
+
         // 4. Send the recent requests to the dashboard activity feed
         // Sorts by newest first, limits to top 5
         List<BookRequest> recentActivity = new ArrayList<>(allRequests);
