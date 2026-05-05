@@ -34,11 +34,7 @@
                             </a>
                         </#list>
                     <#else>
-                        <div class="text-center py-5 text-muted">
-                            <i class="bi bi-chat-dots display-1 opacity-25 d-block mb-3"></i>
-                            <h5>No Messages Yet</h5>
-                            <p>New booking requests will appear here once customers reach out.</p>
-                        </div>
+                        <div class="p-4 text-muted text-center border bg-white rounded shadow-sm">No active messages.</div>
                     </#if>
                 </div>
             </div>
