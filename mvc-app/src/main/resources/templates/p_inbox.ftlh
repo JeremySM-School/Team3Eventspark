@@ -95,7 +95,7 @@
                             <div class="card-body py-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h6 class="fw-bold mb-1">${req.event.name}</h6>
+                                        <h6 class="fw-bold mb-1">${(req.event.eventName)!'Unnamed Event'}</h6>
                                         <small class="text-muted">${req.servicePackages[0].title} • $${req.totalPrice}</small>
                                     </div>
                                     <div>
