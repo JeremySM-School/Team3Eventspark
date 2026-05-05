@@ -23,7 +23,7 @@
                             <span class="badge bg-danger rounded-pill">${pendingCount}</span>
                         </#if>
                     </a>
-                    <a class="nav-link" href="p_profile.html">My Profile</a>
+                    <a class="nav-link" href="/provider/profile">Public Page</a>
                     
                     <a class="nav-link text-warning" href="/logout">Logout</a>
                 </div>
@@ -35,7 +35,7 @@
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h2 class="fw-bold">Welcome back, ${(provider.name)!'Provider'}!</h2>
             
-            <img src="img" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 150px; height: 150px; object-fit: cover;">
+            <img src="${(provider.imageUrls[0])!'https://ui-avatars.com/api/?name=${(provider.name!\'P\')?url}&background=4e342e&color=fff&size=150'}" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 150px; height: 150px; object-fit: cover;">
         </div>
         
         <div class="row g-4 mb-5">
@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card p-4 text-center border-start border-5 border-warning shadow-sm">
-                    <h2 class="fw-bold text-warning">5.0 <i class="bi bi-star-fill fs-5"></i></h2>
+                    <h2 class="fw-bold text-warning">${(provider.rating)!5.0} <i class="bi bi-star-fill fs-5"></i></h2>
                     <p class="text-muted mb-0 fw-bold text-uppercase small">Average Rating</p>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                                 </a>
                             </div>
                             <div class="col-6">
-                                <a href="p_reviews.html" class="btn btn-outline-primary w-100 py-4 fw-bold">
+                                <a href="/provider/reviews" class="btn btn-outline-primary w-100 py-4 fw-bold">
                                     <i class="bi bi-chat-quote fs-3 d-block mb-2"></i>Fan Love
                                 </a>
                             </div>

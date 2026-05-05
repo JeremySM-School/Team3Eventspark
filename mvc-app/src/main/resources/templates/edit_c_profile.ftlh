@@ -9,8 +9,8 @@
 <body>
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container">
-            <a class="navbar-brand fs-3" href="../home/home.html">EventSpark</a>
-            <div class="navbar-nav ms-auto"><a class="nav-link" href="c_dashboard.html">Back to Dashboard</a></div>
+            <a class="navbar-brand fs-3" href="/">EventSpark</a>
+            <a class="nav-link text-light" href="/customer/dashboard">Back to Dashboard</a>
         </div>
     </nav>
 

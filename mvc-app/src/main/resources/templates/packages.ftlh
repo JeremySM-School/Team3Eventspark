@@ -8,11 +8,16 @@
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg custom-navbar">
+    <nav class="navbar navbar-expand-lg custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
-            <a class="navbar-brand fs-3" href="../home/home.html"><i class="bi bi-stars"></i> EventSpark</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="p_dashboard.html">Back to Dashboard</a>
+            <a class="navbar-brand fs-3" href="/"><i class="bi bi-stars"></i> EventSpark</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link fw-bold text-light" href="/provider/dashboard">Back to Dashboard</a>
+                </div>
             </div>
         </div>
     </nav>

@@ -169,16 +169,19 @@ public class ProviderUIController {
     public String updateProfile(
             @RequestParam String name,
             @RequestParam String bio,
+            @RequestParam(required = false) String zipCode,
+            @RequestParam(required = false) Integer serviceRadius,
             @RequestParam(required = false) List<String> category,
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:/login"; // SECURITY CHECK
+        if (userId == null) return "redirect:/login"; 
         
         Provider p = providerRepo.findById(userId).orElseThrow();
-        
         p.setName(name); 
         p.setBio(bio);
+        p.setZipCode(zipCode);
+        if (serviceRadius != null) p.setServiceRadius(serviceRadius);
 
         if (category != null) {
             p.setCategory(String.join(", ", category)); 
@@ -196,9 +199,27 @@ public class ProviderUIController {
         return "p_reviews";
     }
 
+    @GetMapping("/calendar")
+    public String getCalendar(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        // Fetch only APPROVED requests to show on the schedule
+        List<BookRequest> approvedGigs = bookRequestRepo.findByProviderId(userId).stream()
+            .filter(req -> req.getStatus() == BookRequest.BookingStatus.APPROVED)
+            .toList();
+            
+        model.addAttribute("gigs", approvedGigs);
+        return "calendar";
+    }
+
     @GetMapping("/profile")
-    public String getProfile(HttpSession session) {
-        if (session.getAttribute("userId") == null) return "redirect:/login";
+    public String getProfile(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+        
+        Provider p = providerRepo.findById(userId).orElseThrow();
+        model.addAttribute("provider", p);
         return "p_profile";
     }
 }

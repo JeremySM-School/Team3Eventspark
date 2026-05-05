@@ -97,7 +97,7 @@ public class HomeController {
         if (customer != null && customer.getPasswordHash().equals(password)) {
             session.setAttribute("userId", customer.getId());
             session.setAttribute("userRole", customer.getRole().name());
-            return "redirect:/customer/c_dashboard";
+            return "redirect:/customer/dashboard";
         }
         
         // 3. Fail -> Back to login

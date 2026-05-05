@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DJ Khaled | EventSpark</title>
+    <title>${(provider.name)!'Provider'} | EventSpark</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles.css">
@@ -10,32 +10,25 @@
 <body>
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container">
-            <a class="navbar-brand fs-3" href="../home/home.html"><i class="bi bi-stars"></i> EventSpark</a>
+            <a class="navbar-brand fs-3" href="/"><i class="bi bi-stars"></i> EventSpark</a>
             <div class="navbar-nav ms-auto">
-                <a href="../customer/c_dashboard.html" class="btn btn-outline-light btn-sm">Back to Dashboard</a>
+                <a href="/provider/dashboard" class="nav-link text-light">Back to Dashboard</a>
             </div>
         </div>
     </nav>
 
-    <div class="bg-dark text-white py-5" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1571266028243-371695063086?w=1600'); background-size: cover; background-position: center;">
+    <div class="bg-dark text-white py-5" style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600'); background-size: cover; background-position: center;">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-3 text-center h-100">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/DJ_KHALED_Press_exclusive_%283x4_cropped%29.jpg" class="rounded-circle border border-4 border-warning shadow mb-3"
-                    style="width: 150px; height: 150px; object-fit: cover;">
+                    <img src="${(provider.imageUrls[0])!'https://ui-avatars.com/api/?name=${(provider.name!\'P\')?url}&background=4e342e&color=fff&size=150'}" class="rounded-circle border border-4 border-warning shadow mb-3" style="width: 150px; height: 150px; object-fit: cover;">
                 </div>
                 <div class="col-md-9">
-                    <span class="badge bg-warning text-dark mb-2"><i class="bi bi-patch-check-fill"></i> Verified Talent</span>
-                    <h1 class="display-4 fw-bold">DJ Khaled</h1>
-                    <p class="lead">"We The Best" Music Services • Miami & Global</p>
-                    <div class="mb-3 mt-2">
-                    <span class="badge bg-dark fs-6 fw-normal me-1 px-3 py-2">Hip Hop</span>
-                    <span class="badge bg-dark fs-6 fw-normal me-1 px-3 py-2">Wedding DJ</span>
-                    <span class="badge border border-light text-light fs-6 fw-normal me-1 px-3 py-2">Motivational Speaker</span>
-                    </div>
-                    <div class="d-flex gap-3">
-                        <div class="text-warning"><i class="bi bi-star-fill"></i> 5.0 (942 Reviews)</div>
-                        <div class="text-light"><i class="bi bi-geo-alt-fill"></i> Will travel up to 5000 miles</div>
+                    <h1 class="display-4 fw-bold">${(provider.name)!'Provider'}</h1>
+                    <p class="lead">${(provider.category)!'Event Services'} • ${(provider.zipCode)!'Global'}</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <div class="text-warning"><i class="bi bi-star-fill"></i> ${(provider.rating)!5.0} (Provider Rating)</div>
+                        <div class="text-light"><i class="bi bi-geo-alt-fill"></i> Travels up to ${(provider.serviceRadius)!25} miles</div>
                     </div>
                 </div>
             </div>
@@ -46,69 +39,47 @@
         <div class="row">
             <div class="col-md-8">
                 <h3 class="fw-bold mb-3" style="color: var(--wood-dark);">About Me</h3>
-                <p class="text-muted mb-5">I bring the best energy to every event. Whether it's a wedding, a corporate party, or a jet-ski adventure, I promise you another one. And another one.</p>
+                <p class="text-muted mb-5">${(provider.bio)!'Welcome to my profile! I am excited to make your event unforgettable.'}</p>
 
                 <h3 class="fw-bold mb-4" style="color: var(--wood-dark);">Service Packages</h3>
                 
-                <div class="card mb-3 border-start border-4 border-success shadow-sm">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="fw-bold mb-1">"Another One" Gold Wedding Experience</h5>
-                            <p class="text-muted mb-0 small">4 Hours • Full PA System • Motivational Speeches</p>
-                        </div>
-                        <div class="text-end">
-                            <h3 class="text-success fw-bold">$25,000</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card mb-5 shadow-sm">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="fw-bold mb-1">Basic Club Mix</h5>
-                            <p class="text-muted mb-0 small">2 Hours • Mixing Only</p>
-                        </div>
-                        <div class="text-end">
-                            <h3 class="text-success fw-bold">$10,000</h3>
+                <#if provider.packages?? && provider.packages?has_content>
+                    <#list provider.packages as pkg>
+                    <div class="card mb-3 border-start border-4 border-success shadow-sm">
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="fw-bold mb-1">${pkg.title}</h5>
+                                <p class="text-muted mb-0 small">${pkg.description}</p>
+                            </div>
+                            <div class="text-end">
+                                <h3 class="text-success fw-bold">$${pkg.price}</h3>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <h3 class="fw-bold mb-3" style="color: var(--wood-dark);">Fan Love (Reviews)</h3>
-                <div class="card bg-light border-0 p-3 mb-3">
-                    <div class="d-flex justify-content-between">
-                        <strong class="fw-bold">Drake</strong>
-                        <span class="text-warning">★★★★★</span>
-                    </div>
-                    <p class="mb-0 text-muted">"Major key alert. Best DJ in the game."</p>
-                </div>
-                <div class="card bg-light border-0 p-3">
-                    <div class="d-flex justify-content-between">
-                        <strong class="fw-bold">Justin Bieber</strong>
-                        <span class="text-warning">★★★★★</span>
-                    </div>
-                    <p class="mb-0 text-muted">"We the best music! Popstar energy all night."</p>
-                </div>
+                    </#list>
+                <#else>
+                    <div class="alert alert-light border text-muted">No packages currently available.</div>
+                </#if>
             </div>
 
             <div class="col-md-4">
                 <div class="card shadow border-0 sticky-top" style="top: 20px;">
-                    <div class="card-header bg-primary text-white fw-bold text-center py-3" style="background-color: var(--wood-dark) !important;">
-                        Book This Talent
+                    <div class="card-header text-white fw-bold text-center py-3" style="background-color: var(--wood-dark) !important;">
+                        Contact Talent
                     </div>
-                    <div class="card-body p-4">
-                        <p class="text-center text-muted mb-4">Starting at <span class="fw-bold text-dark fs-4">$10,000</span></p>
+                    <div class="card-body p-4 text-center">
+                        <p class="text-muted mb-4">Interested in booking?</p>
                         <div class="d-grid gap-2">
-                            <a href="../customer/booking_form.html" class="btn btn-warning btn-lg fw-bold">Request Booking</a>
-                            <button class="btn btn-outline-secondary"><i class="bi bi-heart"></i> Save to Favorites</button>
+                            <#if userRole?? && userRole == 'CUSTOMER'>
+                                <a href="/customer/inbox" class="btn btn-warning btn-lg fw-bold">Message Provider</a>
+                            <#else>
+                                <button class="btn btn-warning btn-lg fw-bold" disabled>Login as Customer to Book</button>
+                            </#if>
                         </div>
-                        <hr>
-                        <small class="text-muted d-block text-center"><i class="bi bi-shield-check"></i> 100% Satisfaction Guaranteed</small>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

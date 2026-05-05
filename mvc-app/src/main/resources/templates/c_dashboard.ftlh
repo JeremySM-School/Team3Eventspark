@@ -61,7 +61,7 @@
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-6">
-                                <a href="/customer/dashboard" class="btn btn-outline-primary w-100 py-3">
+                                <a href="/browse" class="btn btn-outline-primary w-100 py-3">
                                     <i class="bi bi-search fs-4 d-block mb-2"></i>Find Talent
                                 </a>
                             </div>

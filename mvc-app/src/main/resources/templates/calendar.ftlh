@@ -16,7 +16,7 @@
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container">
             <a class="navbar-brand fs-3" href="../home/home.html">EventSpark</a>
-            <div class="navbar-nav ms-auto"><a class="nav-link" href="p_dashboard.html">Back to Dashboard</a></div>
+            <div class="navbar-nav ms-auto"><a class="nav-link" href="/provider/dashboard">Back to Dashboard</a></div>
         </div>
     </nav>
 
@@ -34,73 +34,82 @@
                 <div class="card shadow-sm">
                     <div class="card-body p-0">
                         <div class="row g-0 text-center fw-bold bg-light py-2 border-bottom">
-                            <div class="col">Mon</div><div class="col">Tue</div><div class="col">Wed</div><div class="col">Thu</div><div class="col">Fri</div><div class="col">Sat</div><div class="col">Sun</div>
+                            <div class="col">Sun</div><div class="col">Mon</div><div class="col">Tue</div><div class="col">Wed</div><div class="col">Thu</div><div class="col">Fri</div><div class="col">Sat</div>
                         </div>
-                        <div class="row g-0">
-                            <div class="col calendar-day"><span class="day-num">1</span></div>
-                            <div class="col calendar-day"><span class="day-num">2</span></div>
-                            <div class="col calendar-day"><span class="day-num">3</span></div>
-                            <div class="col calendar-day"><span class="day-num">4</span></div>
-                            <div class="col calendar-day"><span class="day-num">5</span></div>
-                            <div class="col calendar-day booked"><span class="day-num">6</span><span class="badge bg-danger mt-4 ms-1">Booked</span></div>
-                            <div class="col calendar-day"><span class="day-num">7</span></div>
-                        </div>
-                        <div class="row g-0 border-top">
-                            <div class="col calendar-day"><span class="day-num">8</span></div>
-                            <div class="col calendar-day"><span class="day-num">9</span></div>
-                            <div class="col calendar-day"><span class="day-num">10</span></div>
-                            <div class="col calendar-day"><span class="day-num">11</span></div>
-                            <div class="col calendar-day booked"><span class="day-num">12</span><span class="badge bg-danger mt-4 ms-1">Booked</span></div>
-                            <div class="col calendar-day"><span class="day-num">13</span></div>
-                            <div class="col calendar-day"><span class="day-num">14</span></div>
-                        </div>
-                         <div class="row g-0 border-top">
-                            <div class="col calendar-day"><span class="day-num">15</span></div>
-                            <div class="col calendar-day"><span class="day-num">16</span></div>
-                            <div class="col calendar-day"><span class="day-num">17</span></div>
-                            <div class="col calendar-day"><span class="day-num">18</span></div>
-                            <div class="col calendar-day"><span class="day-num">19</span></div>
-                            <div class="col calendar-day"><span class="day-num">20</span></div>
-                            <div class="col calendar-day"><span class="day-num">21</span></div>
-                        </div>
+                        
+                        <div id="dynamic-calendar" class="row g-0"></div>
+                        
                     </div>
                 </div>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const calendarGrid = document.getElementById('dynamic-calendar');
+                        const today = new Date();
+                        const month = today.getMonth();
+                        const year = today.getFullYear();
+                        
+                        const firstDay = new Date(year, month, 1).getDay();
+                        const daysInMonth = new Date(year, month + 1, 0).getDate();
+                        
+                        // Pull dates from FreeMarker into a JS Array
+                        const gigDates = [
+                            <#list gigs as gig>"${gig.eventDate!gig.createdAt.toLocalDate()}"<#sep>,</#list>
+                        ];
+
+                        let gridHTML = '';
+                        
+                        // Empty slots before the 1st
+                        for(let i=0; i < firstDay; i++) {
+                             gridHTML += `<div class="col calendar-day bg-light border-bottom border-end"></div>`;
+                        }
+                        
+                        // Actual days
+                        for(let i=1; i <= daysInMonth; i++) {
+                             // Format: YYYY-MM-DD
+                             const dateStr = year + "-" + String(month+1).padStart(2, '0') + "-" + String(i).padStart(2, '0');
+                             const isBooked = gigDates.some(g => g.startsWith(dateStr));
+                             
+                             gridHTML += `
+                                <div class="col calendar-day border-bottom border-end ${isBooked ? 'booked' : ''}" style="min-width: 14%;">
+                                    <span class="day-num">${i}</span>
+                                    ${isBooked ? '<span class="badge bg-danger mt-4 ms-1">Gig</span>' : ''}
+                                </div>`;
+                        }
+                        calendarGrid.innerHTML = gridHTML;
+                    });
+                </script>
             </div>
 
             <div class="col-lg-4">
                 <h4 class="fw-bold mb-3">Upcoming Agenda</h4>
                 
+                <#list gigs as gig>
                 <div class="card mb-3 border-start border-4 border-danger shadow-sm">
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-2">
-                            <strong class="text-danger">Oct 06</strong>
-                            <span class="badge bg-light text-dark border">Confirmed</span>
+                            <strong class="text-danger">${gig.eventDate!gig.createdAt.toLocalDate()}</strong>
+                            <span class="badge bg-success border text-white">Confirmed</span>
                         </div>
-                        <h6 class="fw-bold mb-1">Mike's Birthday Bash</h6>
-                        <p class="small text-muted mb-2">Standard Club Mix • 8:00 PM</p>
-                        <a href="p_inbox.html" class="btn btn-sm btn-outline-secondary w-100">Message Sarah</a>
+                        <h6 class="fw-bold mb-1">${gig.event.name}</h6>
+                        <p class="small text-muted mb-2">Package: ${gig.servicePackages[0].title}</p>
+                        <a href="/provider/inbox" class="btn btn-sm btn-outline-secondary w-100">Go to Inbox</a>
                     </div>
                 </div>
+                </#list>
 
-                <div class="card mb-3 border-start border-4 border-danger shadow-sm">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between mb-2">
-                            <strong class="text-danger">Oct 12</strong>
-                            <span class="badge bg-light text-dark border">Confirmed</span>
-                        </div>
-                        <h6 class="fw-bold mb-1">Sarah's Wedding</h6>
-                        <p class="small text-muted mb-2">"Another One" Package • 5:00 PM</p>
-                        <a href="p_inbox.html" class="btn btn-sm btn-outline-secondary w-100">Message Sarah</a>
+                <#if gigs?size == 0>
+                    <div class="alert alert-light border text-center text-muted">
+                        No upcoming gigs scheduled yet.
                     </div>
-                </div>
+                </#if>
 
-                <div class="card bg-light border-0">
+                <div class="card bg-light border-0 mt-4">
                     <div class="card-body text-center">
                         <p class="small text-muted mb-2">Need to block out time?</p>
                         <button class="btn btn-primary btn-sm w-100">Add Personal Time Off</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
