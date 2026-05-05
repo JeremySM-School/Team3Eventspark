@@ -222,18 +222,17 @@ public class CustomerUIController {
             @RequestParam String lastName, 
             @RequestParam String email, 
             @RequestParam String phone,
+            @RequestParam(required = false) boolean notificationsEnabled, // Add this
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
-        if (userId == null) return "redirect:/login";
-
         Customer c = customerRepo.findById(userId).orElseThrow();
         
         c.setFirstName(firstName);
         c.setLastName(lastName);
         c.setEmail(email);
         c.setPhone(phone);
-        c.setNotificationsEnabled(true); 
+        c.setNotificationsEnabled(notificationsEnabled); // Update the boolean
         
         customerRepo.save(c);
         return "redirect:/customer/dashboard";
@@ -324,6 +323,20 @@ public class CustomerUIController {
                 targetEvent.setEventDate(LocalDateTime.parse(eventDate));
             }
             targetEvent = eventRepo.save(targetEvent); 
+        }
+
+        // BEFORE saving a new event/request, check if the provider is busy
+        if (eventDate != null && !eventDate.isEmpty()) {
+            LocalDateTime requestedDate = LocalDateTime.parse(eventDate);
+            boolean isBusy = bookRequestRepo.findByProviderId(pkg.getProvider().getId()).stream()
+                .filter(req -> req.getStatus() == BookRequest.BookingStatus.APPROVED)
+                .anyMatch(req -> req.getEvent().getEventDate().toLocalDate().equals(requestedDate.toLocalDate()));
+
+            if (isBusy) {
+                // In a real app, you'd send an error message. 
+                // For the demo, just redirect back to browse if they pick a busy date.
+                return "redirect:/browse?error=date_taken";
+            }
         }
 
         // Generate the Official Booking Request!
