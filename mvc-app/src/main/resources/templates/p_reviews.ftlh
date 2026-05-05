@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="bg-light">
+<body>
     <nav class="navbar navbar-expand-lg custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
             <a class="navbar-brand fs-3" href="/"><i class="bi bi-stars"></i> EventSpark</a>

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="bg-light">
+<body>
 
     <nav class="navbar navbar-expand-lg custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
@@ -55,7 +55,7 @@
                                             <small class="text-muted"><i class="bi bi-geo-alt me-1"></i>${(req.event.location)!'Location TBD'}</small>
                                         </td>
                                         <td class="py-3 text-muted">${(req.servicePackages[0].title)!'Custom Service'}</td>
-                                        <td class="py-3 text-muted">${(req.createdAt?date)!''}</td>
+                                        <td class="py-3 text-muted">${(req.createdAt?keep_before('T'))!''}</td>
                                         <td class="py-3 fw-bold text-success">$${req.totalPrice?string(",##0.00")}</td>
                                         <td class="pe-4 py-3 text-end">
                                             <#if req.status == 'APPROVED'>

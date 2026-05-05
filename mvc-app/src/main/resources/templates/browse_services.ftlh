@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
-<body class="bg-light">
+<body>
 
     <nav class="navbar navbar-expand-lg navbar-dark custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
@@ -55,9 +55,9 @@
                         
                         <div class="mt-3 text-center">
                             <h3 class="text-success fw-bold mb-3">$${pkg.price}</h3>
-                            <a href="/customer/checkout?packageId=${pkg.id}" class="btn btn-primary w-100 fw-bold shadow-sm">
-                                <i class="bi bi-calendar-plus me-2"></i>Request Booking
-                            </a>
+                            <a href="/customer/checkout?packageId=${pkg.id}" class="btn btn-primary w-100 fw-bold shadow-sm">Request Booking</a>
+
+                            <a href="/customer/provider/${pkg.provider.id}" class="btn btn-outline-primary w-100 fw-bold shadow-sm">View Profile & Book</a>
                         </div>
                         
                     </div>

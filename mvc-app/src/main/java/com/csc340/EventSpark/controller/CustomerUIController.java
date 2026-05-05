@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import com.csc340.EventSpark.entity.Conversation;
 import com.csc340.EventSpark.entity.Customer;
 import com.csc340.EventSpark.entity.Event;
 import com.csc340.EventSpark.entity.Message;
+import com.csc340.EventSpark.entity.Provider;
 import com.csc340.EventSpark.entity.Review;
 import com.csc340.EventSpark.entity.ServicePackage;
 import com.csc340.EventSpark.repository.BookRequestRepository;
@@ -23,6 +25,7 @@ import com.csc340.EventSpark.repository.ConversationRepository;
 import com.csc340.EventSpark.repository.CustomerRepository;
 import com.csc340.EventSpark.repository.EventRepository;
 import com.csc340.EventSpark.repository.MessageRepository;
+import com.csc340.EventSpark.repository.ProviderRepository;
 import com.csc340.EventSpark.repository.ReviewRepository;
 import com.csc340.EventSpark.repository.ServicePackageRepository;
 import com.csc340.EventSpark.service.EventService;
@@ -57,6 +60,9 @@ public class CustomerUIController {
 
     @Autowired
     private ConversationRepository conversationRepo;
+
+    @Autowired
+    private ProviderRepository providerRepo; 
 
 
 
@@ -157,7 +163,7 @@ public class CustomerUIController {
     public String addReview(
             @RequestParam int starRating, 
             @RequestParam String comment, 
-            @RequestParam Long bookingId, // NEW: Targets the exact booking
+            @RequestParam Long bookingId, 
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
@@ -169,9 +175,33 @@ public class CustomerUIController {
         Review newReview = new Review();
         newReview.setStarRating(starRating);
         newReview.setComment(comment);
-        newReview.setBookRequest(booking); // Link it to the booking!
+        newReview.setBookRequest(booking); 
         
-        reviewRepo.save(newReview);
+        reviewRepo.save(newReview); // Save the review first!
+
+        // --- NEW: RECALCULATE PROVIDER'S AVERAGE RATING ---
+        Provider provider = booking.getProvider();
+        
+        // Get all reviews for this specific provider
+        List<Review> providerReviews = reviewRepo.findAll().stream()
+            .filter(r -> r.getBookRequest() != null && 
+                         r.getBookRequest().getProvider() != null && 
+                         r.getBookRequest().getProvider().getId().equals(provider.getId()))
+            .toList();
+
+        if (!providerReviews.isEmpty()) {
+            double totalStars = 0;
+            for (Review r : providerReviews) {
+                totalStars += r.getStarRating();
+            }
+            // Calculate average and round to 1 decimal place (e.g., 4.7)
+            double newAvg = totalStars / providerReviews.size();
+            newAvg = Math.round(newAvg * 10.0) / 10.0; 
+            
+            provider.setRating(newAvg);
+            providerRepo.save(provider); // Save the updated rating to the DB
+        }
+
         return "redirect:/customer/reviews";
     }
 
@@ -324,6 +354,37 @@ public class CustomerUIController {
         messageRepo.save(firstMsg);
 
         return "redirect:/customer/dashboard";
+    }
+
+    // --- VIEW PROVIDER PROFILE (PUBLIC) ---
+    
+
+    @GetMapping("/provider/{providerId}")
+    public String viewProviderProfile(@PathVariable Long providerId, Model model, HttpSession session) {
+        // We still want them logged in as a customer to view this properly
+        if (session.getAttribute("userId") == null) return "redirect:/login";
+
+        // Fetch the Provider
+        Provider provider = providerRepo.findById(providerId).orElse(null);
+        if (provider == null) return "redirect:/browse";
+
+        // Fetch the Provider's active packages
+        List<ServicePackage> packages = packageRepo.findByProviderId(providerId).stream()
+            .filter(pkg -> pkg.getStatus() == ServicePackage.PackageStatus.ACTIVE)
+            .toList();
+
+        // Fetch the Provider's reviews
+        List<Review> reviews = reviewRepo.findAll().stream()
+            .filter(r -> r.getBookRequest() != null && 
+                         r.getBookRequest().getProvider() != null && 
+                         r.getBookRequest().getProvider().getId().equals(providerId))
+            .toList();
+
+        model.addAttribute("provider", provider);
+        model.addAttribute("packages", packages);
+        model.addAttribute("reviews", reviews);
+
+        return "c_provider_profile";
     }
 
 }

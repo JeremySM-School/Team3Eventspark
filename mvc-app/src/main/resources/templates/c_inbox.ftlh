@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
-<body class="bg-light">
+<body>
     <nav class="navbar navbar-expand-lg custom-navbar mb-4" style="background: var(--wood-dark);">
         <div class="container">
             <a class="navbar-brand fs-3 text-white fw-bold" href="/"><i class="bi bi-stars"></i> EventSpark</a>
@@ -75,9 +75,9 @@
                         <div class="mb-auto">
                             <#if messages?? && messages?has_content>
                                 <#list messages as msg>
-                                    <div class="p-3 rounded mb-2 w-75 ${(msg.senderId == currentUserId)?string('bg-primary text-white ms-auto', 'bg-light')}">
-                                        <small class="fw-bold ${(msg.senderId == currentUserId)?string('text-white-50', 'text-muted')}">
-                                            ${(msg.senderId == currentUserId)?string('You', 'Provider')}
+                                    <div class="p-3 rounded mb-2 w-75 ${(msg.sender.id == currentUserId)?string('bg-primary text-white ms-auto', 'bg-light')}">
+                                        <small class="fw-bold ${(msg.sender.id == currentUserId)?string('text-white-50', 'text-muted')}">
+                                            ${(msg.sender.id == currentUserId)?string('You', 'Provider')}
                                         </small>
                                         <p class="mb-0">${msg.content}</p>
                                     </div>
