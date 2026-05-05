@@ -60,7 +60,7 @@ public class CustomerUIController {
         if (session.getAttribute("userId") == null) return "redirect:/login";
 
         // Note: Ideally this should fetch reviews specific to this customer, 
-        // but keeping it as findAll() to match Jeremy's current logic
+        // but keeping it as findAll() to match current logic
         List<Review> reviews = reviewRepo.findAll();
         model.addAttribute("reviews", reviews);
         return "c_reviews";
