@@ -109,7 +109,7 @@
                         </#if>
                     </ul>
                     <div class="card-body text-center mt-auto">
-                        <a href="/provider/messages" class="btn btn-sm btn-outline-secondary w-100 fw-bold">View All Activity</a>
+                        <a href="/provider/history" class="btn btn-sm btn-outline-secondary w-100 fw-bold">View All Activity</a>
                     </div>
                 </div>
             </div>
