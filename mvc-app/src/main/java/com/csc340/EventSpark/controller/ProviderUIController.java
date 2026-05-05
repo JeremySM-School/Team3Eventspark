@@ -40,13 +40,29 @@ public class ProviderUIController {
         Provider p = providerRepo.findById(userId).orElse(new Provider());
         model.addAttribute("provider", p);
         
-        // REAL NOTIFICATION BADGE: Count only "PENDING" requests for this provider
         List<BookRequest> allRequests = bookRequestRepo.findByProviderId(userId);
-        long pendingCount = allRequests.stream()
-            .filter(req -> req.getStatus() == BookRequest.BookingStatus.PENDING)
-            .count();
-            
+        
+        // 1. Pending Notification Badge
+        long pendingCount = allRequests.stream().filter(req -> req.getStatus() == BookRequest.BookingStatus.PENDING).count();
         model.addAttribute("pendingCount", pendingCount);
+
+        // 2. Upcoming Gigs (Approved Requests)
+        long upcomingGigs = allRequests.stream().filter(req -> req.getStatus() == BookRequest.BookingStatus.APPROVED).count();
+        model.addAttribute("upcomingGigs", upcomingGigs);
+
+        // 3. Total Revenue (Sum of approved request prices)
+        double totalRevenue = allRequests.stream()
+            .filter(req -> req.getStatus() == BookRequest.BookingStatus.APPROVED)
+            .mapToDouble(BookRequest::getTotalPrice)
+            .sum();
+        model.addAttribute("totalRevenue", totalRevenue);
+
+        // 4. Send the recent requests to the dashboard activity feed
+        // Sorts by newest first, limits to top 5
+        List<BookRequest> recentActivity = new ArrayList<>(allRequests);
+        recentActivity.sort((a, b) -> b.getCreatedAt().compareTo(a.getCreatedAt()));
+        model.addAttribute("recentActivity", recentActivity.size() > 5 ? recentActivity.subList(0, 5) : recentActivity);
+
         return "p_dashboard";
     }
 
@@ -74,9 +90,14 @@ public class ProviderUIController {
             @RequestParam String newStatus,
             HttpSession session) {
         
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login"; // SECURITY CHECK
+        
         // Find the request, update it to APPROVED or REJECTED, and save it
         BookRequest request = bookRequestRepo.findById(requestId).orElse(null);
-        if (request != null) {
+        
+        // SECURITY CHECK: Ensure this provider actually owns the request they are trying to update
+        if (request != null && request.getProvider().getId().equals(userId)) {
             request.setStatus(BookRequest.BookingStatus.valueOf(newStatus));
             bookRequestRepo.save(request);
         }
@@ -103,6 +124,8 @@ public class ProviderUIController {
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login"; // SECURITY CHECK
+        
         Provider p = providerRepo.findById(userId).orElseThrow();
 
         ServicePackage newPackage = new ServicePackage();
@@ -114,6 +137,20 @@ public class ProviderUIController {
         newPackage.setProvider(p);
 
         packageRepo.save(newPackage);
+        return "redirect:/provider/packages";
+    }
+
+    @PostMapping("/packages/delete")
+    public String deletePackage(@RequestParam Long packageId, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        // Security check: Make sure they own the package before deleting it
+        ServicePackage pkg = packageRepo.findById(packageId).orElse(null);
+        if (pkg != null && pkg.getProvider().getId().equals(userId)) {
+            packageRepo.delete(pkg);
+        }
+        
         return "redirect:/provider/packages";
     }
 
@@ -136,6 +173,8 @@ public class ProviderUIController {
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login"; // SECURITY CHECK
+        
         Provider p = providerRepo.findById(userId).orElseThrow();
         
         p.setName(name); 
@@ -149,5 +188,17 @@ public class ProviderUIController {
         
         providerRepo.save(p);
         return "redirect:/provider/dashboard";
+    }
+
+    @GetMapping("/reviews")
+    public String getReviews(HttpSession session) {
+        if (session.getAttribute("userId") == null) return "redirect:/login";
+        return "p_reviews";
+    }
+
+    @GetMapping("/profile")
+    public String getProfile(HttpSession session) {
+        if (session.getAttribute("userId") == null) return "redirect:/login";
+        return "p_profile";
     }
 }

@@ -58,7 +58,12 @@
                     <h3 class="text-success fw-bold mb-1">$${pkg.price}</h3>
                     <div>
                         <button class="btn btn-sm btn-outline-secondary me-1">Edit</button>
-                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                        <form action="/provider/packages/delete" method="POST" class="mt-3" onsubmit="return confirm('Are you sure you want to delete this package?');">
+                            <input type="hidden" name="packageId" value="${pkg.id}">
+                            <button type="submit" class="btn btn-sm btn-outline-danger w-100">
+                                <i class="bi bi-trash3-fill me-2"></i>Delete Package
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

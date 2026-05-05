@@ -41,13 +41,13 @@
         <div class="row g-4 mb-5">
             <div class="col-md-4">
                 <div class="card p-4 text-center border-start border-5 border-primary shadow-sm">
-                    <h2 class="fw-bold text-primary">2</h2>
+                    <h2 class="fw-bold text-primary">${upcomingGigs}</h2>
                     <p class="text-muted mb-0 fw-bold text-uppercase small">Upcoming Gigs</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card p-4 text-center border-start border-5 border-success shadow-sm">
-                    <h2 class="fw-bold text-success">$75,000</h2>
+                    <h2 class="fw-bold text-success">$${totalRevenue}</h2>
                     <p class="text-muted mb-0 fw-bold text-uppercase small">Month Revenue</p>
                 </div>
             </div>
@@ -62,7 +62,7 @@
         <div class="row g-4">
             <div class="col-md-8">
                 <div class="card h-100 shadow-sm border-0">
-                    <div class="card-header bg-white fw-bold py-3 fs-5">Studio Management</div>
+                    <div class="card-header bg-white fw-bold py-3 fs-5">Provider Management</div>
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-6">
@@ -94,23 +94,22 @@
                 <div class="card h-100 shadow-sm border-0">
                     <div class="card-header bg-white fw-bold py-3 fs-5">Recent Activity</div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item py-3">
-                            <div class="d-flex justify-content-between mb-1">
-                                <strong class="small text-primary">New Request</strong>
-                                <span class="badge bg-warning text-dark">Pending</span>
-                            </div>
-                            <p class="small text-muted mb-0">Sarah wants to book "Another One Wedding Set"</p>
-                        </li>
-                        <li class="list-group-item py-3">
-                            <div class="d-flex justify-content-between mb-1">
-                                <strong class="small text-success">New Review</strong>
-                                <span class="text-warning">★★★★★</span>
-                            </div>
-                            <p class="small text-muted mb-0">Drake left a 5-star review.</p>
-                        </li>
+                        <#if recentActivity?? && recentActivity?has_content>
+                            <#list recentActivity as req>
+                                <li class="list-group-item py-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <strong class="small text-primary">Booking Request</strong>
+                                        <span class="badge bg-${(req.status == 'PENDING')?string('warning', (req.status == 'APPROVED')?string('success', 'secondary'))} text-dark">${req.status}</span>
+                                    </div>
+                                    <p class="small text-muted mb-0">${(req.event.customer.firstName)!'Customer'} wants to book "${req.servicePackages[0].title}"</p>
+                                </li>
+                            </#list>
+                        <#else>
+                            <li class="list-group-item py-4 text-center text-muted small">No recent activity found.</li>
+                        </#if>
                     </ul>
                     <div class="card-body text-center mt-auto">
-                        <a href="p_inbox.html" class="btn btn-sm btn-outline-secondary w-100 fw-bold">View All Activity</a>
+                        <a href="/provider/inbox" class="btn btn-sm btn-outline-secondary w-100 fw-bold">View All Activity</a>
                     </div>
                 </div>
             </div>
