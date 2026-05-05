@@ -17,7 +17,7 @@
             <div class="collapse navbar-collapse" id="customerNav">
                 <div class="navbar-nav ms-auto align-items-center">
                     <a class="nav-link text-light px-3" href="/customer/dashboard">Dashboard</a>
-                    <a class="nav-link text-light px-3" href="/browse">Find Talent</a>
+                    <a class="nav-link" href="/customer/favorites">Favorites</a>
                     <a class="nav-link text-light px-3" href="/customer/inbox">Inbox</a>
                     <a class="nav-link text-light px-3" href="/customer/reviews">My Reviews</a>
                     <a class="nav-link text-warning fw-bold px-3" href="/logout">Logout</a>

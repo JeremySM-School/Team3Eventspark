@@ -31,8 +31,16 @@
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
                             <h2 class="fw-bold mb-1">${provider.name}</h2>
-                            <p class="text-muted mb-2"><i class="bi bi-geo-alt-fill me-1 text-primary"></i> ${(provider.zipCode)!'Serving Local Area'} • ${(provider.category)!'Event Professional'}</p>
-                            <p class="mb-0 fs-5 text-warning fw-bold">${(provider.rating)!5.0} <i class="bi bi-star-fill"></i></p>
+                                <p class="text-muted mb-2">
+                                    <i class="bi bi-geo-alt-fill me-1 text-primary"></i> 
+                                    <#if provider.zipCode?? && provider.serviceRadius??>
+                                        Serving within ${provider.serviceRadius} miles of ${provider.zipCode}
+                                    <#else>
+                                        Serving Local Area
+                                    </#if>
+                                    • ${(provider.category)!'Event Professional'}
+                                </p>                            
+                                <p class="mb-0 fs-5 text-warning fw-bold">${(provider.rating)!5.0} <i class="bi bi-star-fill"></i></p>
                         </div>
                     </div>
                     <hr class="my-4">

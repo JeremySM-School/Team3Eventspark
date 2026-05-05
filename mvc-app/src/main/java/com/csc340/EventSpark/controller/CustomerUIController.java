@@ -387,6 +387,38 @@ public class CustomerUIController {
         return "c_provider_profile";
     }
 
+    // --- FAVORITES ---
+    @GetMapping("/favorites")
+    public String getFavorites(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        Customer c = customerRepo.findById(userId).orElseThrow();
+        model.addAttribute("favorites", c.getFavoritePackages());
+        return "c_favorites";
+    }
+
+    @PostMapping("/favorites/toggle")
+    public String toggleFavorite(@RequestParam Long packageId, @RequestParam String redirectUrl, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        Customer c = customerRepo.findById(userId).orElseThrow();
+        ServicePackage pkg = packageRepo.findById(packageId).orElseThrow();
+
+        // If they already favorited it, remove it. Otherwise, add it!
+        if (c.getFavoritePackages().contains(pkg)) {
+            c.getFavoritePackages().remove(pkg);
+        } else {
+            c.getFavoritePackages().add(pkg);
+        }
+        
+        customerRepo.save(c);
+        
+        // Return them to whatever page they clicked the heart on
+        return "redirect:" + redirectUrl; 
+    }
+
 }
    
 
