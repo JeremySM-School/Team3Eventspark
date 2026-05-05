@@ -92,7 +92,7 @@
                             <strong class="text-danger">${gig.eventDate!gig.createdAt.toLocalDate()}</strong>
                             <span class="badge bg-success border text-white">Confirmed</span>
                         </div>
-                        <h6 class="fw-bold mb-1">${gig.event.name}</h6>
+                        <h6 class="fw-bold mb-1">${(gig.event.eventName)!'Unnamed Event'}</h6>
                         <p class="small text-muted mb-2">Package: ${gig.servicePackages[0].title}</p>
                         <a href="/provider/inbox" class="btn btn-sm btn-outline-secondary w-100">Go to Inbox</a>
                     </div>
