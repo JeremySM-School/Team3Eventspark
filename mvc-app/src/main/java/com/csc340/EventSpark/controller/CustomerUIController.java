@@ -148,14 +148,20 @@ public class CustomerUIController {
     }
 
     // --- REVIEWS ---
-    @GetMapping("/reviews")
+   @GetMapping("/reviews")
     public String getReviews(Model model, HttpSession session) {
-        if (session.getAttribute("userId") == null) return "redirect:/login";
+        Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
 
-        // Note: Ideally this should fetch reviews specific to this customer, 
-        // but keeping it as findAll() to match current logic
-        List<Review> reviews = reviewRepo.findAll();
-        model.addAttribute("reviews", reviews);
+        // Filter all reviews to only show ones where the Booking Request belongs to this Customer
+        List<Review> myReviews = reviewRepo.findAll().stream()
+            .filter(r -> r.getBookRequest() != null && 
+                         r.getBookRequest().getEvent() != null && 
+                         r.getBookRequest().getEvent().getCustomer() != null &&
+                         r.getBookRequest().getEvent().getCustomer().getId().equals(userId))
+            .toList();
+
+        model.addAttribute("reviews", myReviews);
         return "c_reviews";
     }
 
