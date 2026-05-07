@@ -23,38 +23,37 @@
                 </div>
 
                 <div class="card shadow-sm">
-                    <div class="card-body p-4">
+                    <div class="card-body p-4">     
                         <form action="/provider/profile/edit" method="POST">
-                            
-                            <form action="/provider/profile/edit" method="POST">
-                                <div class="text-center mb-4">
-                                    <img src="${(provider.imageUrls[0])!'https://ui-avatars.com/api/?name=${(provider.name)!\"P\"}&background=4e342e&color=fff&size=150'}" 
-                                        class="rounded-circle shadow-sm border border-3 border-primary mb-3" 
-                                        style="width: 120px; height: 120px; object-fit: cover;">
-                                    <br>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Change Photo (Coming Soon)</button>
-                                </div>
+                            <div class="text-center mb-4">
+                                <#if provider.imageUrls?? && provider.imageUrls?has_content>
+                                    <img src="${provider.imageUrls[0]}" class="rounded-circle shadow-sm border border-3 border-primary mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                                <#else>
+                                    <img src="https://ui-avatars.com/api/?name=${(provider.name!'Provider')?url}&background=4e342e&color=fff&size=150" class="rounded-circle shadow-sm border border-3 border-primary mb-3" style="width: 120px; height: 120px; object-fit: cover;">
+                                </#if>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Change Photo (Coming Soon)</button>
+                            </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Stage / Business Name</label>
-                                    <input type="text" name="name" class="form-control" value="${(provider.name)!''}" required>
-                                </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Stage / Business Name</label>
+                                <input type="text" name="name" class="form-control" value="${(provider.name)!''}" required>
+                            </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Portfolio Image URLs (Comma Separated)</label>
-                                    <textarea name="imageUrls" class="form-control" rows="2" placeholder="http://image1.jpg, http://image2.jpg">${(provider.imageUrls?join(', '))!''}</textarea>
-                                </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Portfolio Image URLs (Comma Separated)</label>
+                                <textarea name="imageUrls" class="form-control" rows="2" placeholder="http://image1.jpg, http://image2.jpg">${(provider.imageUrls?join(', '))!''}</textarea>
+                            </div>
 
-                                <div class="row mb-3">
-                                    <div class="col-6">
-                                        <label class="form-label fw-bold">Zip Code</label>
-                                        <input type="text" name="zipCode" class="form-control" value="${(provider.zipCode)!''}">
-                                    </div>
-                                    <div class="col-6">
-                                        <label class="form-label fw-bold">Travel Radius (Miles)</label>
-                                        <input type="number" name="serviceRadius" class="form-control" value="${(provider.serviceRadius)!25}">
-                                    </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <label class="form-label fw-bold">Zip Code</label>
+                                    <input type="text" name="zipCode" class="form-control" value="${(provider.zipCode)!''}">
                                 </div>
+                                <div class="col-6">
+                                    <label class="form-label fw-bold">Travel Radius (Miles)</label>
+                                    <input type="number" name="serviceRadius" class="form-control" value="${(provider.serviceRadius)!25}">
+                                </div>
+                            </div>
 
                             <div class="mb-4">
                                 <label class="form-label fw-bold small">Profile Categories (Select all that apply)</label>

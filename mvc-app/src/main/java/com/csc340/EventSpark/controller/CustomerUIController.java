@@ -222,17 +222,19 @@ public class CustomerUIController {
             @RequestParam String lastName, 
             @RequestParam String email, 
             @RequestParam String phone,
-            @RequestParam(required = false) boolean notificationsEnabled, // Add this
+            @RequestParam(required = false) boolean notificationsEnabled, // ADD THIS
             HttpSession session) {
         
         Long userId = (Long) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
         Customer c = customerRepo.findById(userId).orElseThrow();
         
         c.setFirstName(firstName);
         c.setLastName(lastName);
         c.setEmail(email);
         c.setPhone(phone);
-        c.setNotificationsEnabled(notificationsEnabled); // Update the boolean
+        c.setNotificationsEnabled(notificationsEnabled); // UPDATE THIS
         
         customerRepo.save(c);
         return "redirect:/customer/dashboard";

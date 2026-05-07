@@ -41,6 +41,29 @@
                 <h3 class="fw-bold mb-3" style="color: var(--wood-dark);">About Me</h3>
                 <p class="text-muted mb-5">${(provider.bio)!'Welcome to my profile! I am excited to make your event unforgettable.'}</p>
 
+                <h5 class="fw-bold mb-3">Portfolio Gallery</h5>
+                    <div id="portfolioCarousel" class="carousel slide shadow-sm rounded mb-4" data-bs-ride="carousel">
+                        <div class="carousel-inner rounded">
+                            <#if provider.imageUrls?? && provider.imageUrls?has_content>
+                                <#list provider.imageUrls as url>
+                                    <div class="carousel-item ${(url_index == 0)?string('active', '')}">
+                                        <img src="${url}" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Portfolio Image">
+                                    </div>
+                                </#list>
+                            <#else>
+                                <div class="carousel-item active">
+                                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30" class="d-block w-100" style="height: 400px; object-fit: cover;" alt="Default Event">
+                                </div>
+                            </#if>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                    
                 <h3 class="fw-bold mb-4" style="color: var(--wood-dark);">Service Packages</h3>
                 
                 <#if provider.packages?? && provider.packages?has_content>

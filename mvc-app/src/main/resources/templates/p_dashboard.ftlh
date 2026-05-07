@@ -35,8 +35,11 @@
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h2 class="fw-bold">Welcome back, ${(provider.name)!'Provider'}!</h2>
             
-            <img src="${(provider.imageUrls[0])!'https://ui-avatars.com/api/?name=${(provider.name!\'P\')?url}&background=4e342e&color=fff&size=150'}" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 150px; height: 150px; object-fit: cover;">
-        </div>
+            <#if provider.imageUrls?? && provider.imageUrls?has_content>
+                <img src="${provider.imageUrls[0]}" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 150px; height: 150px; object-fit: cover;">
+            <#else>
+                <img src="https://ui-avatars.com/api/?name=${(provider.name!'Provider')?url}&background=4e342e&color=fff&size=150" class="rounded-circle shadow-sm border border-3 border-primary" style="width: 150px; height: 150px; object-fit: cover;">
+            </#if>        </div>
         
         <div class="row g-4 mb-5">
             <div class="col-md-3">
