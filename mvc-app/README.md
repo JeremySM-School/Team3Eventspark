@@ -1,60 +1,27 @@
-# 🌟 EventSpark
+# MVC Implementation Mapping
 
-EventSpark is a full-stack Spring Boot web application that serves as a dynamic, dual-sided marketplace connecting Event Planners (Customers) with Event Talent (Providers). 
+This directory contains the core Spring Boot application. Below is the mapping of our primary User Stories to their specific Model, View, and Controller implementations.
 
-It features a fully relational database architecture, real-time "Rover-style" messaging, dynamic booking workflows, and automated financial ledgers.
+### 1. Browse Services & View Profiles (US-CUST-002, US-CUST-003)
+* **Controller:** `CustomerUIController.java` (`/browse`, `/customer/provider/{id}`)
+* **Model:** `ServicePackage.java`, `Provider.java`, `ServicePackageRepository`
+* **View:** `browse_services.ftlh`, `c_provider_profile.ftlh`
+* **Flow:** The controller fetches active packages from the database, maps them to the model, and passes them to the FreeMarker template where they are dynamically rendered as filterable cards. Viewing a profile increments the `profileViews` attribute on the Provider model.
 
-## 🚀 Features
-* **Dual-User Architecture:** Distinct Dashboards, Profiles, and UI flows for both Customers and Providers.
-* **Modern Booking Workflow:** Customers can browse talent, view public profiles, and attach services directly to their planned events.
-* **Transactional Chat Hub:** A unified messaging interface where Providers can chat with Customers and Approve/Decline bookings directly from the chat widget.
-* **Automated Financial Ledger:** Approved bookings automatically transition into a read-only historical ledger for the Provider's financial tracking.
-* **Dynamic UI:** Built with FreeMarker (`.ftlh`) and Bootstrap 5 for a responsive, modern interface.
+### 2. Transactional Chat & Booking Approvals (US-HOST-003, US-CUST-007)
+* **Controller:** `ProviderUIController.java` (`/provider/messages`, `/provider/inbox/update`)
+* **Model:** `Conversation.java`, `Message.java`, `BookRequest.java`
+* **View:** `p_messages.ftlh`, `c_inbox.ftlh`
+* **Flow:** When a checkout occurs, a `Conversation` entity is generated and linked to the `BookRequest`. The chat UI pins the `BookRequest` to the top of the screen. Submitting an "Approve" form triggers the controller to update the Enum status of the `BookRequest` model to `APPROVED` and re-renders the chat view.
 
----
+### 3. Dynamic Reviews & Rating Calculation (US-CUST-006, US-HOST-006)
+* **Controller:** `CustomerUIController.java` (`/customer/reviews/add`), `ProviderUIController.java` (`/provider/dashboard`)
+* **Model:** `Review.java`, `Provider.java`, `ReviewRepository`
+* **View:** `p_dashboard.ftlh`, `c_provider_profile.ftlh`
+* **Flow:** When a Customer submits a review, the Controller intercepts the POST request, saves the `Review` model, and instantly calculates the new mathematical average across all reviews tied to that Provider. This ensures the `p_dashboard.ftlh` always reflects real-time analytical data.
 
-## 🛠️ Tech Stack
-* **Backend:** Java, Spring Boot (Spring Web, Spring Data JPA)
-* **Frontend:** HTML5, Bootstrap 5, FreeMarker Templating Engine
-* **Database:** Relational Database (via Spring Data JPA)
-* **Icons & Avatars:** Bootstrap Icons, UI-Avatars API
-
----
-
-## ⚙️ Prerequisites
-Before running this project, ensure you have the following installed on your machine:
-* **Java Development Kit (JDK) 17** or higher
-* **Maven** (or use the included Maven wrapper `./mvnw`)
-* A modern web browser (Chrome, Firefox, Safari, Edge)
-
----
-
-## How to Run the Application
-
-### Option 1: Using an IDE (IntelliJ IDEA, Eclipse, VS Code)
-1. Open your IDE and select **"Open"** or **"Import Project"**.
-2. Navigate to the root directory of EventSpark (where the `pom.xml` is located).
-3. Allow the IDE to download the required Maven dependencies.
-4. Locate the main application class (e.g., `EventSparkApplication.java`).
-5. Click the **Run** (Play) button.
-
-### Option 2: Using the Command Line (Terminal/Command Prompt)
-1. Open your terminal and navigate to the root directory of the project.
-2. Run the application using the Maven wrapper:
-   * **Mac/Linux:** `./mvnw spring-boot:run`
-   * **Windows:** `mvnw.cmd spring-boot:run`
-   *(Note: If you have Maven installed globally, you can also just use `mvn spring-boot:run`)*
-
----
-
-## 🌐 Accessing the Application
-Once the Spring Boot application has successfully started (look for `Started EventSparkApplication in X seconds` in the console):
-
-1. Open your web browser.
-2. Navigate to: **`http://localhost:8080`**
-
-### Testing & Demo Instructions
-To fully experience the application's dual-sided nature without cross-session interference:
-1. Open a standard browser window and log in/sign up as a **Provider**.
-2. Open an **Incognito/Private Browsing** window and log in/sign up as a **Customer**.
-3. You can now act as both users simultaneously to test the real-time booking and messaging flows!
+### 4. Service Package Management & Portfolio (US-HOST-001, US-HOST-002)
+* **Controller:** `ProviderUIController.java` (`/provider/packages/new`, `/provider/profile/edit`)
+* **Model:** `ServicePackage.java`, `Provider.java`
+* **View:** `edit_p_profile.ftlh`, `packages.ftlh`
+* **Flow:** Providers can submit comma-separated image URLs via the edit profile form. The Controller splits this string into a `List<String>` and persists it to the Provider model. The `c_provider_profile.ftlh` View then loops through this list to populate a Bootstrap Carousel natively.
